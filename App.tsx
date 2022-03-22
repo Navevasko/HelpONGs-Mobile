@@ -16,6 +16,8 @@ import {
   MontserratAlternates_600SemiBold,
 } from "@expo-google-fonts/montserrat-alternates";
 import { useFonts } from "expo-font";
+import StackNavigation from "./src/routes/auth.routes";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,12 +35,10 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
   return (
-    <View>
-      <LoginUsuario/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StackNavigation />
+    </NavigationContainer>
   );
 }
 
