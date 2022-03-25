@@ -1,8 +1,7 @@
 import React from 'react'
-import { View, Text, ScrollView, SafeAreaView, Image } from 'react-native'
+import { View, Text, ScrollView, SafeAreaView, Image, TextInput } from 'react-native'
 import { styles } from './style'
 import { Logo } from '../../components/Logo'
-import { TextInput } from 'react-native-gesture-handler';
 
 const image = require("../../assets/img/imgPrincipalLoginV.png");
 
@@ -20,12 +19,15 @@ export default function LoginUser() {
           />
         </View>
         <Text style={styles.titulo}>Login</Text>
-        <View >
+        <View style={styles.containerInput}>
           <View></View>
           <TextInput/>
         </View>
       </ScrollView>
     </SafeAreaView>
+    // <View>
+    //   <Text>oi</Text>
+    // </View>
     
   );
 }

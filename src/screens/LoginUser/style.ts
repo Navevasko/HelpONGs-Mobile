@@ -33,10 +33,15 @@ export const styles = StyleSheet.create({
         fontWeight:'bold',
         marginLeft:10,
         color: "#FF9F45",
-        lineHeight:58,
-        
-        
+        lineHeight:58,  
         // letterSpacing:'-0.02%',
         
+    },
+    containerInput:{
+        height:89,
+        width:327,
+        marginLeft:12,
+        backgroundColor:"black",
+        marginTop:23,
     },
 });
