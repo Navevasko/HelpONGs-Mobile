@@ -10,7 +10,7 @@ const image = require("../../assets/img/imgPrincipalLoginUser.png");
 const nextImg = require("../../assets/img/next.png");
 const backImg = require("../../assets/img/transparentBackground.png");
 
-export function LoginUsuario() {
+export function SelecioneLoginUsuario() {
     return (
         <ScrollView style={styles.container}>  
         {/* <StatusBar
