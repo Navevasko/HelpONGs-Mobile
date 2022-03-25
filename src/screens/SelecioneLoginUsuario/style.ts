@@ -21,11 +21,11 @@ export const styles = StyleSheet.create({
 
     containerLogo:{
         height: 45,
-        width:"100%",
+        width:135,
         display:"flex",
         flexDirection:"row",
         alignItems: "flex-start",
-        marginTop:25,
+        // marginTop:25,
         // backgroundColor:"lightblue",
     },
     containerImgPrincipal:{

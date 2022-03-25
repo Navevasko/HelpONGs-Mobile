@@ -12,7 +12,10 @@ const backImg = require("../../assets/img/transparentBackground.png");
 
 export function LoginUsuario() {
     return (
-        <ScrollView style={styles.container}>     
+        <ScrollView style={styles.container}>  
+        {/* <StatusBar
+        backgroundColor="transparent"
+        />    */}
         <ImageBackground
             style={styles.ImageBackground}
             source={backImg}
