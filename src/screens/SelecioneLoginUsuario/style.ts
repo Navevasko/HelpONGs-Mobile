@@ -9,11 +9,10 @@ export const styles = StyleSheet.create({
     container:{
         height:"100%",
         width:"100%",
-        flexDirection:"column"
-        
+        flexDirection:"column",
     },
     ImageBackground:{
-        height:"100%",
+        height:"auto",
         width:"100%",
         resizeMode:"contain",
         
@@ -79,18 +78,20 @@ export const styles = StyleSheet.create({
     },
 
     containerProximaPagina:{
-        height:69,
+        height:300,
         width:"100%",
         flexDirection:"row",
         marginTop:11,
         justifyContent:"flex-end",
+        alignContent:"flex-end",
+        // backgroundColor:"black",
     },
 
     btnProximaPagina:{
         height:69,
         width:69,
         marginRight:25,
-        marginTop: -10,
+        // marginTop: -10,
     }
 
 });

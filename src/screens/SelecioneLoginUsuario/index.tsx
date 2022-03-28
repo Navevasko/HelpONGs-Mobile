@@ -12,14 +12,15 @@ const backImg = require("../../assets/img/transparentBackground.png");
 
 export function SelecioneLoginUsuario() {
     return (
-        <ScrollView style={styles.container}>  
-        {/* <StatusBar
-        backgroundColor="transparent"
-        />    */}
         <ImageBackground
             style={styles.ImageBackground}
             source={backImg}
         >
+        <ScrollView style={styles.container}>  
+        {/* <StatusBar
+        backgroundColor="transparent"
+        />    */}
+        
             <SafeAreaView style={styles.containerLogo}>
                 <Logo/>
             </SafeAreaView>   
@@ -44,8 +45,9 @@ export function SelecioneLoginUsuario() {
                 />
             </TouchableOpacity>
             </View>
-            </ImageBackground>
+            
         </ScrollView>
+        </ImageBackground>
     );
 }
             
