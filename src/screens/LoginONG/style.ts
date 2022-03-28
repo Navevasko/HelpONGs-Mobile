@@ -57,6 +57,12 @@ export const styles = StyleSheet.create({
         marginTop:-1
     },
 
+    containerIcon:{
+        width:24,
+        height:24
+        
+    },
+
     containerEsqueciSenha:{
         width:"100%",
         height:17,

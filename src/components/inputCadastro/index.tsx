@@ -1,7 +1,7 @@
 import { View, Text, TextInput } from "react-native";
 import { styles } from "./style";
 import { theme } from "../../global/styles/theme";
-// import {Icon} from "react-native-vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/Feather";
 import React from "react";
 
 type inputProps = {
@@ -11,14 +11,14 @@ type inputProps = {
   color: string;
 };
 
-export default function SignUpInput(props: inputProps) {
+export default function InputUnderline(props: inputProps) {
   return (
     <View style={styles.container}>
       <View style={styles.containerIcon}>
-        {/* <Icon
+        <Icon
           name={props.iconName}
           style={[styles.icon, { fontSize: props.fontSize, color: props.color }]}
-        />  */}
+        /> 
       </View>
       <TextInput style={styles.input} placeholder={props.placeholder} />
     </View>

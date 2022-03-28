@@ -7,6 +7,7 @@ import SignUpInput from '../../components/inputCadastro'
 import BtnLogin from '../../components/btnLogin/Login'
 
 const image = require("../../assets/img/imgPrincipalLoginONG.png");
+// const imgEye = require("../../assets/img/eye-off.png");
 
 export default function LoginONG() {
   return (
@@ -25,25 +26,29 @@ export default function LoginONG() {
         <View style={styles.containerInput}>
           <SignUpInput
             placeholder="CNPJ"
-            iconName="person-outline"
-            fontSize={45}
+            iconName="layout"
+            fontSize={25}
             color={theme.colors.secondary}
           />
           <Text style={styles.containerTxtOu}>Ou</Text>
           <View style={styles.containerInputEmail}>
             <SignUpInput
               placeholder="Email"
-              iconName="person-outline"
-              fontSize={45}
+              iconName="at-sign"
+              fontSize={25}
               color={theme.colors.secondary}
             />
           </View>
           <SignUpInput 
             placeholder="Digite sua senha"
-            iconName="person-outline"
-            fontSize={45}
+            iconName="unlock"
+            fontSize={25}
             color={theme.colors.secondary}
           />
+          {/* <Image
+            style={styles.containerIcon}
+            source={imgEye}
+          /> */}
           </View>
         <View style={styles.containerEsqueciSenha}>
           <TouchableOpacity onPress={() => {console.log('Esqueci a senha');}}>

@@ -26,14 +26,14 @@ export default function LoginUser() {
         <View style={styles.containerInput}>
           <SignUpInput
             placeholder="Email"
-            iconName="person-outline"
-            fontSize={45}
+            iconName="at-sign"
+            fontSize={25}
             color={theme.colors.secondary}
           />
           <SignUpInput
             placeholder="Digite sua senha"
-            iconName="person-outline"
-            fontSize={45}
+            iconName="unlock"
+            fontSize={25}
             color={theme.colors.secondary}
           />
           </View>
