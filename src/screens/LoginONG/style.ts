@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems: "flex-start",
         // backgroundColor:"lightblue",
-        // marginTop:15
+        marginTop:25
     },
     containerImgPrincipal:{
         height:268,

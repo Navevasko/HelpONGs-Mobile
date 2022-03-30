@@ -13,10 +13,11 @@ const StackNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="SelecioneLoginUsuario" component={SelecioneLoginUsuario} />
       <Stack.Screen name="LoginUser" component={LoginUser } />
       <Stack.Screen name="LoginONG" component={LoginONG} />
       <Stack.Screen name="SelecioneLoginOng" component={SelecioneLoginOng} />
-      <Stack.Screen name="LoginUsuario" component={SelecioneLoginUsuario} />
+      
       <Stack.Screen name="CadastroONG" component={CadastroONG} />
       <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
     </Stack.Navigator>

@@ -5,12 +5,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ImgBack } from "../../components/Loginbackground";
 import { Logo } from "../../components/Logo";
 import  {styles} from "./style";
+import { useNavigation } from "@react-navigation/native";
 
 const image = require("../../assets/img/imgPrincipalLoginUser.png");
 const nextImg = require("../../assets/img/next.png");
 const backImg = require("../../assets/img/transparentBackground.png");
 
 export function SelecioneLoginUsuario() {
+    const navigation = useNavigation<any>();
+    // const screenName: never = "LoginUsuario";
+
     return (
         <ImageBackground
             style={styles.ImageBackground}
@@ -32,13 +36,11 @@ export function SelecioneLoginUsuario() {
             </View>
             <Text style={styles.titulo}>Faça login como {"\n"}voluntário</Text>
             <Text style={styles.texto}>Faça login como voluntário e ajude{"\n"} pessoas, participe de eventos e doe.</Text>
-            <TouchableOpacity style={styles.btnLogin} onPress={() => {console.log('Hello World');
-                }}>
+            <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate("LoginUser")}>
                 <Text style={styles.btntexto}>Fazer login</Text>
             </TouchableOpacity>
             <View style={styles.containerProximaPagina}>
-            <TouchableOpacity style={styles.btnProximaPagina} onPress={() => {console.log('Hello World');
-                }}>
+            <TouchableOpacity style={styles.btnProximaPagina} onPress={() => navigation.navigate("SelecioneLoginOng")} >
                 <Image
                     style={{height:"100%", width:"100%"}}
                     source={nextImg}
