@@ -3,7 +3,7 @@ import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'r
 import { styles } from './style'
 import { Logo } from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
-import SignUpInput from '../../components/inputCadastro'
+import InputUnderline from '../../components/inputCadastro'
 import BtnLogin from '../../components/btnLogin/Login'
 
 const image = require("../../assets/img/imgPrincipalLoginONG.png");
@@ -24,22 +24,22 @@ export default function LoginONG() {
         </View>
         <Text style={styles.titulo}>Login</Text>
         <View style={styles.containerInput}>
-          <SignUpInput
+          <InputUnderline
             placeholder="CNPJ"
-            iconName="layout"
+            iconName="user"
             fontSize={25}
             color={theme.colors.secondary}
           />
           <Text style={styles.containerTxtOu}>Ou</Text>
           <View style={styles.containerInputEmail}>
-            <SignUpInput
+            <InputUnderline
               placeholder="Email"
-              iconName="at-sign"
+              iconName="mail"
               fontSize={25}
               color={theme.colors.secondary}
             />
           </View>
-          <SignUpInput 
+          <InputUnderline 
             placeholder="Digite sua senha"
             iconName="unlock"
             fontSize={25}

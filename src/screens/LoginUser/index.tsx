@@ -5,6 +5,7 @@ import { Logo } from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
 import SignUpInput from '../../components/inputCadastro'
 import BtnLogin from '../../components/btnLogin/Login'
+import InputUnderline from '../../components/inputCadastro'
 
 const image = require("../../assets/img/imgPrincipalLoginV.png");
 const imgGoogle = require("../../assets/img/iconGoogle.png");
@@ -24,13 +25,13 @@ export default function LoginUser() {
         </View>
         <Text style={styles.titulo}>Login</Text>
         <View style={styles.containerInput}>
-          <SignUpInput
+          <InputUnderline
             placeholder="Email"
-            iconName="at-sign"
+            iconName="mail"
             fontSize={25}
             color={theme.colors.secondary}
           />
-          <SignUpInput
+          <InputUnderline
             placeholder="Digite sua senha"
             iconName="unlock"
             fontSize={25}

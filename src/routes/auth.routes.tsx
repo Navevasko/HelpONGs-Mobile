@@ -5,6 +5,7 @@ import CadastroONG from "../screens/CadastroONG";
 import CadastroUsuario from "../screens/CadastroUsuario";
 import { SelecioneLoginUsuario } from "../screens/SelecioneLoginUsuario";
 import { SelecioneLoginOng } from "../screens/SelecioneLoginOng";
+import  EsqueciSenha  from "../screens/EsqueciSenha"
 import LoginONG from "../screens/LoginONG";
 import LoginUser from "../screens/LoginUser";
 
@@ -13,6 +14,7 @@ const StackNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
       <Stack.Screen name="SelecioneLoginUsuario" component={SelecioneLoginUsuario} />
       <Stack.Screen name="LoginUser" component={LoginUser } />
       <Stack.Screen name="LoginONG" component={LoginONG} />
