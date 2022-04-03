@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, ImageBackground, SafeAreaView, Image } from 'react-native'
+import { View, Text, ImageBackground, SafeAreaView, Image, TouchableOpacity, } from 'react-native'
 import { theme } from '../../global/styles/theme'
 import InputUnderline from '../../components/inputCadastro'
+import BtnContinuar from '../../components/btnContinuar'
 import { styles } from './style'
 
 
@@ -15,18 +16,24 @@ export default function EsqueciSenha() {
        source={imgBackgroundSenha}
     >
       <SafeAreaView style={styles.containerConteudo}>
-        <Text style={styles.titulo}>Esqueceu a Senha?</Text>
+        <Text style={styles.titulo}>Esqueceu a senha?</Text>
         <Image
           style={styles.imgPrincipal}
           source={imgPrincipalRedefinicaoDeSenha}
         />
-        <Text>Digite seu e-mail cadastrado</Text>
+        <Text style={styles.txtEmail}>Digite seu e-mail{"\n"} cadastrado</Text>
+        
         <InputUnderline 
               placeholder="Digite seu e-mail"
-              iconName=""
+              iconName="mail"
               fontSize={25}
               color={theme.colors.secondary}
             />
+        
+        <TouchableOpacity style={styles.containerBtn}  onPress={() => console.log("hello world ")}>
+            <BtnContinuar text={"Continuar"}/>
+        </TouchableOpacity>
+
       </SafeAreaView>
 
     </ImageBackground>

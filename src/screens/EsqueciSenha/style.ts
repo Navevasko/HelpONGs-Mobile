@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 import { theme } from "../../global/styles/theme";
 
-const FonteTitulo = "../../assets/fonts/Montserrat-Bold.ttf";
-const FonteTexto = "../../assets/fonts/Montserrat-Regular.ttf" ;
-
-
 export const styles = StyleSheet.create({
     containerImgBackground:{
         flex:1,
@@ -16,6 +12,8 @@ export const styles = StyleSheet.create({
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
+        paddingEnd:30,
+        paddingStart:30,
     },
     imgPrincipal:{
         height:317,
@@ -23,9 +21,31 @@ export const styles = StyleSheet.create({
         resizeMode:"contain",
     },
     titulo:{
-        fontSize:25,
+        fontSize:30,
         color:theme.colors.primary,
-        
+        textAlign:"center",
+        fontWeight:"700",
+        letterSpacing:-0.02,
+        lineHeight:30,
+        fontFamily:theme.fonts.medium,
+        marginBottom:-55
+    },
+    txtEmail:{
+        textAlign:"center",
+        fontSize:18,
+        color:theme.colors.black,
+        lineHeight:21,
+        letterSpacing:-0.02,
+        fontWeight:"600",
+        marginTop:-40,
+        marginBottom:14
+    },
+    txtInput:{
+        textAlign:"center"
+    },
+
+    containerBtn:{
+        marginTop:83,
     }
 
 });
