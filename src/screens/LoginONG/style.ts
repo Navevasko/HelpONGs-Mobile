@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems: "flex-start",
         // backgroundColor:"lightblue",
-        marginTop:25
+        // marginTop:25
     },
     containerImgPrincipal:{
         height:268,
@@ -123,7 +123,8 @@ export const styles = StyleSheet.create({
         fontWeight:"300",
         lineHeight:22,
         fontSize:18,
-        color:"#FF9F45" 
+        color:"#FF9F45",
+        marginBottom:0
     },
 
     txtNaoTemConta:{
@@ -131,6 +132,9 @@ export const styles = StyleSheet.create({
         lineHeight:22,
         fontSize:18,
         color:"#292929" 
+    },
+    containerEditar:{
+        marginLeft:20
     }
 
 

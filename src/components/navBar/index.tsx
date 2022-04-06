@@ -1,19 +1,29 @@
 import { StyleSheet, TouchableOpacity, View, SafeAreaView, Image } from 'react-native'
 import React from 'react'
 import { theme } from '../../global/styles/theme'
+import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+
+import LoginONG from '../../screens/LoginONG';
 
 const imgConfiguracoes = require('../../assets/img/settings.png')
 const imgDePerfil = require('../../assets/img/fotoDePerfil.jpeg')
 const imgNotificacao = require('../../assets/img/notificacao.png')
 
+// const Routes = createAppContainer(
+//     createDrawerNavigator({
+//         LoginONG  
+//     })
+// )
+
 
 export default function NavBar() {
   return (
     <SafeAreaView style={styles.containerMenu}>
-        <Image 
+        {/* <Image 
             style={styles.fotoDePerfil}
             source={imgDePerfil}
-        />
+        /> */}
         <Image 
             style={styles.configuracoes}
             source={imgNotificacao}
@@ -42,7 +52,6 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.white,
         paddingEnd:14,
         paddingStart:14,
-        marginTop:24,
         paddingBottom:2,
         justifyContent:'flex-end',
         alignItems:'center' 

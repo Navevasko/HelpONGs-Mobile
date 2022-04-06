@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { styles } from './style'
 import { Logo } from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
@@ -13,6 +13,7 @@ export default function LoginONG() {
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
+        <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
         <View style={styles.containerLogo}>
           <Logo/>
         </View>
