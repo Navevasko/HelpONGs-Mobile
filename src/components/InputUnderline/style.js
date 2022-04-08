@@ -27,5 +27,5 @@ export const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: "center",
-  },
+  }
 });

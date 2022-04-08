@@ -3,7 +3,7 @@ import { Image, View } from "react-native";
 import { styles } from "./style";
 const image = require("../../../assets/logo.png");
 
-export function Logo(){
+export default function Logo(){
     return(
         <Image
             style={styles.logo}

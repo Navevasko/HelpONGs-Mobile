@@ -6,9 +6,8 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { Logo } from "../../components/Logo";
+import Logo from "../../components/Logo";
 import { styles } from "./style";
-import InputUnderline from "../../components/InputUnderline";
 const imgPrincipal = require("../../assets/img/imgPrincipalCadastroUsuario.png");
 import { theme } from "../../global/styles/theme";
 import Cadastrar from "../../components/Cadastrar";
@@ -25,33 +24,7 @@ export default function CadastroONG() {
 
       <Text style={styles.title}> Cadastro </Text>
 
-      <InputUnderline
-        placeholder="Digite seu Nome"
-        iconName="user"
-        size={35}
-        color={theme.colors.secondary}
-      />
-
-      <InputUnderline
-        placeholder="Digite seu Email"
-        iconName="mail"
-        size={30}
-        color={theme.colors.secondary}
-      />
-
-      <InputUnderline
-        placeholder="Digite sua Senha"
-        iconName="lock"
-        size={30}
-        color={theme.colors.secondary}
-      />
-
-      <InputUnderline
-        placeholder="Confirme sua Senha"
-        iconName="lock"
-        size={30}
-        color={theme.colors.secondary}
-      />
+      
 
       <Cadastrar />
 
