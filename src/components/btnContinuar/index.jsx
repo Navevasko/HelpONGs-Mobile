@@ -1,15 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { theme } from '../../global/styles/theme'
+import PropTypes from 'prop-types'; 
 
-type txtBtn ={
-  text: String
-}
+export default function BtnContinuar() {
 
-export default function BtnContinuar(props: txtBtn) {
+  txtBtn.propTypes ={
+    text: PropTypes.String
+  }
+
   return (
     <View style={styles.containerBtn}>
-      <Text style={styles.txtContinuar}>{props.text}</Text>
+      <Text style={styles.txtContinuar}>{this.props.text}</Text>
     </View>
   )
 }

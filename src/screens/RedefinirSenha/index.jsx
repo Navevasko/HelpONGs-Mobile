@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, SafeAreaView, Image } from 'react-native'
+import { View, Text, ImageBackground, SafeAreaView, Image, StatusBar } from 'react-native'
 import React from 'react'
 import {styles} from './style'
 import { theme } from '../../global/styles/theme'
@@ -14,6 +14,7 @@ export default function RedefinirSenha() {
         style={styles.containerImgBackground}
         source={imgBackgroundSenha}
     >
+    <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
         <SafeAreaView style={styles.containerConteudo}>
             <Text style={styles.titulo}>Redefinir senha</Text>
             <Text style={styles.txtSubtitulo}>Defina sua nova senha</Text>

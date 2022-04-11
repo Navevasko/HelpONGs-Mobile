@@ -12,8 +12,8 @@ const image = require("../../assets/img/imgPrincipalLoginONG.png");
 export default function LoginONG() {
   return (
     <SafeAreaView>
+    <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
       <ScrollView style={styles.container}>
-        <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
         <View style={styles.containerLogo}>
           <Logo/>
         </View>

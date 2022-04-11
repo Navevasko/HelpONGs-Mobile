@@ -1,18 +1,18 @@
 import React from "react";
 
-import { View, Text, ScrollView, Image, TouchableOpacity, ImageBackground} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar, View, Text, ScrollView, Image, SafeAreaView, TouchableOpacity, ImageBackground} from "react-native";
+import { ImgBack } from "../../components/Loginbackground";
 import { Logo } from "../../components/Logo";
 import  {styles} from "./style";
 import { useNavigation } from "@react-navigation/native";
 
-const image = require('../../assets/img/imgPrincipalSelecioneLoginONG.png');
+const image = require("../../assets/img/imgPrincipalLoginUser.png");
 const nextImg = require("../../assets/img/next.png");
 const backImg = require("../../assets/img/transparentBackground.png");
 
-export function SelecioneLoginOng() {
-
-    const navigation = useNavigation<any>();
+export function SelecioneLoginUsuario() {
+    const navigation = useNavigation();
+    // const screenName: never = "LoginUsuario";
 
     return (
         <ImageBackground
@@ -33,15 +33,13 @@ export function SelecioneLoginOng() {
                     source={image}
                 />
             </View>
-            <Text style={styles.titulo}>Faça login como {"\n"}ONG</Text>
-            <Text style={styles.texto}>
-                Faça login como ONG e crie eventos,{"\n"}posts, vagas e receba doações para{"\n"}receber ajuda de uma forma mais{"\n"}eficiente.
-            </Text>
-            <TouchableOpacity style={styles.btnLogin}onPress={() => navigation.navigate("LoginONG")}>
+            <Text style={styles.titulo}>Faça login como {"\n"}voluntário</Text>
+            <Text style={styles.texto}>Faça login como voluntário e ajude{"\n"} pessoas, participe de eventos e doe.</Text>
+            <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate("LoginUser")}>
                 <Text style={styles.btntexto}>Fazer login</Text>
             </TouchableOpacity>
             <View style={styles.containerProximaPagina}>
-            <TouchableOpacity style={styles.btnProximaPagina} onPress={() => navigation.navigate("SelecioneLoginUsuario")}>
+            <TouchableOpacity style={styles.btnProximaPagina} onPress={() => navigation.navigate("SelecioneLoginOng")} >
                 <Image
                     style={{height:"100%", width:"100%"}}
                     source={nextImg}
