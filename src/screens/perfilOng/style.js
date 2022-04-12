@@ -107,10 +107,16 @@ export const styles = StyleSheet.create({
     },
 
     txtAcoesOngs:{
-        height:30,
+        height:35,
         fontSize:25,
         marginLeft:20,
+        fontFamily:theme.fonts.medium,
+        color:theme.colors.grey,
+        marginBottom:5
+    },
 
+    buttonStylex:{
+        color:theme.colors.black
     },
 
     card: {
@@ -128,6 +134,43 @@ export const styles = StyleSheet.create({
     shadowProp: {
         shadowColor: '#171717',
       },
+    containerEspecificacoesEventos:{
+        marginTop:5,
+        flexDirection:"row"
+    },
+    txtEspecificacoesEventosbolder:{
+        color:theme.colors.black,
+        fontFamily:theme.fonts.medium,
+        fontWeight:"bold",
+        fontSize:15,
+    },
+    txtEspecificacoesEventos:{
+        fontFamily:theme.fonts.medium,
+        fontSize:13,
+        marginVertical:3
+    },
+
+    containerStatus:{
+        height:28,
+        width:115,
+        backgroundColor:theme.colors.secondary,
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:7,
+        marginLeft:20,
+        marginBottom:10
+    },
+
+    btnCandidaturas:{
+        backgroundColor:theme.colors.primaryFaded,
+        marginBottom:10,
+        borderRadius:7,
+        height:28,
+        width:115,
+        alignItems:"center",
+        justifyContent:"center",
+    },
+
     fotoDePerfilPost:{
         height:50,
         width:50,

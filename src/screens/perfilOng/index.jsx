@@ -1,13 +1,173 @@
-import { View, Text, ImageBackground, ScrollView, StatusBar, Image, FlatList } from 'react-native'
-import React from 'react'
+import { View, Text, ImageBackground, ScrollView, StatusBar, Image, TouchableOpacity } from 'react-native'
+import React, { createElement, useState } from 'react'
 import { styles } from './style'
 import { theme } from '../../global/styles/theme'
 import NavBar from '../../components/navBar'
 import Icon from "react-native-vector-icons/Feather";
 import OpcoesPerfil from '../../components/opcoesPerfil';
 
+function Exibir (vp1) {
+  if(vp1 == 1){
+    return(
+    <View className='Posts' style={{ width:"100%"}}>
+      <View style={[styles.card, styles.shadowProp]}>
+        <View style={{flexDirection:"row"}}>
+          <Image
+            source={require('../../assets/img/fotoDePerfil.jpeg')}
+            style={styles.fotoDePerfilPost}
+          />
+          <View style={{flexDirection:"column", marginTop:5}}>
+              <Text>O tal do Jorg1nh0</Text>
+              <Text>25 de fevereiro de 2022</Text>
+          </View>
+        </View>
+        <View style={{flexDirection:"column"}}>
+          <Text>
+          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+          </Text>
+          <Image
+            source={require('../../assets/img/post.jpg')}
+            style={styles.imgPost}
+          />        
+          <View style={styles.containerAcoesPost}>
+            <Icon
+              name='thumbs-up'
+              style={styles.iconsAcoesPost}
+            />
+            <Text>16</Text>
+            <Icon
+              name='message-square'
+              style={styles.iconsAcoesPost}
+            />
+            <Text>16</Text>
+            <Icon
+              name='share-2'
+              style={styles.iconsAcoesPost}
+            />
+          </View>                 
+        </View>
+      </View>
+
+
+              <View style={[styles.card, styles.shadowProp]}>
+                <View style={{flexDirection:"row"}}>
+                  <Image
+                    source={require('../../assets/img/fotoDePerfil.jpeg')}
+                    style={styles.fotoDePerfilPost}
+                  />
+                  <View style={{flexDirection:"column", marginTop:5}}>
+                    <Text>O tal do Jorg1nh0</Text>
+                    <Text>25 de fevereiro de 2022</Text>
+                  </View>
+                </View>
+                <View style={{flexDirection:"column"}}>
+                  <Text>
+                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                  </Text>
+                  <Image
+                    source={require('../../assets/img/post.jpg')}
+                    style={styles.imgPost}
+                  />
+                  <View style={styles.containerAcoesPost}>
+                    <Icon
+                      name='thumbs-up'
+                      style={styles.iconsAcoesPost}
+                    />
+                    <Text>16</Text>
+                    <Icon
+                      name='message-square'
+                      style={styles.iconsAcoesPost}
+                    />
+                    <Text>16</Text>
+                    <Icon
+                      name='share-2'
+                      style={styles.iconsAcoesPost}
+                    />
+                  </View>
+                </View>
+              </View>
+    </View>
+    )
+  }else if(vp1 == 2){
+    return(
+      <View className='Eventos' style={{width:"100%"}}>
+        <View style={[styles.card, styles.shadowProp]}>
+        <View style={{flexDirection:"row"}}>
+          <Image
+            source={require('../../assets/img/fotoDePerfil.jpeg')}
+            style={styles.fotoDePerfilPost}
+          />
+          <View style={{flexDirection:"column", marginTop:5}}>
+              <Text>O tal do Jorg1nh0</Text>
+              <Text>25 de fevereiro de 2022</Text>
+          </View>
+        </View>
+        <View style={{flexDirection:"column"}}>
+          <Text>
+          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+          </Text>
+          <Image
+            source={require('../../assets/img/download.jpeg')}
+            style={styles.imgPost}
+          />        
+          <View style={styles.containerEspecificacoesEventos}>
+            <View style={styles.containerEspecificacoesEventoDireito}>
+              <View style={{flexDirection:"row", marginVertical:5}}>
+                <Text style={styles.txtEspecificacoesEventosbolder}>Objetivo:</Text>
+                <Text style={styles.txtEspecificacoesEventos}> Velit officia conseq</Text>
+              </View> 
+              <View style={{flexDirection:"row",  marginVertical:5}}>
+                <Text style={styles.txtEspecificacoesEventosbolder}>Data e Hora:</Text>
+                <Text style={styles.txtEspecificacoesEventos}> 26 de Janeiro às 12:00</Text>
+              </View>     
+              <View style={{flexDirection:"row", marginVertical:5 }}>
+                <Text style={styles.txtEspecificacoesEventosbolder}>Quantidade de participantes:</Text>
+                <Text style={styles.txtEspecificacoesEventos}> 101</Text>
+              </View>
+              <View style={{flexDirection:"row", marginVertical:5}}>
+                <Text style={styles.txtEspecificacoesEventosbolder}>Status:</Text>
+                <View style={styles.containerStatus}>
+                  <Text>Encerrado</Text>
+                </View>
+              </View> 
+            </View>
+            <View style={{flexDirection:"column", alignSelf:'flex-end', height:70}}>
+              <View style={styles.btnCandidaturas}>
+                <Text>Candidatar-se</Text>
+              </View>
+              <View style={styles.btnCandidaturas}>
+                <Text>Participar</Text>
+              </View>
+            </View>
+            
+          </View>                      
+        </View>
+      </View>
+      </View>
+      )
+  }else{
+    return(
+      <View className='01' style={{height:200, width:"100%", backgroundColor:"green"}}></View>
+      )
+  }
+}
 
 export default function PerfilONG() {
+
+  const [teste, setTeste] = useState();
+  // const [cores, setCores] = useState(styles.txtAcoesOngs);
+  // const [ligar, setLigar] = useState(true);
+
+  // const trocarDeCor = () => {
+  //   !setLigar();
+
+  //   if (ligar) {
+  //     setCores(styles.buttonStylex);
+  //   } else {
+  //     setCores(styles.txtAcoesOngs)
+  //   }
+  // }
+  
   return (
     <ImageBackground
         style={styles.imgDeFundo}
@@ -84,84 +244,19 @@ export default function PerfilONG() {
             </View>
             <View style={styles.containerTxtVagasPostsEventos}>
               <View style={{flexDirection:"row"}}>
-                <Text style={styles.txtAcoesOngs}>Posts</Text>
+                <TouchableOpacity onPress={() =>  {setTeste(1)}}>
+                  <Text style={styles.txtAcoesOngs}>Posts</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {setTeste(2)}}>
                 <Text style={styles.txtAcoesOngs}>Eventos</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {setTeste(3)}}>
                 <Text style={styles.txtAcoesOngs}>Vagas</Text>
+                </TouchableOpacity>
               </View>
-              <View style={[styles.card, styles.shadowProp]}>
-                <View style={{flexDirection:"row"}}>
-                  <Image
-                    source={require('../../assets/img/fotoDePerfil.jpeg')}
-                    style={styles.fotoDePerfilPost}
-                  />
-                  <View style={{flexDirection:"column", marginTop:5}}>
-                    <Text>O tal do Jorg1nh0</Text>
-                    <Text>25 de fevereiro de 2022</Text>
-                  </View>
-                </View>
-                <View style={{flexDirection:"column"}}>
-                  <Text>
-                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-                  </Text>
-                  <Image
-                    source={require('../../assets/img/post.jpg')}
-                    style={styles.imgPost}
-                  />
-                  <View style={styles.containerAcoesPost}>
-                    <Icon
-                      name='thumbs-up'
-                      style={styles.iconsAcoesPost}
-                    />
-                    <Text>16</Text>
-                    <Icon
-                      name='message-square'
-                      style={styles.iconsAcoesPost}
-                    />
-                    <Text>16</Text>
-                    <Icon
-                      name='share-2'
-                      style={styles.iconsAcoesPost}
-                    />
-                  </View>
-                </View>
-              </View>
-
-              <View style={[styles.card, styles.shadowProp]}>
-                <View style={{flexDirection:"row"}}>
-                  <Image
-                    source={require('../../assets/img/fotoDePerfil.jpeg')}
-                    style={styles.fotoDePerfilPost}
-                  />
-                  <View style={{flexDirection:"column", marginTop:5}}>
-                    <Text>O tal do Jorg1nh0</Text>
-                    <Text>25 de fevereiro de 2022</Text>
-                  </View>
-                </View>
-                <View style={{flexDirection:"column"}}>
-                  <Text>
-                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-                  </Text>
-                  <Image
-                    source={require('../../assets/img/post.jpg')}
-                    style={styles.imgPost}
-                  />
-                  <View style={styles.containerAcoesPost}>
-                    <Icon
-                      name='thumbs-up'
-                      style={styles.iconsAcoesPost}
-                    />
-                    <Text>16</Text>
-                    <Icon
-                      name='message-square'
-                      style={styles.iconsAcoesPost}
-                    />
-                    <Text>16</Text>
-                    <Icon
-                      name='share-2'
-                      style={styles.iconsAcoesPost}
-                    />
-                  </View>
-                </View>
+              <View style={{flexDirection:"column"}}>
+              {Exibir(teste)}
+              {/* <View className='03' style={{height:200, width:"100%", backgroundColor:"green"}}></View> */}
               </View>
             </View>
         </ScrollView>
