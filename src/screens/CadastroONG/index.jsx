@@ -4,7 +4,8 @@ import {
   TouchableHighlight,
   View,
   ScrollView,
-  StatusBar
+  StatusBar,
+  ToastAndroid,
 } from "react-native";
 import { useState } from "react";
 import React from "react";
@@ -15,12 +16,47 @@ import { theme } from "../../global/styles/theme";
 import BtnSubmit from "../../components/Cadastrar";
 import InputUnderline from "../../components/InputUnderline";
 import InputUnderlinePassword from "../../components/InputUnderlinePassword";
+import { cnpjMask } from "../../utils/mask";
+
+// import axios from "axios";
+// const baseURL = "http://localhost:3131";
+
+// axios ({
+//   method: 'post',
+//   url: `${baseURL}/ong/pre-register `,
+// }).then((response) => {
+//   console.log(response.data)
+// })
 
 export default function CadastroONG() {
+  /* Criando as constantes dos dados */
+
   const [CNPJ, setCNPJ] = useState("");
   const [Email, setEmail] = useState("");
   const [Senha, setSenha] = useState("");
   const [ConfirmSenha, setConfirmSenha] = useState("");
+
+  /* Criando a função para validar os dados */
+  const validate = (StringCNPJ, Email, Senha, ConfirmSenha) => {
+    if (StringCNPJ != "" && Email != "" && Senha != "" && ConfirmSenha != "") {
+      /* Transformando o StringCNPJ em número */
+      StringCNPJ =
+        StringCNPJ.substring(0, 2) +
+        StringCNPJ.substring(3, 6) +
+        StringCNPJ.substring(7, 10) +
+        StringCNPJ.substring(11, 15) +
+        StringCNPJ.substring(15, 17);
+      const CNPJ = parseInt(StringCNPJ);
+      if(Email.includes('@')) {
+        ToastAndroid.show("TESTEA", ToastAndroid.SHORT);
+      }
+      else{
+        ToastAndroid.show('TESTE', ToastAndroid.SHORT)
+      }
+    } else {
+      ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -40,10 +76,12 @@ export default function CadastroONG() {
         color={theme.colors.secondary}
         size={30}
         placeholder={"Digite seu CNPJ"}
+        value={cnpjMask(CNPJ)}
         onChangeText={(text) => {
           setCNPJ(text);
         }}
         keyboardType={"number-pad"}
+        max={18}
       />
 
       <InputUnderline
@@ -82,10 +120,7 @@ export default function CadastroONG() {
       <BtnSubmit
         text={"Cadastrar"}
         onPress={() => {
-          console.log(CNPJ);
-          console.log(Email);
-          console.log(Senha);
-          console.log(ConfirmSenha);
+          validate(CNPJ, Email, Senha, ConfirmSenha);
         }}
       />
 

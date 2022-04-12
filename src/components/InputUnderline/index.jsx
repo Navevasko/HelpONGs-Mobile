@@ -10,7 +10,9 @@ export default function InputUnderline({
   size,
   placeholder,
   onChangeText,
-  keyboardType
+  keyboardType,
+  value,
+  max
 }) {
   return (
     <View style={styles.container}>
@@ -26,6 +28,8 @@ export default function InputUnderline({
         placeholder={placeholder}
         onChangeText={onChangeText}
         keyboardType={keyboardType}
+        maxLength={max}
+        value={value}
       />
     </View>
   );
@@ -38,4 +42,6 @@ InputUnderline.propTypes = {
   placeholder: PropTypes.string,
   onChangeText: PropTypes.func,
   keyboardType: PropTypes.string,
+  value: PropTypes.string,
+  max: PropTypes.number
 };
