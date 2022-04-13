@@ -1,26 +1,47 @@
-import { View, Text, TextInput } from "react-native";
+import { View, TextInput, ToastAndroid } from "react-native";
+import React, { useState } from "react";
 import { styles } from "./style";
-import { theme } from "../../global/styles/theme";
 import Icon from "react-native-vector-icons/Feather";
-import React from "react";
+import PropTypes from "prop-types";
 
-type inputProps = {
-  placeholder: string;
-  iconName: string;
-  fontSize?: number;
-  color: string;
-};
-
-export default function InputUnderline(props: inputProps) {
+export default function InputUnderline({
+  iconName,
+  color,
+  size,
+  placeholder,
+  onChangeText,
+  keyboardType,
+  value,
+  max
+}) {
   return (
     <View style={styles.container}>
       <View style={styles.containerIcon}>
         <Icon
-          name={props.iconName}
-          style={[styles.icon, { fontSize: props.fontSize, color: props.color }]}
-        /> 
+          name={iconName}
+          size={size}
+          style={[styles.icon, { color: color }]}
+        />
       </View>
-      <TextInput style={styles.input} placeholder={props.placeholder} />
+      <TextInput
+        style={styles.input}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        maxLength={max}
+        value={value}
+      />
     </View>
   );
 }
+
+InputUnderline.propTypes = {
+  iconName: PropTypes.string,
+  color: PropTypes.string,
+  size: PropTypes.number,
+  placeholder: PropTypes.string,
+  onChangeText: PropTypes.func,
+  keyboardType: PropTypes.string,
+  value: PropTypes.string,
+  max: PropTypes.number
+};

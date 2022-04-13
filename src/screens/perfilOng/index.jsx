@@ -147,7 +147,20 @@ function Exibir (vp1) {
       )
   }else{
     return(
-      <View className='01' style={{height:200, width:"100%", backgroundColor:"green"}}></View>
+      <View className='Vagas' style={{width:"100%"}}>
+        <View style={[styles.cardVagas, styles.shadowProp]}>
+        <View style={{flexDirection:"row"}}>
+          <Image
+            source={require('../../assets/img/fotoDePerfil.jpeg')}
+            style={styles.fotoDePerfilPost}
+          />
+          <View style={{flexDirection:"column", marginTop:5}}>
+              <Text>O tal do Jorg1nh0</Text>
+              <Text>25 de fevereiro de 2022</Text>
+          </View>
+        </View>
+        </View>
+      </View>
       )
   }
 }

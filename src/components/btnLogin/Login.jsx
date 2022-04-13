@@ -5,9 +5,9 @@ import { styles } from './style';
 export default function BtnLogin() {
   return (
     <View>
-      <TouchableOpacity style={styles.btnLogin} onPress={() => {console.log('Hello World');}}>
-              <Text style={styles.txtLogin}>Login</Text>
-          </TouchableOpacity>
+      <View style={styles.btnLogin}>
+        <Text style={styles.txtLogin}>Login</Text>
+      </View>
     </View>
   )
 }
