@@ -20,33 +20,56 @@ import { cnpjMask } from "../../utils/mask";
 import axios from "axios";
 
 export default function CadastroONG() {
+  /* Criando as constantes dos dados */
+
+  const [Nome, setNome] = useState("");
+  const [CNPJ, setCNPJ] = useState("64.711.062/0001-94");
+  const [Email, setEmail] = useState("");
+  const [Senha, setSenha] = useState("");
+  const [ConfirmSenha, setConfirmSenha] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const baseURL = "http://10.107.144.32:3131";
 
   const onSubmit = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
 
-    const response = await axios
-      .post(`${baseURL}/ong/pre-register`, {
-        cnpj: CNPJ,
-        email: Email,
-        nome: Nome,
-        senha: Senha,
-      })
-      .then((data) => {
-        console.log(data);
+    const trueCNPJ =
+      CNPJ.substring(0, 2) +
+      CNPJ.substring(3, 6) +
+      CNPJ.substring(7, 10) +
+      CNPJ.substring(11, 15) +
+      CNPJ.substring(16, 18);
+    console.log(trueCNPJ);
+
+    const getResponse = await axios
+      .get(`https://publica.cnpj.ws/cnpj/${trueCNPJ}`)
+      .then(({ data }) => {
+        if (data.nome_fantasia == null) {
+          setNome(data.razao_social);
+          console.log(Nome)
+        } else {
+          setNome(data.nome_fantasia);
+          console.log(Nome);
+        }
       });
 
-    console.log(response);
+    // const response = await axios.post(`${baseURL}/ong/pre-register`, {
+    //   cnpj: CNPJ,
+    //   email: Email,
+    //   nome: Nome,
+    //   senha: Senha,
+    // }).then((data) => {
+    //   console.log(data)
+    //   setIsLoading(false);
+    // }).catch((error) => {
+    //   const response = JSON.stringify(error)
+    //   if(response.includes("400")){
+    //     ToastAndroid.show("Email ou CNPJ já existem, faça login", ToastAndroid.SHORT)
+    //     setIsLoading(false)
+    //   }
+    // })
   };
-
-  /* Criando as constantes dos dados */
-
-  const Nome = "TESTE";
-  const [CNPJ, setCNPJ] = useState("333");
-  const [Email, setEmail] = useState("TESTE@EMAIL.com");
-  const [Senha, setSenha] = useState("TESTE");
-  const [ConfirmSenha, setConfirmSenha] = useState("TESTE");
-  const [isLoading, setIsLoading] = useState(false);
 
   /* Criando a função para validar os dados */
   // const validate = (StringCNPJ, Email, Senha, ConfirmSenha) => {
@@ -95,6 +118,7 @@ export default function CadastroONG() {
         }}
         keyboardType={"number-pad"}
         max={18}
+        editable={!isLoading}
       />
 
       <InputUnderline
@@ -106,6 +130,7 @@ export default function CadastroONG() {
           setEmail(text);
         }}
         keyboardType={"email-address"}
+        editable={!isLoading}
       />
 
       <InputUnderlinePassword
@@ -117,6 +142,7 @@ export default function CadastroONG() {
         onChangeText={(text) => {
           setSenha(text);
         }}
+        editable={!isLoading}
       />
 
       <InputUnderlinePassword
@@ -128,9 +154,10 @@ export default function CadastroONG() {
         onChangeText={(text) => {
           setConfirmSenha(text);
         }}
+        editable={!isLoading}
       />
 
-      <BtnSubmit text={"Cadastrar"} onPress={onSubmit} />
+      <BtnSubmit text={"Cadastrar"} onPress={onSubmit} editable={!isLoading} />
 
       <Text style={styles.terms}>
         Ao clicar em Cadastre-se, você concorda com nossos

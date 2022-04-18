@@ -12,7 +12,8 @@ export default function InputUnderline({
   onChangeText,
   keyboardType,
   value,
-  max
+  max,
+  editable
 }) {
   return (
     <View style={styles.container}>
@@ -30,6 +31,7 @@ export default function InputUnderline({
         keyboardType={keyboardType}
         maxLength={max}
         value={value}
+        editable={editable}
       />
     </View>
   );
@@ -39,9 +41,16 @@ InputUnderline.propTypes = {
   iconName: PropTypes.string,
   color: PropTypes.string,
   size: PropTypes.number,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
   onChangeText: PropTypes.func,
-  keyboardType: PropTypes.string,
+  keyboardType: PropTypes.oneOf([
+    "number-pad",
+    "decimal-pad",
+    "numeric",
+    "email-address",
+    "phone-pad",
+  ]).isRequired,
   value: PropTypes.string,
-  max: PropTypes.number
+  max: PropTypes.number,
+  editable: PropTypes.bool,
 };
