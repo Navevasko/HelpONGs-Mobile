@@ -17,46 +17,59 @@ import BtnSubmit from "../../components/Cadastrar";
 import InputUnderline from "../../components/InputUnderline";
 import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 import { cnpjMask } from "../../utils/mask";
-
-// import axios from "axios";
-// const baseURL = "http://localhost:3131";
-
-// axios ({
-//   method: 'post',
-//   url: `${baseURL}/ong/pre-register `,
-// }).then((response) => {
-//   console.log(response.data)
-// })
+import axios from "axios";
 
 export default function CadastroONG() {
+  const baseURL = "http://10.107.144.32:3131";
+
+  const onSubmit = async () => {
+    setIsLoading(true);
+
+    const response = await axios
+      .post(`${baseURL}/ong/pre-register`, {
+        cnpj: CNPJ,
+        email: Email,
+        nome: Nome,
+        senha: Senha,
+      })
+      .then((data) => {
+        console.log(data);
+      });
+
+    console.log(response);
+  };
+
   /* Criando as constantes dos dados */
 
-  const [CNPJ, setCNPJ] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Senha, setSenha] = useState("");
-  const [ConfirmSenha, setConfirmSenha] = useState("");
+  const Nome = "TESTE";
+  const [CNPJ, setCNPJ] = useState("333");
+  const [Email, setEmail] = useState("TESTE@EMAIL.com");
+  const [Senha, setSenha] = useState("TESTE");
+  const [ConfirmSenha, setConfirmSenha] = useState("TESTE");
+  const [isLoading, setIsLoading] = useState(false);
 
   /* Criando a função para validar os dados */
-  const validate = (StringCNPJ, Email, Senha, ConfirmSenha) => {
-    if (StringCNPJ != "" && Email != "" && Senha != "" && ConfirmSenha != "") {
-      /* Transformando o StringCNPJ em número */
-      StringCNPJ =
-        StringCNPJ.substring(0, 2) +
-        StringCNPJ.substring(3, 6) +
-        StringCNPJ.substring(7, 10) +
-        StringCNPJ.substring(11, 15) +
-        StringCNPJ.substring(15, 17);
-      const CNPJ = parseInt(StringCNPJ);
-      if(Email.includes('@')) {
-        ToastAndroid.show("TESTEA", ToastAndroid.SHORT);
-      }
-      else{
-        ToastAndroid.show('TESTE', ToastAndroid.SHORT)
-      }
-    } else {
-      ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
-    }
-  };
+  // const validate = (StringCNPJ, Email, Senha, ConfirmSenha) => {
+  //   if (StringCNPJ != "" && Email != "" && Senha != "" && ConfirmSenha != "") {
+  //     /* Transformando o StringCNPJ em número */
+  //     StringCNPJ =
+  //       StringCNPJ.substring(0, 2) +
+  //       StringCNPJ.substring(3, 6) +
+  //       StringCNPJ.substring(7, 10) +
+  //       StringCNPJ.substring(11, 15) +
+  //       StringCNPJ.substring(15, 17);
+  //     const CNPJ = parseInt(StringCNPJ);
+  //     if (Email.includes("@")) {
+  //       if(Senha.length < 10 || ConfirmSenha < 10)
+  //     }
+  //     else {
+  //       ToastAndroid.show("Email inválido", ToastAndroid.SHORT);
+  //     }
+  //   } else {
+  //     ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
+  //     return false;
+  //   }
+  // };
 
   return (
     <ScrollView style={styles.container}>
@@ -117,12 +130,7 @@ export default function CadastroONG() {
         }}
       />
 
-      <BtnSubmit
-        text={"Cadastrar"}
-        onPress={() => {
-          validate(CNPJ, Email, Senha, ConfirmSenha);
-        }}
-      />
+      <BtnSubmit text={"Cadastrar"} onPress={onSubmit} />
 
       <Text style={styles.terms}>
         Ao clicar em Cadastre-se, você concorda com nossos
