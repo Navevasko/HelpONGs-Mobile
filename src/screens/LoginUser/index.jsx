@@ -13,7 +13,7 @@ import { Logo } from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin/Login";
 import InputUnderline from "../../components/inputCadastro";
-// import axios from "axios";
+
 
 const image = require("../../assets/img/imgPrincipalLoginV.png");
 const imgGoogle = require("../../assets/img/iconGoogle.png");
@@ -69,21 +69,7 @@ export default function LoginUser() {
           </TouchableOpacity>
         </View>
         <View style={styles.containerBtnLogin}>
-          <TouchableOpacity
-            onPress={() => {
-              useEffect(() => {
-                axios
-                  .get(
-                    `http://10.0.2.2:3131/user/login?email=${email}&senha=${senha}`
-                  )
-                  .then(({ data }) => {
-                    console.log(data);
-                  });
-              }, []);
-            }}
-          >
-            <BtnLogin />
-          </TouchableOpacity>
+            <BtnLogin email={email} senha={senha} />
         </View>
         <View style={styles.containerLinha}>
           <View style={styles.linha}></View>

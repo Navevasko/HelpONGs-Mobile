@@ -17,8 +17,8 @@ function Exibir (vp1) {
             style={styles.fotoDePerfilPost}
           />
           <View style={{flexDirection:"column", marginTop:5}}>
-              <Text>O tal do Jorg1nh00</Text>
-              <Text>25 de fevereiro de 2022</Text>
+              <Text style={styles.txtNomeUsuarioPost}>O tal do Jorg1nh00</Text>
+              <Text style={styles.txtDataPost}>25 de fevereiro de 2022</Text>
           </View>
         </View>
         <View style={{flexDirection:"column"}}>
@@ -56,12 +56,12 @@ function Exibir (vp1) {
                     style={styles.fotoDePerfilPost}
                   />
                   <View style={{flexDirection:"column", marginTop:5}}>
-                    <Text>O tal do Jorg1nh0</Text>
-                    <Text>25 de fevereiro de 2022</Text>
+                  <Text style={styles.txtNomeUsuarioPost}>O tal do Jorg1nh00</Text>
+              <Text style={styles.txtDataPost}>25 de fevereiro de 2022</Text>
                   </View>
                 </View>
                 <View style={{flexDirection:"column"}}>
-                  <Text>
+                  <Text style={styles.txtDescricaoPosts}>
                   Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
                   </Text>
                   <Image

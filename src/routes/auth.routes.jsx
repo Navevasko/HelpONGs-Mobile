@@ -11,6 +11,7 @@ import LoginUser from "../screens/LoginUser";
 import RedefinirSenha from "../screens/RedefinirSenha";
 import SucessoRedefinirSenha from "../screens/SucessoRedefinicaoDeSenha";
 import PerfilONG from "../screens/perfilOng";
+import Doar from "../screens/TelaDoacao";
 
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -19,6 +20,8 @@ const StackNavigation = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
     <Stack.Screen name="PerfilONG" component={PerfilONG} />
     <Stack.Screen name="SelecioneLoginOng" component={SelecioneLoginOng} />
+    <Stack.Screen name="Doar" component={Doar} />
+    
     
     <Stack.Screen name="SelecioneLoginUsuario" component={SelecioneLoginUsuario} />
       

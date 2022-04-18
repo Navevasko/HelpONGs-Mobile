@@ -2,12 +2,13 @@ import { View, Image, TouchableOpacity, SafeAreaView, Modal, Text } from "react-
 import React, { useState } from "react";
 import {styles} from './style'
 import Icon from "react-native-vector-icons/Feather";
-import { useNavigationState } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import PropTypes from "prop-types";
 
 export default function Menu(estado) {
 
     const [modalVisible, setModalVisible] = useState({estado});
+    const navigation = useNavigation();
 
   return (
       
@@ -35,14 +36,14 @@ export default function Menu(estado) {
             <SafeAreaView>
                 <View style={styles.containerModalMenu}>
                     <Icon name="menu" style={styles.icons} size={30} />
-                    <View style={styles.containerOpcoesModalMenu}>
+                    <TouchableOpacity style={styles.containerOpcoesModalMenu}>
                         <Icon name="home" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Home</Text>
-                    </View>
-                    <View style={styles.containerOpcoesModalMenu}>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Doar")} style={styles.containerOpcoesModalMenu}>
                         <Icon name="heart" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Doar</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.containerOpcoesModalMenu}>
                         <Icon name="layout" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Feed</Text>
