@@ -1,73 +1,68 @@
-import { StyleSheet, TouchableOpacity, View, SafeAreaView, Image } from 'react-native'
-import React from 'react'
-import { theme } from '../../global/styles/theme'
-import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
+import { View, Image, TouchableOpacity, SafeAreaView, Modal, Text } from "react-native";
+import React, { useState } from "react";
+import {styles} from './style'
+import Icon from "react-native-vector-icons/Feather";
+import { useNavigationState } from "@react-navigation/native";
+import PropTypes from "prop-types";
 
-import LoginONG from '../../screens/LoginONG';
+export default function Menu(estado) {
 
-const imgConfiguracoes = require('../../assets/img/settings.png')
-const imgDePerfil = require('../../assets/img/fotoDePerfil.jpeg')
-const imgNotificacao = require('../../assets/img/notificacao.png')
+    const [modalVisible, setModalVisible] = useState({estado});
 
-// const Routes = createAppContainer(
-//     createDrawerNavigator({
-//         LoginONG  
-//     })
-// )
-
-
-export default function NavBar() {
   return (
-    <SafeAreaView style={styles.containerMenu}>
-        {/* <Image 
-            style={styles.fotoDePerfil}
-            source={imgDePerfil}
-        /> */}
-        <Image 
-            style={styles.configuracoes}
-            source={imgNotificacao}
-        />
-
-       <Image
-            style={styles.configuracoes}
-            source={imgConfiguracoes}
-        />
-        
-        <Image 
-            style={styles.fotoDePerfil}
-            source={imgDePerfil}
-        />
-
-
+      
+    <SafeAreaView>
+        <View style={styles.container}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <Icon name="menu" style={styles.icons} size={30} />
+        </TouchableOpacity>
+        <View style={styles.options}>
+            <TouchableOpacity onPress={() => {}}>
+            <Icon name="message-circle" style={styles.icons} size={30} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {}}>
+            <Icon name="bell" style={styles.icons} size={30} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {}}>
+            <Icon name="settings" style={styles.icons} size={30} />
+            </TouchableOpacity>
+            <Image source={require("../../assets/img/fotoDePerfil.jpeg")} style={styles.profilePicture} />
+        </View>
+        </View>
+        <Modal transparent visible={modalVisible}>
+        <TouchableOpacity onPress={() => setModalVisible(false)}  style={{flex:1, alignItems:'flex-start', backgroundColor:"rgba(0, 0, 0, 0.4)"
+}}>
+            <SafeAreaView>
+                <View style={styles.containerModalMenu}>
+                    <Icon name="menu" style={styles.icons} size={30} />
+                    <View style={styles.containerOpcoesModalMenu}>
+                        <Icon name="home" style={styles.iconsModal} size={30}/>
+                        <Text style={styles.txtOpcoesModalMenu}>Home</Text>
+                    </View>
+                    <View style={styles.containerOpcoesModalMenu}>
+                        <Icon name="heart" style={styles.iconsModal} size={30}/>
+                        <Text style={styles.txtOpcoesModalMenu}>Doar</Text>
+                    </View>
+                    <View style={styles.containerOpcoesModalMenu}>
+                        <Icon name="layout" style={styles.iconsModal} size={30}/>
+                        <Text style={styles.txtOpcoesModalMenu}>Feed</Text>
+                    </View>
+                    <View style={styles.containerOpcoesModalMenu}>
+                        <Icon name="user" style={styles.iconsModal} size={30}/>
+                        <Text style={styles.txtOpcoesModalMenu}>Perfil</Text>
+                    </View>
+                    <View style={styles.containerOpcoesModalMenu}>
+                        <Icon name="calendar" style={styles.iconsModal} size={30}/>
+                        <Text style={styles.txtOpcoesModalMenu}>Controle de Eventos</Text>
+                    </View>
+                </View>
+            </SafeAreaView>
+            </TouchableOpacity>
+        </Modal>
     </SafeAreaView>
-  )
+  );
 }
 
-const styles = StyleSheet.create({
-    containerMenu:{
-        height:43,
-        width:"100%",
-        flexDirection:"row",
-        backgroundColor: theme.colors.white,
-        paddingEnd:14,
-        paddingStart:14,
-        paddingBottom:2,
-        justifyContent:'flex-end',
-        alignItems:'center'
-    },
-    configuracoes:{
-        height:22,
-        width:22,
-        resizeMode:'contain'
-    },
-    fotoDePerfil:{
-        resizeMode:"contain",
-        height:35,
-        width:35,
-        borderRadius:50,
-        // alignSelf:'flex-end'
-        marginLeft:18
-    }
-
-})
+Menu.propTypes ={
+    estado:PropTypes.string
+};

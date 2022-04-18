@@ -2,7 +2,7 @@ import { View, Text, ImageBackground, ScrollView, StatusBar, Image, TouchableOpa
 import React, { createElement, useState } from 'react'
 import { styles } from './style'
 import { theme } from '../../global/styles/theme'
-import NavBar from '../../components/navBar'
+import Menu from '../../components/navBar'
 import Icon from "react-native-vector-icons/Feather";
 import OpcoesPerfil from '../../components/opcoesPerfil';
 
@@ -17,12 +17,12 @@ function Exibir (vp1) {
             style={styles.fotoDePerfilPost}
           />
           <View style={{flexDirection:"column", marginTop:5}}>
-              <Text>O tal do Jorg1nh0</Text>
+              <Text>O tal do Jorg1nh00</Text>
               <Text>25 de fevereiro de 2022</Text>
           </View>
         </View>
         <View style={{flexDirection:"column"}}>
-          <Text>
+          <Text style={{color:"black"}}>
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
           </Text>
           <Image
@@ -149,14 +149,26 @@ function Exibir (vp1) {
     return(
       <View className='Vagas' style={{width:"100%"}}>
         <View style={[styles.cardVagas, styles.shadowProp]}>
-        <View style={{flexDirection:"row"}}>
-          <Image
-            source={require('../../assets/img/fotoDePerfil.jpeg')}
-            style={styles.fotoDePerfilPost}
-          />
-          <View style={{flexDirection:"column", marginTop:5}}>
-              <Text>O tal do Jorg1nh0</Text>
-              <Text>25 de fevereiro de 2022</Text>
+          <View style={styles.containerDataDaVaga}>
+            <Image
+              source={require('../../assets/img/fotoDePerfil.jpeg')}
+              style={styles.fotoDePerfilVaga}
+            />
+            <View style={{flexDirection:"column", marginTop:5}}>
+                <Text style={styles.txtNomeDeUsuarioVagas}>O tal do Jorg1nh0</Text>
+                <Text style={styles.txtDataDaVaga}>25 de fevereiro de 2022</Text>
+            </View>
+          </View>
+          <View style={styles.containerTituloEDescricaoDaVaga}>
+          <Text style={styles.txtTituloVagas}>Professor de Informática</Text>
+          <Text style={styles.txtDescricaoVagas}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Text>
+          <View style={styles.containerBtnVagas}>
+            <View style={styles.btnVagas}>
+              <Text>Saiba Mais</Text>
+            </View>
+            <View style={styles.btnVagas}>
+              <Text>Interesse</Text>
+            </View>
           </View>
         </View>
         </View>
@@ -187,7 +199,9 @@ export default function PerfilONG() {
         source={require('../../assets/img/imgBackPerfilONG.png')}
     >
      <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
-     <NavBar/>
+     <Menu
+       estado="false"
+     />
         <ScrollView style={styles.containerConteudo}>
             <View style={styles.containerFotoPerfileBanner}>
               <View style={styles.containerBanner}>

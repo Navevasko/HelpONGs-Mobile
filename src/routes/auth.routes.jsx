@@ -17,8 +17,9 @@ const StackNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-    <Stack.Screen name="SelecioneLoginOng" component={SelecioneLoginOng} />
     <Stack.Screen name="PerfilONG" component={PerfilONG} />
+    <Stack.Screen name="SelecioneLoginOng" component={SelecioneLoginOng} />
+    
     <Stack.Screen name="SelecioneLoginUsuario" component={SelecioneLoginUsuario} />
       
       <Stack.Screen name="LoginONG" component={LoginONG} />

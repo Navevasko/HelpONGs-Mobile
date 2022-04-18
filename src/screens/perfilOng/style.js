@@ -129,8 +129,90 @@ export const styles = StyleSheet.create({
         paddingRight:9,
         paddingTop:5,
         paddingBottom:10,
-        elevation:20
+        elevation:8
       },
+    cardVagas:{
+        backgroundColor:theme.colors.vagas,
+        borderRadius: 8,
+        width: '93%',
+        alignSelf:"center",
+        alignContent:"center",
+        marginVertical: 10,
+        paddingLeft:17,
+        paddingRight:9,
+        paddingTop:10,
+        paddingBottom:10,
+        elevation:5
+    },
+    containerDataDaVaga:{
+        flexDirection:"row",
+        justifyContent:"center",
+        marginTop:5
+    },
+    fotoDePerfilVaga:{
+        height:65,
+        width:65,
+        resizeMode:"cover",
+        borderRadius:50,
+        marginRight:10,
+        marginBottom:5
+    },
+    txtNomeDeUsuarioVagas:{
+        fontFamily:theme.fonts.name,
+        fontSize:20,
+        letterSpacing:-0.02,
+        lineHeight:21,
+        fontWeight:"700",
+        marginBottom:5
+    },
+    txtDataDaVaga:{
+        fontFamily:theme.fonts.semiBold,
+        color:theme.colors.placeholder,
+        fontSize:13,
+        lineHeight:13,
+        letterSpacing:-0.02,
+    },
+    containerTituloEDescricaoDaVaga:{
+        flexDirection:"column",
+        textAlign:"center",
+        width:"85%",
+        alignSelf:"center",
+        marginTop:15,
+    },
+    txtTituloVagas:{
+        fontFamily:theme.fonts.bold,
+        fontSize:20,
+        letterSpacing:-0.02,
+        color:theme.colors.black,
+        lineHeight:22,
+        textAlign:"center",
+        marginBottom:5
+    },
+    txtDescricaoVagas:{
+        fontFamily:theme.fonts.medium,
+        fontSize:16,
+        lineHeight:18,
+        textAlign:"center",
+    },
+    containerBtnVagas:{
+        flexDirection:"row",
+        justifyContent:"space-between",
+        marginTop:5,
+        alignSelf:"center",
+        width:"80%",
+        marginTop:15,
+        marginBottom:10
+    },
+    btnVagas:{
+        height:40,
+        width:108,
+        backgroundColor:theme.colors.primary,
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:5,
+        paddingLeft:10,
+        paddingRight:10
+    },
     shadowProp: {
         shadowColor: '#171717',
       },
