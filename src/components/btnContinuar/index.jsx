@@ -3,17 +3,17 @@ import React from 'react'
 import { theme } from '../../global/styles/theme'
 import PropTypes from 'prop-types'; 
 
-export default function BtnContinuar() {
-
-  txtBtn.propTypes ={
-    text: PropTypes.String
-  }
+export default function BtnContinuar({text}) {
 
   return (
     <View style={styles.containerBtn}>
-      <Text style={styles.txtContinuar}>{this.props.text}</Text>
+      <Text style={styles.txtContinuar}>{text}</Text>
     </View>
   )
+}
+
+BtnContinuar.propTypes = {
+  text: PropTypes.string
 }
 
 const styles = StyleSheet.create({

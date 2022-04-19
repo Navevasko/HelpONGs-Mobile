@@ -21,7 +21,7 @@ const imgGoogle = require("../../assets/img/iconGoogle.png");
 export default function LoginUser() {
   const [variavel, setVariavel] = useState();
   const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const [senha, setSenha] = useState("LoginUser");
 
   // function logar(email, senha) {}
 
@@ -69,7 +69,7 @@ export default function LoginUser() {
           </TouchableOpacity>
         </View>
         <View style={styles.containerBtnLogin}>
-            <BtnLogin email={email} senha={senha} />
+            <BtnLogin tipo="LoginUser" email={email} senha={senha} />
         </View>
         <View style={styles.containerLinha}>
           <View style={styles.linha}></View>

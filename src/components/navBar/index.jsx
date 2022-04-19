@@ -48,10 +48,10 @@ export default function Menu(estado) {
                         <Icon name="layout" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Feed</Text>
                     </View>
-                    <View style={styles.containerOpcoesModalMenu}>
+                    <TouchableOpacity onPress={() => navigation.navigate("PerfilONG")} style={styles.containerOpcoesModalMenu}>
                         <Icon name="user" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Perfil</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.containerOpcoesModalMenu}>
                         <Icon name="calendar" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Controle de Eventos</Text>

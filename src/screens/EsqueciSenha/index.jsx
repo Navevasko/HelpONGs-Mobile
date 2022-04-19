@@ -31,7 +31,7 @@ export default function EsqueciSenha() {
             />
         
         <TouchableOpacity style={styles.containerBtn}  onPress={() => console.log("hello world ")}>
-            <BtnContinuar text={"Continuar"}/>
+            <BtnContinuar text="Continuar"/>
         </TouchableOpacity>
 
       </SafeAreaView>

@@ -1,15 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { styles } from './style'
 import { Logo } from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
 import InputUnderline from '../../components/inputCadastro'
 import BtnLogin from '../../components/btnLogin/Login'
+import { useNavigation } from "@react-navigation/native";
 
 const image = require("../../assets/img/imgPrincipalLoginONG.png");
 // const imgEye = require("../../assets/img/eye-off.png");
 
 export default function LoginONG() {
+
+  const [cnpj, setCnpj] = useState();
+  const [email, setEmail] = useState();
+  const [senha, setSenha] = useState();
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView>
     <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
@@ -28,23 +35,32 @@ export default function LoginONG() {
           <InputUnderline
             placeholder="CNPJ"
             iconName="user"
-            fontSize={25}
+            size={25}
             color={theme.colors.secondary}
+            onChangeText={(text) => {
+              setCnpj(text);
+            }}
           />
           <Text style={styles.containerTxtOu}>Ou</Text>
           <View style={styles.containerInputEmail}>
             <InputUnderline
               placeholder="Email"
               iconName="mail"
-              fontSize={25}
+              size={25}
               color={theme.colors.secondary}
+              onChangeText={(text) => {
+              setEmail(text);
+            }}
             />
           </View>
           <InputUnderline 
             placeholder="Digite sua senha"
             iconName="unlock"
-            fontSize={25}
+            size={25}
             color={theme.colors.secondary}
+            onChangeText={(text) => {
+              setSenha(text);
+            }}
           />
           {/* <Image
             style={styles.containerIcon}
@@ -52,12 +68,12 @@ export default function LoginONG() {
           /> */}
           </View>
         <View style={styles.containerEsqueciSenha}>
-          <TouchableOpacity onPress={() => {console.log('Esqueci a senha');}}>
+          <TouchableOpacity onPress={() => {navigation.navigate("EsqueciSenha")}}>
               <Text style={styles.txtEsqueciSenha}>Esqueceu a senha?</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.containerBtnLogin}>
-          <BtnLogin/>
+          <BtnLogin tipo="loginONG" email={email} senha={senha} cnpj={cnpj}  />
         </View>
         <View style={styles.containerCriarUmaConta}>
           <Text style={styles.txtNaoTemConta}>Não tem uma conta?</Text>
