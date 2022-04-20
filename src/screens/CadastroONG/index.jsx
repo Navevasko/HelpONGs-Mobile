@@ -11,64 +11,79 @@ import { useState } from "react";
 import React from "react";
 import Logo from "../../components/Logo";
 import { styles } from "./style";
-const imgPrincipal = require("../../assets/img/imgPrincipalCadastroONG.png");
 import { theme } from "../../global/styles/theme";
 import BtnSubmit from "../../components/Cadastrar";
 import InputUnderline from "../../components/InputUnderline";
 import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 import { cnpjMask } from "../../utils/mask";
 import axios from "axios";
+import Ong from "../../../api/ongController";
+
+const imgPrincipal = require("../../assets/img/imgPrincipalCadastroONG.png");
 
 export default function CadastroONG() {
   /* Criando as constantes dos dados */
 
   const [Nome, setNome] = useState("");
-  const [CNPJ, setCNPJ] = useState("64.711.062/0001-94");
-  const [Email, setEmail] = useState("");
-  const [Senha, setSenha] = useState("");
-  const [ConfirmSenha, setConfirmSenha] = useState("");
+  const [CNPJ, setCNPJ] = useState("11.567.352/0001-40");
+  const [Email, setEmail] = useState("AACDA@hotmaail.com");
+  const [Senha, setSenha] = useState("1");
+  const [ConfirmSenha, setConfirmSenha] = useState("1");
   const [isLoading, setIsLoading] = useState(false);
 
-  const baseURL = "http://10.107.144.32:3131";
-
   const onSubmit = async () => {
+
+    const trueCNPJ = Ong.trueCNPJ(CNPJ)
+    if (Ong.searchCNPJ(trueCNPJ)) {
+      Ong.post(Nome, trueCNPJ, Email, Senha);
+    }
     // setIsLoading(true);
 
-    const trueCNPJ =
-      CNPJ.substring(0, 2) +
-      CNPJ.substring(3, 6) +
-      CNPJ.substring(7, 10) +
-      CNPJ.substring(11, 15) +
-      CNPJ.substring(16, 18);
-    console.log(trueCNPJ);
-
-    const getResponse = await axios
-      .get(`https://publica.cnpj.ws/cnpj/${trueCNPJ}`)
-      .then(({ data }) => {
-        if (data.nome_fantasia == null) {
-          setNome(data.razao_social);
-          console.log(Nome)
-        } else {
-          setNome(data.nome_fantasia);
-          console.log(Nome);
-        }
-      });
-
-    // const response = await axios.post(`${baseURL}/ong/pre-register`, {
-    //   cnpj: CNPJ,
-    //   email: Email,
-    //   nome: Nome,
-    //   senha: Senha,
-    // }).then((data) => {
-    //   console.log(data)
-    //   setIsLoading(false);
-    // }).catch((error) => {
-    //   const response = JSON.stringify(error)
-    //   if(response.includes("400")){
-    //     ToastAndroid.show("Email ou CNPJ já existem, faça login", ToastAndroid.SHORT)
-    //     setIsLoading(false)
-    //   }
-    // })
+    // const getResponse = await axios
+    //   .get(`https://publica.cnpj.ws/cnpj/${trueCNPJ}`)
+    //   .then(async ({ data }) => {
+    //     if (data.nome_fantasia == null) {
+    //       setNome(data.razao_social);
+    //       console.log(Nome);
+    //     } else {
+    //       setNome(data.nome_fantasia);
+    //       console.log(Nome);
+    //     }
+    //     const response = await axios
+    //       .post(`${baseURL}/ong/pre-register`, {
+    //         cnpj: CNPJ,
+    //         email: Email,
+    //         nome: Nome,
+    //         senha: Senha,
+    //       })
+    //       .then(({ data }) => {
+    //         setIsLoading(false);
+    //         console.log(data);
+    //       })
+    //       .catch((error) => {
+    //         const response = JSON.stringify(error);
+    //         if (response.includes("400")) {
+    //           ToastAndroid.show(
+    //             "Email ou CNPJ já existem, faça login",
+    //             ToastAndroid.SHORT,
+    //             ToastAndroid.CENTER
+    //           );
+    //           setIsLoading(false);
+    //         }
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     const response = JSON.stringify(error);
+    //     console.log(error);
+    //     if (response.includes("429")) {
+    //       ToastAndroid.show(
+    //         "Não conseguimos encontrar o seu CNPJ, por favor tente novamente mais tarde",
+    //         ToastAndroid.SHORT,
+    //         ToastAndroid.CENTER
+    //       );
+    //       setIsLoading(false);
+    //     }
+    //   });
   };
 
   /* Criando a função para validar os dados */
