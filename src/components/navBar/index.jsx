@@ -1,15 +1,18 @@
-import { View, Image, TouchableOpacity, SafeAreaView, Modal, Text } from "react-native";
+import { View, Image, TouchableOpacity, SafeAreaView, Modal, Text, ScrollView } from "react-native";
 import React, { useState } from "react";
 import {styles} from './style'
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import PropTypes from "prop-types";
 
-export default function Menu(estado) {
+export default function Menu(estado, dataOng) {
 
     const [modalVisible, setModalVisible] = useState({estado});
+    const [modalNotificacoesVisible, setModalNotificacoesVisible] = useState(false);
+    const [data, setData] = useState([dataOng]);
     const navigation = useNavigation();
 
+    
   return (
       
     <SafeAreaView>
@@ -21,13 +24,13 @@ export default function Menu(estado) {
             <TouchableOpacity onPress={() => {}}>
             <Icon name="message-circle" style={styles.icons} size={30} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity  onPress={() => setModalNotificacoesVisible(true)}>
             <Icon name="bell" style={styles.icons} size={30} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {}}>
             <Icon name="settings" style={styles.icons} size={30} />
             </TouchableOpacity>
-            <Image source={require("../../assets/img/fotoDePerfil.jpeg")} style={styles.profilePicture} />
+            <Image source={{uri: data.foto}} style={styles.profilePicture} />
         </View>
         </View>
         <Modal transparent visible={modalVisible}>
@@ -56,6 +59,64 @@ export default function Menu(estado) {
                         <Icon name="calendar" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Controle de Eventos</Text>
                     </View>
+                    <View style={[styles.containerOpcoesModalMenu, {marginTop:100}]}>
+                        <Icon name="settings" style={styles.iconsModal} size={30}/>
+                        <Text style={styles.txtOpcoesModalMenu}>Configurações</Text>
+                    </View>
+                    <View style={styles.containerOpcoesModalMenu}>
+                        <Icon name="log-out" style={styles.iconsModal} size={30}/>
+                        <Text style={styles.txtOpcoesModalMenu}>Logout</Text>
+                    </View>
+                </View>
+            </SafeAreaView>
+            </TouchableOpacity>
+        </Modal>
+        <Modal transparent visible={modalNotificacoesVisible}>
+        <TouchableOpacity onPress={() => setModalNotificacoesVisible(false)}  style={{flex:1, alignItems:'flex-end', backgroundColor:"rgba(0, 0, 0, 0.4)"
+}}>
+            <SafeAreaView>
+                <View style={styles.containerModalNotificacoes}>
+                    <View style={styles.containerPerfilNotificacao}>
+                        <Image
+                            source={require('../../assets/img/fotoDePerfil.jpeg')}
+                            style={styles.ImgNotificacao}
+                        />
+                        <Text>O tal do Jorg1nhO</Text>
+                    </View>
+                    <View style={styles.containerNotificacao}>
+                        <Image
+                            source={require('../../assets/img/fotoPerfilNotificao.png')}
+                            style={styles.ImgNotificacao}
+                        />
+                        <View style={{flexDirection:"column"}}>
+                            <Text style={styles.txtNome}>Maycon Douglas</Text>
+                            <Text style={styles.txtDataNotificacao}>25 de fevereiro de 2022</Text>
+                            <Text numberOfLines={2} style={styles.txtNotificacao}>Comentou em uma publicação sua: Simplesmente incrivel como faço para participar?</Text>
+                        </View>
+                    </View>
+                    <View style={styles.containerNotificacao}>
+                        <Image
+                            source={require('../../assets/img/fotoPerfilNotificao.png')}
+                            style={styles.ImgNotificacao}
+                        />
+                        <View style={{flexDirection:"column"}}>
+                            <Text style={styles.txtNome}>Maycon Douglas</Text>
+                            <Text style={styles.txtDataNotificacao}>25 de fevereiro de 2022</Text>
+                            <Text numberOfLines={2} style={styles.txtNotificacao}>Comentou em uma publicação sua: Simplesmente incrivel como faço para participar?</Text>
+                        </View>
+                    </View>
+                    <View style={styles.containerNotificacao}>
+                        <Image
+                            source={require('../../assets/img/fotoPerfilNotificao.png')}
+                            style={styles.ImgNotificacao}
+                        />
+                        <View style={{flexDirection:"column"}}>
+                            <Text style={styles.txtNome}>Maycon Douglas</Text>
+                            <Text style={styles.txtDataNotificacao}>25 de fevereiro de 2022</Text>
+                            <Text numberOfLines={2} style={styles.txtNotificacao}>Comentou em uma publicação sua: Simplesmente incrivel como faço para participar?</Text>
+                        </View>
+                    </View>
+                    
                 </View>
             </SafeAreaView>
             </TouchableOpacity>

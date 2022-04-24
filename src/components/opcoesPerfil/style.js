@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         borderRadius:3,
         alignItems:"center",
         justifyContent:"space-between",
-        marginLeft:4.5,
+        marginLeft:"2%",
         paddingRight:6
     },
     icon:{

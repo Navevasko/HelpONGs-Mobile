@@ -31,7 +31,8 @@ export const styles = StyleSheet.create({
     profilePicture: {
         width: 40,
         height: 40,
-        borderRadius:50
+        borderRadius:50,
+        backgroundColor:theme.colors.grey
     },
 
     containerModalMenu:{
@@ -43,13 +44,15 @@ export const styles = StyleSheet.create({
         borderTopRightRadius:10,
         elevation:20,
         flexDirection:"column",
-        padding:10
+        padding:10,
+        paddingBottom:"15%"
     },
 
     containerOpcoesModalMenu:{
         flexDirection:"row",
         marginLeft:10,
         marginTop:15,
+        alignItems:"center"
     },
     txtOpcoesModalMenu:{
         color:theme.colors.placeholder,
@@ -57,5 +60,67 @@ export const styles = StyleSheet.create({
         fontFamily:theme.fonts.medium,
         marginLeft:20,
         marginTop:3
+    },
+
+    containerModalNotificacoes:{
+        minWidth:"85%",
+        maxWidth:"86%",
+        backgroundColor:theme.colors.white,
+        height:"90%",
+        borderBottomLeftRadius:20,
+        borderTopLeftRadius:20,
+        elevation:20,
+        flexDirection:"column",
+        padding:10
+    },
+
+    containerPerfilNotificacao:{
+        flexDirection:"row",
+        height:"10%",
+        alignItems:"center",
+        // backgroundColor:"aqua",
+        justifyContent:"flex-start",
+
+    },
+
+    containerNotificacao:{
+        flexDirection:"row",
+        height:"15%",
+        width:"100%",
+        alignItems:"center",
+        justifyContent:"flex-start",
+        marginTop:10
+    },
+
+    ImgNotificacao:{
+        height:60,
+        width:60,
+        borderRadius:50,
+        resizeMode:"contain",
+        marginRight:15
+    },
+    txtNome:{
+        fontFamily: theme.fonts.name,
+        fontSize:14,
+        color:theme.colors.black,
+        lineHeight:15,
+        marginLeft:-2,
+        fontWeight:"bold",
+        
+    },
+
+    txtDataNotificacao:{
+        color:theme.colors.placeholder,
+        fontSize:10,
+        fontFamily:theme.fonts.regular,
+        fontWeight:"800"
+    },
+
+    txtNotificacao:{
+        width:"40%",
+        fontFamily:theme.fonts.medium,
+        color:theme.colors.black,
+        fontSize:13,
+        backgroundColor:"aqua"
     }
 })

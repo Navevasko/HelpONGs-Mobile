@@ -20,6 +20,9 @@ export const styles = StyleSheet.create({
   containerBanner: {
     height: 163,
     width: "100%",
+    backgroundColor:theme.colors.grey,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
   imageBanner: {
     height: "100%",
@@ -42,15 +45,17 @@ export const styles = StyleSheet.create({
   imageFotoDePerfil: {
     height: "100%",
     width: "100%",
-    resizeMode: "contain",
+    resizeMode: "cover",
     borderRadius: 50,
   },
   containerAcoesPerfil: {
-    height: 20,
-    width: "75%",
+    height: "12%",
+    minWidth: "75%",
+    maxWidth:"80%",
     flexDirection: "row",
     marginTop: 4,
     alignSelf: "flex-end",
+
   },
   containerDescricao: {
     width: "100%",
@@ -60,6 +65,8 @@ export const styles = StyleSheet.create({
   },
   containerNomeCategorias: {
     flexDirection: "row",
+    flexWrap:"wrap",
+    marginVertical:5
   },
   nomeOng: {
     fontSize: 20,
@@ -199,9 +206,10 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 5,
     alignSelf: "center",
-    width: "80%",
+    width: "90%",
     marginTop: 15,
     marginBottom: 10,
+   
   },
   btnVagas: {
     height: 40,
@@ -219,6 +227,7 @@ export const styles = StyleSheet.create({
   containerEspecificacoesEventos: {
     marginTop: 5,
     flexDirection: "row",
+    width:"100%"
   },
   txtEspecificacoesEventosbolder: {
     color: theme.colors.black,
@@ -232,6 +241,14 @@ export const styles = StyleSheet.create({
     marginVertical: 3,
   },
 
+  txtDescricaoEventos:{
+    color:theme.colors.black,
+    fontFamily:theme.fonts.medium,
+    fontSize:13,
+    textAlign:"justify",
+    letterSpacing:-0.02
+  },
+
   containerStatus: {
     height: 28,
     width: 115,
@@ -243,6 +260,14 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  containerbtnCandidaturas:{
+    flexDirection:"column",
+    alignSelf:'flex-end',
+    height:70,
+    right:0,
+    position:"absolute"
+  },
+
   btnCandidaturas: {
     backgroundColor: theme.colors.primaryFaded,
     marginBottom: 10,
@@ -251,6 +276,7 @@ export const styles = StyleSheet.create({
     width: 115,
     alignItems: "center",
     justifyContent: "center",
+
   },
 
   fotoDePerfilPost: {

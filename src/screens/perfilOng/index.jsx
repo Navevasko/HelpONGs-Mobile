@@ -5,6 +5,7 @@ import { theme } from '../../global/styles/theme'
 import Menu from '../../components/navBar'
 import Icon from "react-native-vector-icons/Feather";
 import OpcoesPerfil from '../../components/opcoesPerfil';
+import { api } from '../../../api'
 
 function Exibir (vp1) {
   if(vp1 == 1){
@@ -98,12 +99,12 @@ function Exibir (vp1) {
             style={styles.fotoDePerfilPost}
           />
           <View style={{flexDirection:"column", marginTop:5}}>
-              <Text>O tal do Jorg1nh0</Text>
-              <Text>25 de fevereiro de 2022</Text>
+              <Text style={styles.txtNomeUsuarioPost}>O tal do Jorg1nh0</Text>
+              <Text style={styles.txtDataDaVaga}>25 de fevereiro de 2022</Text>
           </View>
         </View>
         <View style={{flexDirection:"column"}}>
-          <Text>
+          <Text numberOfLines={4}  style={styles.txtDescricaoEventos}>
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
           </Text>
           <Image
@@ -121,7 +122,7 @@ function Exibir (vp1) {
                 <Text style={styles.txtEspecificacoesEventos}> 26 de Janeiro às 12:00</Text>
               </View>     
               <View style={{flexDirection:"row", marginVertical:5 }}>
-                <Text style={styles.txtEspecificacoesEventosbolder}>Quantidade de participantes:</Text>
+                <Text style={styles.txtEspecificacoesEventosbolder}>Total de participantes:</Text>
                 <Text style={styles.txtEspecificacoesEventos}> 101</Text>
               </View>
               <View style={{flexDirection:"row", marginVertical:5}}>
@@ -131,7 +132,7 @@ function Exibir (vp1) {
                 </View>
               </View> 
             </View>
-            <View style={{flexDirection:"column", alignSelf:'flex-end', height:70}}>
+            <View style={styles.containerbtnCandidaturas}>
               <View style={styles.btnCandidaturas}>
                 <Text>Candidatar-se</Text>
               </View>
@@ -180,6 +181,8 @@ function Exibir (vp1) {
 export default function PerfilONG() {
 
   const [teste, setTeste] = useState();
+  const [idOng, setIdOng] = useState(1);
+  const [dataOng, setDataOng] = useState([]);
   // const [cores, setCores] = useState(styles.txtAcoesOngs);
   // const [ligar, setLigar] = useState(true);
 
@@ -192,6 +195,14 @@ export default function PerfilONG() {
   //     setCores(styles.txtAcoesOngs)
   //   }
   // }
+
+  React.useEffect( () =>{
+
+    api.get(`/ong/${idOng}`).then((response) => {
+      setDataOng(response.data.data)
+    });
+
+  }, [])
   
   return (
     <ImageBackground
@@ -201,18 +212,19 @@ export default function PerfilONG() {
      <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
      <Menu
        estado="false"
+       dataOng
      />
         <ScrollView style={styles.containerConteudo}>
             <View style={styles.containerFotoPerfileBanner}>
               <View style={styles.containerBanner}>
                 <Image
                   style={styles.imageBanner}
-                  source={require('../../assets/img/capa-1200x450.jpeg')}
+                  source={{uri: dataOng.banner}}
                 />
                 <View style={styles.containerFotoDePerfil}>
                   <Image
                     style={styles.imageFotoDePerfil}
-                    source={require('../../assets/img/fotoDePerfil.jpeg')}
+                    source={{uri: dataOng.foto}}
                   />
                 </View>
               </View>
@@ -247,7 +259,7 @@ export default function PerfilONG() {
             </View>
             <View style={styles.containerDescricao}>
               <View style={styles.containerNomeCategorias}>
-                <Text style={styles.nomeOng}>O tal do Jorg1nh0</Text>
+                <Text style={styles.nomeOng}>{dataOng.nome}</Text>
                 <View style={styles.containerCategorias} >
                   <Text style={styles.categorias}>Natureza</Text>
                   <Text style={styles.categorias}>Fome</Text>
@@ -255,7 +267,7 @@ export default function PerfilONG() {
                 </View>
               </View>
               <Text style={styles.txtSeguidores}>127 seguidores / 60 seguindo</Text>
-              <Text style={styles.txtDescricao}>Amet minim mollit non deserunt ullamco sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.🦝  </Text>
+              <Text numberOfLines={5} style={styles.txtDescricao}>{dataOng.descricao}</Text>
               <View style={{flexDirection:"row", marginTop:10}}>
                 <Icon name="facebook"style={styles.iconRedesSociais}/>
                 <Text>ÈoJorg1nh0</Text>
