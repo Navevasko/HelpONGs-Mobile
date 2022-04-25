@@ -10,7 +10,7 @@ import Logo from "../../components/Logo";
 import { styles } from "./style";
 const imgPrincipal = require("../../assets/img/imgPrincipalCadastroUsuario.png");
 import { theme } from "../../global/styles/theme";
-import Cadastrar from "../../components/Cadastrar";
+import Cadastrar from "../../components/BtnSubmit";
 
 export default function CadastroONG() {
   return (
