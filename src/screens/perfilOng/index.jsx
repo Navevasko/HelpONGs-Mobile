@@ -181,7 +181,7 @@ function Exibir (vp1) {
 export default function PerfilONG() {
 
   const [teste, setTeste] = useState();
-  const [idOng, setIdOng] = useState(1);
+  const [idOng, setIdOng] = useState(4);
   const [dataOng, setDataOng] = useState([]);
   // const [cores, setCores] = useState(styles.txtAcoesOngs);
   // const [ligar, setLigar] = useState(true);

@@ -7,27 +7,42 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { styles } from "./style";
 import { Logo } from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin/Login";
 import InputUnderline from "../../components/inputCadastro";
-
+import InputUnderlinePassword from "../../components/inputUnderlinePassword";
+import post from "../../../api/loginController";
+import { useNavigation } from "@react-navigation/native";
 
 const image = require("../../assets/img/imgPrincipalLoginV.png");
 const imgGoogle = require("../../assets/img/iconGoogle.png");
 
+
 export default function LoginUser() {
+  
   const [variavel, setVariavel] = useState();
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState("LoginUser");
+  const navigation = useNavigation();
+  const onSubmit = async () => {
 
-  // function logar(email, senha) {}
+    const result = post(email, senha);
+
+    if(result == true) {
+      // navigation.navigate("PerfilONG");
+      console.log("eai")
+    }
+    
+  };
 
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
+        <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
         <View style={styles.containerLogo}>
           <Logo />
         </View>
@@ -49,11 +64,12 @@ export default function LoginUser() {
             }}
             keyboardType={"email-address"}
           />
-          <InputUnderline
-            placeholder="Digite sua senha"
-            iconName="unlock"
-            size={25}
+          <InputUnderlinePassword
+            iconName={"lock"}
             color={theme.colors.secondary}
+            size={25}
+            placeholder={"Digite sua Senha"}
+            isPassword={true}
             onChangeText={(text) => {
               setSenha(text);
             }}
@@ -69,7 +85,11 @@ export default function LoginUser() {
           </TouchableOpacity>
         </View>
         <View style={styles.containerBtnLogin}>
-            <BtnLogin tipo="LoginUser" email={email} senha={senha} />
+          <BtnLogin
+            onPress={() => {
+              onSubmit();
+            }}
+          />
         </View>
         <View style={styles.containerLinha}>
           <View style={styles.linha}></View>
