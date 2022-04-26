@@ -1,29 +1,26 @@
-import Ong from '../../api/ongController'
-
 const ValidateCadastro = new Object({
-  Ong(StringCNPJ, Email, Senha, ConfirmSenha) {
-    const error = ""
-    const CNPJ = Ong.trueCNPJ(StringCNPJ)
+  Ong(CNPJ, Email, Senha, ConfirmSenha) {
+    let error = ""
+    const sucess = "oi"
 
     if(CNPJ != "" && Email != "" && Senha != "" && ConfirmSenha != ""){
+        
         if(Email.includes("@")){
             if(Senha == ConfirmSenha){
-                if(Email.includes("`", "'", '"', "˜", "{", "}", "[", "]", "|")){
-                    
-                }
+                return sucess
             }
             else {
-                error = "As senhas não coincidem"
+                error = "erro de senha"
                 return error;
             }
         }
         else{
-            error = "Email inválido"
+            error = "erro de email";
             return error;
         }
     }
     else{
-        error = "Campos vazios"
+        error = "erro de campos";
         return error
     }
   },

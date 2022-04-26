@@ -49,6 +49,7 @@ InputUnderline.propTypes = {
     "numeric",
     "email-address",
     "phone-pad",
+    "default"
   ]).isRequired,
   value: PropTypes.string,
   max: PropTypes.number,

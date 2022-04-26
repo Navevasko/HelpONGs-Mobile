@@ -1,4 +1,4 @@
-import { api, apiExterna } from "./index";
+import { api, apiExterna } from "../index";
 
 export default Ong = new Object({
   trueCNPJ(CNPJ) {

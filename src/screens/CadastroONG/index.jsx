@@ -16,66 +16,61 @@ import BtnSubmit from "../../components/BtnSubmit";
 import InputUnderline from "../../components/InputUnderline";
 import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 import { cnpjMask, emailMask, passwordMask } from "../../utils/mask";
-import Ong from "../../../api/ongController";
+import Ong from "../../../api/Controllers/ongController";
+import ValidateCadastro from "../../utils/validators";
 
 const imgPrincipal = require("../../assets/img/imgPrincipalCadastroONG.png");
 
 export default function CadastroONG() {
   /* Criando as constantes dos dados */
 
-  const [CNPJ, setCNPJ] = useState("10.399.631/0001-89");
-  const [Email, setEmail] = useState("Greenpeacea@gmail.com");
+  const [CNPJ, setCNPJ] = useState("20.857.131/0001-05");
+  const [Email, setEmail] = useState("TESTE@TESTE.COM");
   const [Senha, setSenha] = useState("1");
   const [ConfirmSenha, setConfirmSenha] = useState("1");
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async () => {
-    setIsLoading(true);
-    const trueCNPJ = Ong.trueCNPJ(CNPJ);
-    let post = await Ong.post(trueCNPJ, Email, Senha)
-    const postString = JSON.stringify(post)
-    if (postString.includes("400")) {
-      ToastAndroid.show(
-        "Email ou CNPJ já existem, faça login",
-        ToastAndroid.SHORT,
-      );
-      setIsLoading(false);
-    }
-    if (postString.includes("429")) {
-      ToastAndroid.show(
-        "Muitas requisições por CNPJ, por favor tente novamente mais tarde",
-        ToastAndroid.SHORT
-      );
-      setIsLoading(false);
-    }
-    if(postString.includes("200")){
-      ToastAndroid.show("Cadastro efetuado com sucesso!", ToastAndroid.SHORT)
-      setIsLoading(false)
-    }
-  };
 
-  /* Criando a função para validar os dados */
-  // const validate = (StringCNPJ, Email, Senha, ConfirmSenha) => {
-  //   if (StringCNPJ != "" && Email != "" && Senha != "" && ConfirmSenha != "") {
-  //     /* Transformando o StringCNPJ em número */
-  //     StringCNPJ =
-  //       StringCNPJ.substring(0, 2) +
-  //       StringCNPJ.substring(3, 6) +
-  //       StringCNPJ.substring(7, 10) +
-  //       StringCNPJ.substring(11, 15) +
-  //       StringCNPJ.substring(15, 17);
-  //     const CNPJ = parseInt(StringCNPJ);
-  //     if (Email.includes("@")) {
-  //       if(Senha.length < 10 || ConfirmSenha < 10)
-  //     }
-  //     else {
-  //       ToastAndroid.show("Email inválido", ToastAndroid.SHORT);
-  //     }
-  //   } else {
-  //     ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
-  //     return false;
-  //   }
-  // };
+    if (CNPJ != "" && Email != "" && Senha != "" && ConfirmSenha != "") {
+      if (Email.includes("@")) {
+        if (Senha == ConfirmSenha) {
+          setIsLoading(true);
+          const trueCNPJ = Ong.trueCNPJ(CNPJ);
+          let post = await Ong.post(trueCNPJ, Email, Senha);
+          const postString = JSON.stringify(post);
+          if (postString.includes("400")) {
+            ToastAndroid.show(
+              "Email ou CNPJ já existem, faça login",
+              ToastAndroid.SHORT
+            );
+            setIsLoading(false);
+          }
+          if (postString.includes("429")) {
+            ToastAndroid.show(
+              "Muitas requisições por CNPJ, por favor tente novamente mais tarde",
+              ToastAndroid.SHORT
+            );
+            setIsLoading(false);
+          }
+          if (postString.includes("200")) {
+            ToastAndroid.show(
+              "Cadastro efetuado com sucesso!",
+              ToastAndroid.SHORT
+            );
+            setIsLoading(false);
+          }
+        } else {
+          ToastAndroid.show("As senhas não coincidem", ToastAndroid.SHORT);
+        }
+      } else {
+        ToastAndroid.show("Email inválido", ToastAndroid.SHORT);
+      }
+    } else {
+      ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
+    }
+
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -128,6 +123,7 @@ export default function CadastroONG() {
           setSenha(text);
         }}
         editable={!isLoading}
+        max={80}
       />
 
       <InputUnderlinePassword
@@ -141,6 +137,7 @@ export default function CadastroONG() {
           setConfirmSenha(text);
         }}
         editable={!isLoading}
+        max={80}
       />
 
       <BtnSubmit text={"Cadastrar"} onPress={onSubmit} editable={!isLoading} />

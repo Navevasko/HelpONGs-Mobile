@@ -24,10 +24,7 @@ const nameMask = (Nome) => {
 };
 
 const passwordMask = (Senha) => {
-  return Senha.replace(/[\[\]}.!'-@,><|://#"%$°ºª§\\;&*'"()_+={]/g, "").replace(
-    /[^\D]/g,
-    ""
-  );
+  return Senha.replace(/[\[\]}.',><|://"°ºª§\\;&'"()_+={]/g, "")
 };
 
 export {cnpjMask, emailMask, nameMask, passwordMask}

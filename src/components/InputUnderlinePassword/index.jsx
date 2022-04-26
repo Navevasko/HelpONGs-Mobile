@@ -3,13 +3,16 @@ import React from 'react'
 import { useState } from 'react';
 import { styles } from "./style";
 import Icon from 'react-native-vector-icons/Feather';
+import PropTypes from "prop-types";
 
 export default function InputUnderlinePassword({
   iconName,
   color,
   size,
   placeholder,
-  onChangeText
+  onChangeText,
+  value,
+  max
 }) {
   const [showPassword, setShowPassword] = useState(true);
   const [eye, setEye] = useState("eye-off");
@@ -28,6 +31,8 @@ export default function InputUnderlinePassword({
         placeholder={placeholder}
         onChangeText={onChangeText}
         secureTextEntry={showPassword}
+        value={value}
+        maxLength={max}
       />
       <Icon
         name={eye}
@@ -46,3 +51,14 @@ export default function InputUnderlinePassword({
     </View>
   );
 }
+
+InputUnderlinePassword.propTypes = {
+  iconName: PropTypes.string,
+  color: PropTypes.string,
+  size: PropTypes.number,
+  placeholder: PropTypes.string.isRequired,
+  onChangeText: PropTypes.func,
+  value: PropTypes.string,
+  max: PropTypes.number,
+  editable: PropTypes.bool,
+};

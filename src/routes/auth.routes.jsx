@@ -8,8 +8,8 @@ const StackNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="CadastroONG" component={CadastroONG} />
       <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
+      <Stack.Screen name="CadastroONG" component={CadastroONG} />
     </Stack.Navigator>
   );
 };
