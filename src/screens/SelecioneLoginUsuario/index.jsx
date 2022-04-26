@@ -18,10 +18,9 @@ export function SelecioneLoginUsuario() {
             style={styles.ImageBackground}
             source={backImg}
         >
+        <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
         <ScrollView style={styles.container}>  
-        {/* <StatusBar
-        backgroundColor="transparent"
-        />    */}
+        
         
             <SafeAreaView style={styles.containerLogo}>
                 <Logo/>

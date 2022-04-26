@@ -4,15 +4,15 @@ import { styles } from './style'
 import { Logo } from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
 import InputUnderline from '../../components/inputCadastro'
+import InputUnderlinePassword from '../../components/inputUnderlinePassword'
 import BtnLogin from '../../components/btnLogin/Login'
 import { useNavigation } from "@react-navigation/native";
+
 
 const image = require("../../assets/img/imgPrincipalLoginONG.png");
 // const imgEye = require("../../assets/img/eye-off.png");
 
 export default function LoginONG() {
-
-  const [cnpj, setCnpj] = useState();
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const navigation = useNavigation();
@@ -32,16 +32,6 @@ export default function LoginONG() {
         </View>
         <Text style={styles.titulo}>Login</Text>
         <View style={styles.containerInput}>
-          <InputUnderline
-            placeholder="CNPJ"
-            iconName="user"
-            size={25}
-            color={theme.colors.secondary}
-            onChangeText={(text) => {
-              setCnpj(text);
-            }}
-          />
-          <Text style={styles.containerTxtOu}>Ou</Text>
           <View style={styles.containerInputEmail}>
             <InputUnderline
               placeholder="Email"
@@ -53,11 +43,12 @@ export default function LoginONG() {
             }}
             />
           </View>
-          <InputUnderline 
-            placeholder="Digite sua senha"
-            iconName="unlock"
-            size={25}
+          <InputUnderlinePassword
+            iconName={"lock"}
             color={theme.colors.secondary}
+            size={25}
+            placeholder={"Digite sua Senha"}
+            isPassword={true}
             onChangeText={(text) => {
               setSenha(text);
             }}
@@ -73,7 +64,7 @@ export default function LoginONG() {
           </TouchableOpacity>
         </View>
         <View style={styles.containerBtnLogin}>
-          <BtnLogin tipo="loginONG" email={email} senha={senha} cnpj={cnpj}  />
+          <BtnLogin tipo="loginONG" email={email} senha={senha} />
         </View>
         <View style={styles.containerCriarUmaConta}>
           <Text style={styles.txtNaoTemConta}>Não tem uma conta?</Text>

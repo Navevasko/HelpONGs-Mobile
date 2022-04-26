@@ -15,8 +15,7 @@ import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin/Login";
 import InputUnderline from "../../components/inputCadastro";
 import InputUnderlinePassword from "../../components/inputUnderlinePassword";
-import post from "../../../api/loginController";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 const image = require("../../assets/img/imgPrincipalLoginV.png");
 const imgGoogle = require("../../assets/img/iconGoogle.png");
@@ -27,22 +26,22 @@ export default function LoginUser() {
   const [variavel, setVariavel] = useState();
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState("LoginUser");
-  const navigation = useNavigation();
-  const onSubmit = async () => {
+  // const navigation = useNavigation();
+    // const onSubmit = async () => {
 
-    const result = post(email, senha);
+    //   const result = post(email, senha);
 
-    if(result == true) {
-      // navigation.navigate("PerfilONG");
-      console.log("eai")
-    }
-    
-  };
+    //   if(result == true) {
+    //     navigation.navigate("PerfilONG");
+    //     console.log("eai")
+    //   }
+      
+    // };
 
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
-        <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
+      <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
         <View style={styles.containerLogo}>
           <Logo />
         </View>
@@ -86,9 +85,7 @@ export default function LoginUser() {
         </View>
         <View style={styles.containerBtnLogin}>
           <BtnLogin
-            onPress={() => {
-              onSubmit();
-            }}
+            tipo="LoginUser" email={email} senha={senha}
           />
         </View>
         <View style={styles.containerLinha}>
