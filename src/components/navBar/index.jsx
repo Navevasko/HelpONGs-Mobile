@@ -33,7 +33,7 @@ export default function Menu(estado, dataOng) {
             <Image source={{uri: data.foto}} style={styles.profilePicture} />
         </View>
         </View>
-        <Modal transparent visible={modalVisible}>
+        <Modal animationType="fade" transparent visible={modalVisible}>
         <TouchableOpacity onPress={() => setModalVisible(false)}  style={{flex:1, alignItems:'flex-start', backgroundColor:"rgba(0, 0, 0, 0.4)"
 }}>
             <SafeAreaView>
