@@ -13,8 +13,10 @@ export default function BtnLogin({ tipo, email, senha }) {
 
     if (tipo == "LoginUser") {
 
-      if(email == "" || senha == ""){
-        ToastAndroid.show("Por favor preencha todos os campos!", ToastAndroid.CENTER);
+        if(email.length == 0 || senha.length == 0){
+          ToastAndroid.show("Por favor preencha todos os campos!", ToastAndroid.CENTER);
+        }else if(!email.includes("@")){
+        ToastAndroid.show("Email inválido", ToastAndroid.CENTER);
       }else{
       const response = 
         await api.post(`/user/login`, {
@@ -28,8 +30,15 @@ export default function BtnLogin({ tipo, email, senha }) {
           }
         })
         .catch((error) => {
-          const a = JSON.stringify(error);
-          if (a.includes("400")) {
+          const errorJSON = JSON.stringify(error);
+          if (errorJSON.includes("400")) {
+            ToastAndroid.show(
+              "Senha ou email incorretos, por favor tente novamente!",
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            );
+            
+          }else if(errorJSON.includes("404")){
             ToastAndroid.show(
               "Senha ou email incorretos, por favor tente novamente!",
               ToastAndroid.SHORT,
@@ -43,8 +52,12 @@ export default function BtnLogin({ tipo, email, senha }) {
         // console.log(response)
       }
     } else if (tipo == "loginONG") {
-      
-      const response = await
+      if(email == "" || senha == ""){
+        ToastAndroid.show("Por favor preencha todos os campos!", ToastAndroid.CENTER);
+      }else if(!email.includes("@")){
+        ToastAndroid.show("Email inválido", ToastAndroid.CENTER);
+      }else{
+        const response = await
         api.post(`/ong/login`, {
           email: email,
           senha: senha,
@@ -67,6 +80,8 @@ export default function BtnLogin({ tipo, email, senha }) {
             ToastAndroid.show("Erro", ToastAndroid.SHORT, ToastAndroid.CENTER);
           }
         });
+      }
+      
     }
   };
 
