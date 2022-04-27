@@ -37,7 +37,7 @@ export default function Select( options, onChangeSelect) {
         </TouchableOpacity>
         </View>
         <FlatList
-            data={options ?? [199, 1234, 6475]}
+            data={options ?? []}
             keyExtractor={(item) => String(item.id)} renderItem={({item}) =>renderOption(item)}
         />
       </SafeAreaView>

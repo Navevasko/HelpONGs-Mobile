@@ -1,16 +1,27 @@
-import { Text, View, ScrollView, StatusBar, Picker } from 'react-native'
-import React, {useState} from 'react'
+import { Text, View, ScrollView, StatusBar } from 'react-native'
+import React, {useEffect, useState} from 'react'
 import Menu from '../../components/navBar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { styles } from './style'
 import InputPesquisar from '../../components/inputPesquisar'
 import CardDoar from '../../components/cardDoar'
 import Select from '../../components/Select'
+import { theme } from '../../global/styles/theme'
+import { api } from '../../../api'
+import axios from 'axios'
 
 
 export default function Doar() {
   const [selectedValue, setSelectedValue] = useState();
   const [pesquisa, setPesquisa] = useState();
+  const [dataOng, setDataOng] = useState([]);
+
+  React.useEffect(() =>{
+    api.get(`/ong`).then((response) => {
+      setDataOng(response.data.data)
+    });
+}, []);
+
 
   return (
     <SafeAreaView>
@@ -26,26 +37,25 @@ export default function Doar() {
         <View style={styles.boxFilter}>
           <Text>Filter</Text>
         </View>
-        {/* <InputPesquisar
-          color="theme.colors.black"
-          size={25}
-          placeholder="Pesquise por uma ONG"
-          onChangeText={(text) => {
-            setPesquisa(text);}
-          }
-
-        /> */}
       </View>
       <View style={styles.containerSelectEstado}>
       <Text style={styles.txtTituloEstado}>Estados</Text>
       <Select options="ola" onChangeSelect={(id) => alert(id)}/>
       </View>
       <View style={styles.containerCardsDoar}>
-      <CardDoar/>
-      <CardDoar/>
-      <CardDoar/>
-      <CardDoar/>
-      <CardDoar/>
+      {/* <CardDoar data={dataOng} /> */}
+      {
+        dataOng.map(ong => {
+          return (
+            <CardDoar data={ong} /> 
+          )
+        })
+      }
+
+      {/* <CardDoar/> */}
+      {/* <CardDoar/> */}
+      {/* <CardDoar/> */}
+      {/* <CardDoar/> */}
       </View>
     </ScrollView>
     </SafeAreaView>

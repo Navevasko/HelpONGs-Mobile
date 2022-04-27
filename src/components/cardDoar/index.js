@@ -4,9 +4,16 @@ import { styles } from './style'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-export default function CardDoar() {
+export default function CardDoar({data}) {
   const [favoritar, setFavoritar] = useState("heart-o");
   const [state, setState] = useState(true)
+
+  // console.log(data);
+
+  const { foto } = data;
+
+  console.log("data", data, "\nfoto",foto);
+
   return (
     <View style={styles.container}>
     <Icon
@@ -23,7 +30,7 @@ export default function CardDoar() {
         }}
     />      
       <Image
-          source={require('../../assets/img/capa-1200x450.jpeg')}
+          source={{uri: foto}}
           style={styles.imgOng}
       />
       <TouchableOpacity style={styles.btnDoar}>

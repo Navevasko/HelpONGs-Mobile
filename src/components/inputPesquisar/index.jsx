@@ -36,7 +36,7 @@ export default function InputPesquisar(
 
 InputPesquisar.propTypes = {
     color: PropTypes.string,
-    size: PropTypes.string,
+    size: PropTypes.number,
     placeholder: PropTypes.string,
     onChangeText: PropTypes.func,
     keyboardType: PropTypes.string,
