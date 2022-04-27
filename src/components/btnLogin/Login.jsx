@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { styles } from "./style";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-import LoginUser from "../../screens/LoginUser";
 import { api } from "../../../api";
 
 export default function BtnLogin({ tipo, email, senha, cnpj }) {

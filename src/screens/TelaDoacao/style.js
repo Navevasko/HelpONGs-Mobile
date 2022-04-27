@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
     container:{
       height:"100%",
       width:"100%",
-      backgroundColor:"aqua",
       flexDirection:"column"
     },
     containerOpcoes:{
@@ -40,7 +39,16 @@ export const styles = StyleSheet.create({
     containerSelectEstado:{
       paddingLeft:20,
       paddingRight:20,
-      flexDirection:"column"
+      flexDirection:"column",
+      // backgroundColor:"aqua",
+      marginTop:10
+    },
+    txtTituloEstado:{
+      fontSize:20,
+      fontFamily:theme.fonts.regular,
+      color:theme.colors.black, 
+      letterSpacing:-0.02,
+      fontWeight:"600"
     },
     select:{
       height:50,
@@ -49,8 +57,9 @@ export const styles = StyleSheet.create({
       borderRadius:5
     },
 
-    contanerCardsDoar:{
+    containerCardsDoar:{
       flexDirection:"row",
-      flexWrap:"wrap"
+      flexWrap:"wrap",
+      justifyContent:"center"
     }
   });

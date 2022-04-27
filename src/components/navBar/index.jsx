@@ -4,14 +4,23 @@ import {styles} from './style'
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import PropTypes from "prop-types";
+import { api } from "../../../api";
 
 export default function Menu(estado, dataOng) {
 
     const [modalVisible, setModalVisible] = useState({estado});
     const [modalNotificacoesVisible, setModalNotificacoesVisible] = useState(false);
     const [data, setData] = useState([dataOng]);
+    const [idOng, setIdOng] = useState(1);
     const navigation = useNavigation();
 
+    React.useEffect( () =>{
+
+        api.get(`/ong/${idOng}`).then((response) => {
+          setData(response.data.data)
+        });
+    
+      }, [])
     
   return (
       
@@ -30,7 +39,9 @@ export default function Menu(estado, dataOng) {
             <TouchableOpacity onPress={() => {}}>
             <Icon name="settings" style={styles.icons} size={30} />
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("PerfilONG")}>
             <Image source={{uri: data.foto}} style={styles.profilePicture} />
+            </TouchableOpacity>
         </View>
         </View>
         <Modal animationType="fade" transparent visible={modalVisible}>
@@ -78,10 +89,10 @@ export default function Menu(estado, dataOng) {
                 <View style={styles.containerModalNotificacoes}>
                     <View style={styles.containerPerfilNotificacao}>
                         <Image
-                            source={require('../../assets/img/fotoDePerfil.jpeg')}
+                            source={{uri: data.foto}}
                             style={styles.ImgNotificacao}
                         />
-                        <Text>O tal do Jorg1nhO</Text>
+                        <Text>{data.nome}</Text>
                     </View>
                     <View style={styles.containerNotificacao}>
                         <Image

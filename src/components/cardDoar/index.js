@@ -11,7 +11,8 @@ export default function CardDoar() {
     <View style={styles.container}>
     <Icon
         name={favoritar}
-        style={{color:"red"}}
+        size={17}
+        style={styles.icon}
         onPress={()=> {if (state == true) {
             setState(false);
             setFavoritar("heart-o");

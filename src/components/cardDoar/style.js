@@ -13,6 +13,10 @@ export const styles = StyleSheet.create({
         margin:20,
         justifyContent:"space-around"
     },
+    icon:{
+        color:"red",
+        alignSelf:"flex-end",   
+    },
     imgOng:{
         height:90,
         width:83,

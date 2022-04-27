@@ -3,12 +3,14 @@ import React, {useState} from 'react'
 import Menu from '../../components/navBar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { styles } from './style'
-import InputUnderline from '../../components/inputCadastro'
+import InputPesquisar from '../../components/inputPesquisar'
 import CardDoar from '../../components/cardDoar'
+import Select from '../../components/Select'
 
 
 export default function Doar() {
   const [selectedValue, setSelectedValue] = useState();
+  const [pesquisa, setPesquisa] = useState();
 
   return (
     <SafeAreaView>
@@ -24,20 +26,21 @@ export default function Doar() {
         <View style={styles.boxFilter}>
           <Text>Filter</Text>
         </View>
-        <InputUnderline/>
+        {/* <InputPesquisar
+          color="theme.colors.black"
+          size={25}
+          placeholder="Pesquise por uma ONG"
+          onChangeText={(text) => {
+            setPesquisa(text);}
+          }
+
+        /> */}
       </View>
       <View style={styles.containerSelectEstado}>
-      <Text>Estados</Text>
-      <Picker
-        selectedValue={selectedValue}
-        style={styles.select}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-      >
-        <Picker.Item label="Selecione um estado" value="" />
-        <Picker.Item label="São Paulo" value="sp" />
-      </Picker>
+      <Text style={styles.txtTituloEstado}>Estados</Text>
+      <Select options="ola" onChangeSelect={(id) => alert(id)}/>
       </View>
-      <View style={styles.contanerCardsDoar}>
+      <View style={styles.containerCardsDoar}>
       <CardDoar/>
       <CardDoar/>
       <CardDoar/>
