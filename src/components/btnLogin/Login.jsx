@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./style";
-import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { api } from "../../../api";
 
