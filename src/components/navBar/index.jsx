@@ -39,7 +39,7 @@ export default function Menu(estado, dataOng) {
             <TouchableOpacity onPress={() => {}}>
             <Icon name="settings" style={styles.icons} size={30} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("PerfilONG")}>
+            <TouchableOpacity onPress={() => {}}>
             <Image source={{uri: data.foto}} style={styles.profilePicture} />
             </TouchableOpacity>
         </View>
@@ -62,7 +62,7 @@ export default function Menu(estado, dataOng) {
                         <Icon name="layout" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Feed</Text>
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate("PerfilONG")} style={styles.containerOpcoesModalMenu}>
+                    <TouchableOpacity onPress={() => {}} style={styles.containerOpcoesModalMenu}>
                         <Icon name="user" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Perfil</Text>
                     </TouchableOpacity>
