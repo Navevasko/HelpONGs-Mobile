@@ -27,6 +27,10 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: {
-      alignSelf: "center"
+    alignSelf: "center",
+  },
+  eye: {
+    marginStart: -35,
+    marginTop: -15,
   },
 });

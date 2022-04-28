@@ -1,9 +1,6 @@
 import { setStatusBarBackgroundColor } from "expo-status-bar";
 import { StyleSheet } from "react-native";
-
-const FonteTitulo = "../../assets/fonts/Montserrat-Bold.ttf";
-const FonteTexto = "../../assets/fonts/Montserrat-Regular.ttf" ;
-
+import { theme } from "../../global/styles/theme";
 
 export const styles = StyleSheet.create({
     container:{
@@ -18,7 +15,6 @@ export const styles = StyleSheet.create({
         display:"flex",
         flexDirection:"row",
         alignItems: "flex-start",
-        marginTop:25
     },
     containerImgPrincipal:{
         height:268,
@@ -27,7 +23,7 @@ export const styles = StyleSheet.create({
     },
 
     titulo:{
-        // fontFamily: FonteTitulo,
+        fontFamily: theme.fonts.bold,
         fontSize:48,
         fontWeight:'bold',
         marginLeft:10,
@@ -122,7 +118,8 @@ export const styles = StyleSheet.create({
         fontWeight:"300",
         lineHeight:22,
         fontSize:18,
-        color:"#FF9F45" 
+        color:"#FF9F45",
+        marginBottom:0
     },
 
     txtNaoTemConta:{
@@ -130,6 +127,9 @@ export const styles = StyleSheet.create({
         lineHeight:22,
         fontSize:18,
         color:"#292929" 
+    },
+    containerEditar:{
+        marginLeft:20
     }
 
 
