@@ -26,7 +26,7 @@ export default function EsqueciSenha() {
         <InputUnderline 
               placeholder="Digite seu e-mail"
               iconName="mail"
-              fontSize={25}
+              size={25}
               color={theme.colors.secondary}
             />
         

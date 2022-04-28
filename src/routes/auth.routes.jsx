@@ -10,12 +10,14 @@ const StackNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
-      <Stack.Screen name="RedefinirSenha" component={RedefinirSenha} />
       <Stack.Screen
         name="SucessoRedefinirSenha"
         component={SucessoRedefinirSenha}
       />
+      <Stack.Screen name="RedefinirSenha" component={RedefinirSenha} />
+      <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
+      
+      
     </Stack.Navigator>
   );
 };

@@ -25,7 +25,7 @@ export default function RedefinirSenha() {
                 <InputUnderline 
                     placeholder="Digite sua nova senha"
                     iconName="unlock"
-                    fontSize={25}
+                    size={25}
                     color={theme.colors.secondary}
                 />
             </View>
