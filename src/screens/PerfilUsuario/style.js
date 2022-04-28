@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
     height: 18,
   },
   categorias: {
-    height: 25,
+    height: 20,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
@@ -81,7 +81,8 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     paddingLeft: 5,
     paddingRight: 5,
-    marginTop: 4,
+    marginTop: 4.5,
+    fontSize: 14
   },
   txtSeguidores: {
     color: theme.colors.placeholder,

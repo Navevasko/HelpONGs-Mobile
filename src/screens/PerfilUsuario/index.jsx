@@ -14,6 +14,7 @@ import { Icon } from "react-native-vector-icons/Feather";
 import { theme } from "../../global/styles/theme";
 import ProfileOptions from "../../components/ProfileOptions";
 import PersonalData from "../../components/PersonalData";
+import Followers from "../../components/Follows";
 
 export default function PerfilUsuario() {
   return (
@@ -67,22 +68,20 @@ export default function PerfilUsuario() {
 
         <View style={styles.containerDescricao}>
           <View style={styles.containerNomeCategorias}>
-            <Text style={styles.nomeOng}>TESTE</Text>
+            <Text style={styles.nomeOng}>Jenny Wilson</Text>
             <View style={styles.containerCategorias}>
-              <Text style={styles.categorias}>Natureza</Text>
-              <Text style={styles.categorias}>Fome</Text>
-              <Text style={styles.categorias}>Saúde</Text>
+              <Text style={styles.categorias}>Voluntário</Text>
             </View>
           </View>
           <Text style={styles.txtSeguidores}>127 seguidores / 60 seguindo</Text>
           <Text  style={styles.txtDescricao}>
-            TESTE
+          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. 
           </Text>
         </View>
 
-        <View>
           <PersonalData/>
-        </View>
+
+          <Followers/>
 
       </ScrollView>
     </View>
