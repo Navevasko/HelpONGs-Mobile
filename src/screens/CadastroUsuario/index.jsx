@@ -29,7 +29,7 @@ export default function CadastroUsuario() {
   const onSubmit = async () => {
     if (Nome != "" && Email != "" && Senha != "" && ConfirmSenha != "") {
       if (Email.includes("@")) {
-        if (Senha == ConfirmSenha) {
+        if (Senha === ConfirmSenha) {
           setIsLoading(true);
           let post = await User.post(Nome, Email, Senha);
           const postString = JSON.stringify(post);

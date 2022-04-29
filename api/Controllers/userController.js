@@ -17,7 +17,7 @@ export default User = new Object({
       })
       .catch((error) => {
         const errorJSON = JSON.stringify(error);
-        if (errorJSON.includes("200")) {
+        if (errorJSON.includes("400")) {
           return errorJSON;
         }
       });
