@@ -25,8 +25,6 @@ export default function PerfilUsuario(Id) {
     setUserData(get)
     
   })
-
-  console.log(userData)
   
 
   return (
