@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Menu from "../../components/Menu";
 import { styles } from "./style";
 import { Icon } from "react-native-vector-icons/Feather";
@@ -15,8 +15,20 @@ import { theme } from "../../global/styles/theme";
 import ProfileOptions from "../../components/ProfileOptions";
 import PersonalData from "../../components/PersonalData";
 import Followers from "../../components/Follows";
+import User from '../../../api/Controllers/userController'
+import { api } from "../../../api";
 
-export default function PerfilUsuario() {
+export default function PerfilUsuario(Id) {
+
+  const [userData, setUserData] = useState(async() => {
+    const get = await User.getId(3)
+    setUserData(get)
+    
+  })
+
+  console.log(userData)
+  
+
   return (
     <View>
       <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
@@ -27,12 +39,12 @@ export default function PerfilUsuario() {
           <View style={styles.containerBanner}>
             <Image
               style={styles.imageBanner}
-              source={require("../../assets/img/Banner.png")}
+              source={{uri: userData.banner}}
             />
             <View style={styles.containerFotoDePerfil}>
               <Image
                 style={styles.imageFotoDePerfil}
-                source={require("../../assets/img/ProfilePicture.png")}
+                source={{uri: userData.foto}}
               />
             </View>
           </View>
@@ -68,7 +80,7 @@ export default function PerfilUsuario() {
 
         <View style={styles.containerDescricao}>
           <View style={styles.containerNomeCategorias}>
-            <Text style={styles.nomeOng}>Jenny Wilson</Text>
+            <Text style={styles.nomeOng}>{userData.nome}</Text>
             <View style={styles.containerCategorias}>
               <Text style={styles.categorias}>Voluntário</Text>
             </View>
@@ -79,7 +91,7 @@ export default function PerfilUsuario() {
           </Text>
         </View>
 
-          <PersonalData/>
+          <PersonalData cep={'Jandira'} date={userData.dataDeNascimento} number={ '(11) 35173-6972' } />
 
           <Followers/>
 

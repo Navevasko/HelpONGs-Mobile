@@ -41,6 +41,27 @@ export default function Followers(estado, dataOng) {
                     <Image source={require('../../assets/img/ONG.png')} style={styles.followerImage}/>
                     <Text style={styles.ONGname}> Ong-Unianos </Text>
                 </View>
+
+                <View style={styles.ONGContainer}>
+                    <Image source={require('../../assets/img/ONG.png')} style={styles.followerImage}/>
+                    <Text style={styles.ONGname}> Ong-Unianos </Text>
+                </View>
+
+                <View style={styles.ONGContainer}>
+                    <Image source={require('../../assets/img/ONG.png')} style={styles.followerImage}/>
+                    <Text style={styles.ONGname}> Ong-Unianos </Text>
+                </View>
+
+                <View style={styles.ONGContainer}>
+                    <Image source={require('../../assets/img/ONG.png')} style={styles.followerImage}/>
+                    <Text style={styles.ONGname}> Ong-Unianos </Text>
+                </View>
+
+                <View style={styles.ONGContainer}>
+                    <Image source={require('../../assets/img/ONG.png')} style={styles.followerImage}/>
+                    <Text style={styles.ONGname}> Ong-Unianos </Text>
+                </View>
+                
             </View>
         </View>
     )

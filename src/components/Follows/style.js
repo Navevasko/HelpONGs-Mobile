@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
         alignSelf: "center",
         padding: 10,
         borderRadius: 5,
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 60,
     },
     title: {
         fontSize: 20,
@@ -24,26 +25,30 @@ export const styles = StyleSheet.create({
         fontFamily: theme.fonts.regular
     },
     containerFollow: {
-        width: '75%',
+        width: '90%',
         alignSelf: 'center',
-        height: 200,
         marginTop: 10,
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
         flexWrap: 'wrap',
         flexDirection: 'row',
+        paddingTop: 20,
+        paddingBottom: 30
     },
     ONGContainer: {
-        width: 80,
-        height: 100,
+        height: 150,
+        alignItems: 'center',
     },
     followerImage: {
-        width: '100%',
-        height: '100%',
+        width: 85,
+        maxHeight: 110,
         resizeMode: 'stretch'
     },
     ONGname: {
         fontFamily: theme.fonts.regular,
-        fontSize: 12,
+        fontSize: 13,
+        width: '100%',
         textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
