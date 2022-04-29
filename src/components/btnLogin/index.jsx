@@ -63,7 +63,6 @@ export default function BtnLogin({ tipo, email, senha }) {
           senha: senha,
         })
         .then((response) => {
-          console.log(response.data);
           if (response.status == "200") {
             ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
           }
