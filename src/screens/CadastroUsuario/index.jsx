@@ -20,10 +20,10 @@ import User from "../../../api/Controllers/userController";
 
 export default function CadastroUsuario() {
 
-  const [Nome, setNome] = useState("Guilherme Navevaikoas");
-  const [Email, setEmail] = useState("Guilherme_navevaaikso@hotmail.com");
-  const [Senha, setSenha] = useState("12");
-  const [ConfirmSenha, setConfirmSenha] = useState("12");
+  const [Nome, setNome] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Senha, setSenha] = useState("");
+  const [ConfirmSenha, setConfirmSenha] = useState("");
   const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = async () => {
@@ -36,13 +36,6 @@ export default function CadastroUsuario() {
           if (postString.includes("400")) {
             ToastAndroid.show(
               "Email ou Nome já existem, faça login",
-              ToastAndroid.SHORT
-            );
-            setIsLoading(false);
-          }
-          if (postString.includes("429")) {
-            ToastAndroid.show(
-              "Muitas requisições por Nome, por favor tente novamente mais tarde",
               ToastAndroid.SHORT
             );
             setIsLoading(false);
