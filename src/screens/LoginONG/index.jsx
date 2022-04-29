@@ -3,8 +3,8 @@ import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBa
 import { styles } from './style'
 import { Logo } from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
-import InputUnderline from '../../components/inputUnderline'
-import InputUnderlinePassword from '../../components/inputUnderlinePassword'
+import InputUnderline from '../../components/InputUnderline'
+import InputUnderlinePassword from '../../components/InputUnderlinePassword'
 import BtnLogin from '../../components/btnLogin'
 import { useNavigation } from "@react-navigation/native";
 

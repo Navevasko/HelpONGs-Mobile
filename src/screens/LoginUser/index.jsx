@@ -13,8 +13,8 @@ import { styles } from "./style";
 import { Logo } from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin";
-import InputUnderline from "../../components/inputUnderline";
-import InputUnderlinePassword from "../../components/inputUnderlinePassword";
+import InputUnderline from "../../components/InputUnderline";
+import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 // import { useNavigation } from "@react-navigation/native";
 
 export default function LoginUser() {
