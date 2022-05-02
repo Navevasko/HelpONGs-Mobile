@@ -7,7 +7,6 @@ import { api } from "../../../api";
 export default function BtnLogin({ tipo, email, senha }) {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
-
   const onSubmit = async () => {
     // setIsLoading(true);
 
@@ -63,9 +62,10 @@ export default function BtnLogin({ tipo, email, senha }) {
           senha: senha,
         })
         .then((response) => {
-          console.log(response.data);
+          const idOng = response.data.data[0].idOng;
           if (response.status == "200") {
             ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
+            navigation.navigate("PerfilONG", {idOng})
           }
         })
         .catch((error) => {

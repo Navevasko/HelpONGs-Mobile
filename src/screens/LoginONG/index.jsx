@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { styles } from './style'
-import { Logo } from '../../components/Logo'
+import Logo from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
 import InputUnderline from '../../components/InputUnderline'
 import InputUnderlinePassword from '../../components/InputUnderlinePassword'
@@ -37,6 +37,7 @@ export default function LoginONG() {
               onChangeText={(text) => {
               setEmail(text);
             }}
+            keyboardType={"email-address"}
             />
           </View>
           <InputUnderlinePassword
@@ -60,7 +61,7 @@ export default function LoginONG() {
         </View>
         <View style={styles.containerCriarUmaConta}>
           <Text style={styles.txtNaoTemConta}>Não tem uma conta?</Text>
-          <TouchableOpacity onPress={() => {console.log('Crie uma agora');}}>
+          <TouchableOpacity onPress={() => navigation.navigate("CadastroONG")}>
             <Text style={styles.txtCriarUmaConta}>Crie uma agora</Text>
           </TouchableOpacity>
         </View>

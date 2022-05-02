@@ -10,19 +10,19 @@ import {
   StatusBar,
 } from "react-native";
 import { styles } from "./style";
-import { Logo } from "../../components/Logo";
+import  Logo  from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin";
 import InputUnderline from "../../components/InputUnderline";
 import InputUnderlinePassword from "../../components/InputUnderlinePassword";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function LoginUser() {
   
   const [variavel, setVariavel] = useState();
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
     // const onSubmit = async () => {
 
     //   const result = post(email, senha);
@@ -99,9 +99,7 @@ export default function LoginUser() {
         <View style={styles.containerCriarUmaConta}>
           <Text style={styles.txtNaoTemConta}>Não tem uma conta?</Text>
           <TouchableOpacity
-            onPress={() => {
-              console.log("Crie uma agora");
-            }}
+            onPress={() => navigation.navigate("CadastroUsuario")}
           >
             <Text style={styles.txtCriarUmaConta}>Crie uma agora</Text>
           </TouchableOpacity>

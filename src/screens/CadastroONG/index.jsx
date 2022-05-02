@@ -1,7 +1,7 @@
 import {
   Text,
   Image,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
   ScrollView,
   StatusBar,
@@ -18,6 +18,7 @@ import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 import { cnpjMask, emailMask, passwordMask } from "../../utils/mask";
 import Ong from "../../../api/Controllers/ongController";
 import ValidateCadastro from "../../utils/validators";
+import { useNavigation } from "@react-navigation/native";
 
 const imgPrincipal = require("../../assets/img/imgPrincipalCadastroONG.png");
 
@@ -29,6 +30,7 @@ export default function CadastroONG() {
   const [Senha, setSenha] = useState("1");
   const [ConfirmSenha, setConfirmSenha] = useState("1");
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const onSubmit = async () => {
 
@@ -162,7 +164,7 @@ export default function CadastroONG() {
         Você poderá receber notificações por SMS e cancelar isso quando quiser.
       </Text>
 
-      <TouchableHighlight style={styles.signUp}>
+      <TouchableOpacity onPress={() => {navigation.navigate("LoginONG")}} style={styles.signUp}>
         <Text
           style={{
             textAlign: "center",
@@ -170,18 +172,16 @@ export default function CadastroONG() {
             fontFamily: theme.fonts.light,
           }}
         >
-          Já tem uma conta? Faça
+          Já tem uma conta? Faça 
           <Text
             style={{
               color: theme.colors.primary,
               fontFamily: theme.fonts.bold,
             }}
-          >
-            {" "}
-            Login
+          >{" "}Login
           </Text>
         </Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </ScrollView>
   );
 }

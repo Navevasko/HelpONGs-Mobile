@@ -17,6 +17,7 @@ import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 import { nameMask, emailMask, passwordMask } from "../../utils/mask";
 import { useState } from "react";
 import User from "../../../api/Controllers/userController";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CadastroUsuario() {
 
@@ -25,6 +26,7 @@ export default function CadastroUsuario() {
   const [Senha, setSenha] = useState("");
   const [ConfirmSenha, setConfirmSenha] = useState("");
   const [isLoading, setIsLoading] = useState(false)
+  const navigation = useNavigation();
 
   const onSubmit = async () => {
     if (Nome != "" && Email != "" && Senha != "" && ConfirmSenha != "") {
@@ -138,7 +140,7 @@ export default function CadastroUsuario() {
         Você poderá receber notificações por SMS e cancelar isso quando quiser.
       </Text>
 
-      <TouchableOpacity style={styles.signUp}>
+      <TouchableOpacity onPress={() => {navigation.navigate("LoginUser")}} style={styles.signUp}>
         <Text style={styles.textSignUp}>
           Já tem uma conta? Faça
           <Text style={styles.destaqueSignUp}> Login</Text>

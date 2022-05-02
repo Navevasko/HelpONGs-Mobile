@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import { StyleSheet } from "react-native";
-
-import {theme} from "../../global/styles/theme";
-
-export const styles = StyleSheet.create({
-
-});
-=======
 import { Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 import { StyleSheet } from "react-native";
 import { theme } from "../../global/styles/theme";
@@ -64,4 +55,3 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
   },
 });
->>>>>>> 8d0336a1d4f816d74eb212b605304695580ca340

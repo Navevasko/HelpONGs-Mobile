@@ -1,7 +1,7 @@
 import React from "react";
 
 import { StatusBar, View, Text, ScrollView, Image, SafeAreaView, TouchableOpacity, ImageBackground} from "react-native";
-import { Logo } from "../../components/Logo";
+import  Logo  from "../../components/Logo";
 import  {styles} from "./style";
 import { useNavigation } from "@react-navigation/native";
 
