@@ -3,14 +3,10 @@ import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBa
 import { styles } from './style'
 import { Logo } from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
-import InputUnderline from '../../components/inputCadastro'
-import InputUnderlinePassword from '../../components/inputUnderlinePassword'
-import BtnLogin from '../../components/btnLogin/Login'
+import InputUnderline from '../../components/InputUnderline'
+import InputUnderlinePassword from '../../components/InputUnderlinePassword'
+import BtnLogin from '../../components/btnLogin'
 import { useNavigation } from "@react-navigation/native";
-
-
-const image = require("../../assets/img/imgPrincipalLoginONG.png");
-// const imgEye = require("../../assets/img/eye-off.png");
 
 export default function LoginONG() {
   const [email, setEmail] = useState();
@@ -27,7 +23,7 @@ export default function LoginONG() {
         <View style={styles.containerImgPrincipal}>
           <Image
             style={{height:"100%", width:"100%", resizeMode:"contain",}}
-            source={image}
+            source={require("../../assets/img/imgPrincipalLoginONG.png")}
           />
         </View>
         <Text style={styles.titulo}>Login</Text>
@@ -53,10 +49,6 @@ export default function LoginONG() {
               setSenha(text);
             }}
           />
-          {/* <Image
-            style={styles.containerIcon}
-            source={imgEye}
-          /> */}
           </View>
         <View style={styles.containerEsqueciSenha}>
           <TouchableOpacity onPress={() => {navigation.navigate("EsqueciSenha")}}>
@@ -74,9 +66,5 @@ export default function LoginONG() {
         </View>
       </ScrollView>
     </SafeAreaView>
-    // <View>
-    //   <Text>oi</Text>
-    // </View>
-    
   );
 }

@@ -27,9 +27,5 @@ export const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: "center",
-  },
-  eye: {
-    marginStart: -35,
-    marginTop: -15,
-  },
+  }
 });

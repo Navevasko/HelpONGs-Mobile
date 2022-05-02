@@ -1,11 +1,12 @@
 import React from "react";
 import { Image, View } from "react-native";
+import { styles } from "./style";
 const image = require("../../../assets/logo.png");
 
-export function Logo(){
+export default function Logo(){
     return(
         <Image
-            style={{height:45,width:135,resizeMode:"contain", display:"flex"}}
+            style={styles.logo}
             source={image}
 
         />

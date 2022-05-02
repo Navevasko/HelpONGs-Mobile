@@ -12,20 +12,16 @@ import {
 import { styles } from "./style";
 import { Logo } from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
-import BtnLogin from "../../components/btnLogin/Login";
-import InputUnderline from "../../components/inputCadastro";
-import InputUnderlinePassword from "../../components/inputUnderlinePassword";
+import BtnLogin from "../../components/btnLogin";
+import InputUnderline from "../../components/InputUnderline";
+import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 // import { useNavigation } from "@react-navigation/native";
-
-const image = require("../../assets/img/imgPrincipalLoginV.png");
-const imgGoogle = require("../../assets/img/iconGoogle.png");
-
 
 export default function LoginUser() {
   
   const [variavel, setVariavel] = useState();
   const [email, setEmail] = useState();
-  const [senha, setSenha] = useState("LoginUser");
+  const [senha, setSenha] = useState();
   // const navigation = useNavigation();
     // const onSubmit = async () => {
 
@@ -48,7 +44,7 @@ export default function LoginUser() {
         <View style={styles.containerImgPrincipal}>
           <Image
             style={{ height: "100%", width: "100%", resizeMode: "contain" }}
-            source={image}
+            source={require("../../assets/img/imgPrincipalLoginV.png")}
           />
         </View>
         <Text style={styles.titulo}>Login</Text>
@@ -98,7 +94,7 @@ export default function LoginUser() {
             console.log("Login google");
           }}
         >
-          <Image style={styles.imgIconeGoogle} source={imgGoogle} />
+          <Image style={styles.imgIconeGoogle} source={require("../../assets/img/iconGoogle.png")} />
         </TouchableOpacity>
         <View style={styles.containerCriarUmaConta}>
           <Text style={styles.txtNaoTemConta}>Não tem uma conta?</Text>
@@ -112,8 +108,5 @@ export default function LoginUser() {
         </View>
       </ScrollView>
     </SafeAreaView>
-    // <View>
-    //   <Text>oi</Text>
-    // </View>
   );
 }

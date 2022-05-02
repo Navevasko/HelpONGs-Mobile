@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { SelecioneLoginUsuario } from "./src/screens/SelecioneLoginUsuario";
+=======
+import { StyleSheet, Text, View } from "react-native";
+>>>>>>> 8d0336a1d4f816d74eb212b605304695580ca340
 import AppLoading from "expo-app-loading";
 import {
   Montserrat_100Thin,
