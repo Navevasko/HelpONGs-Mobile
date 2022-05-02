@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { SelecioneLoginUsuario } from "./src/screens/SelecioneLoginUsuario";
 import AppLoading from "expo-app-loading";
 import {
   Montserrat_100Thin,

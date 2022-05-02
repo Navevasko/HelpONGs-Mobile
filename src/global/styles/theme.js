@@ -20,6 +20,7 @@ export const theme = {
     primaryFaded: "#FFB26A",
     secondary: "#FC595E",
     black: "#292929",
+    shadow: "rgba(41,41,41,50)",
     lightBlack: "#434343",
     white: "#FAFAFA",
     grey: "#CCCCCC",
