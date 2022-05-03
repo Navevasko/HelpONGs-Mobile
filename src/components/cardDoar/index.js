@@ -12,7 +12,7 @@ export default function CardDoar({data}) {
 
   const { foto } = data;
 
-  console.log("data", data, "\nfoto",foto);
+  // console.log("data", data, "\nfoto",foto);
 
   return (
     <View style={styles.container}>

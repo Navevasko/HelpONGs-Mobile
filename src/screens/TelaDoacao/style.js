@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
       paddingRight:20,
       flexDirection:"row",
       alignItems:"center",
-      // justifyContent:"space-around",
+      justifyContent:"space-between",
     },
     boxFilter:{
       borderWidth:1,

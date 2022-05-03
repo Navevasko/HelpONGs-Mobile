@@ -1,46 +1,18 @@
-import {View, TextInput } from 'react-native'
-import React from 'react'
-import PropTypes from "prop-types";
+import { TextInput, View } from "react-native";
+import React from "react";
+import { styles } from "./style";
 import Icon from "react-native-vector-icons/Feather";
-import { styles } from './style';
 
-export default function InputPesquisar(
-    color,
-    size,
-    onChangeText,
-    placeholder,
-    keyboardType,
-    value,
-    max
-) {
+export default function InputPesquisar() {
   return (
     <View style={styles.container}>
-      <View style={styles.containerIcon}>
-        <Icon
-          name="search"
-          size={size}
-          style={[styles.icon, { color: color }]}
-        />
-      </View>
+      <Icon name="search" size={20} />
       <TextInput
         style={styles.input}
-        placeholder={placeholder}
-        onChangeText={onChangeText}
-        keyboardType={keyboardType}
-        maxLength={max}
-        value={value}
+        maxLength={100}
+        placeholder={"Pesquise por uma ONG"}
+
       />
     </View>
-  )
+  );
 }
-
-InputPesquisar.propTypes = {
-    color: PropTypes.string,
-    size: PropTypes.number,
-    placeholder: PropTypes.string,
-    onChangeText: PropTypes.func,
-    keyboardType: PropTypes.string,
-    value: PropTypes.string,
-    max: PropTypes.number
-  };
-
