@@ -5,41 +5,39 @@ import { styles } from './style'
 import { theme } from '../../global/styles/theme'
 import Shadow from '../Shadow'
 import BtnSubmit from '../BtnSubmit'
+import InputDesc from '../InputDesc'
+import TypePicker from '../TypePicker'
+import ONGData from '../ONGData'
 
 export default function ModalPost() {
 
-    const [type, setType] = useState("post")
+    const [Type, setType] = useState("post")
+    const [Desc, setDesc] = useState("")
+    const types = [
+      { label: "Post", value: "post" },
+      { label: "Evento", value: "evento" },
+      { label: "Vaga", value: "vaga" },
+    ];
 
   return (
     <Shadow>
       <View style={styles.modal}>
-        <View style={styles.ONGInformation}>
-          <Image
-            source={require("../../assets/img/ONG.png")}
-            style={styles.imageONG}
-          />
-          <Text style={styles.textONG}> GreenPeace </Text>
-        </View>
+        <ONGData image={require('../../assets/img/ONG.png')} name={'GreenPeace'} />
 
         <View style={styles.containerInput}>
-          <View style={styles.pickerContainer}>
-            <Picker
-              style={{ color: theme.colors.black }}
-              mode={"dropdown"}
-              onValueChange={(item) => {
-                setType(item);
-              }}
-              selectedValue={type}
-            >
-              <Picker.Item label="Post" value={"post"} />
-              <Picker.Item label="Evento" value={"evento"} />
-              <Picker.Item label="Vaga" value={"vaga"} />
-            </Picker>
-          </View>
+          
+          <TypePicker onValueChange={(item) => {setType(item)}} selectedValue={Type} items={types} />
 
-          <TextInput style={styles.descInput} placeholder={'Faça uma descrição de seu post'}/>
+          <InputDesc onChangeText={(item) => {setDesc(item)}}/>
 
-          <BtnSubmit text={'Publicar'} color={'red'}/>
+          <BtnSubmit
+            text={"Adicionar Imagem/Vídeo"}
+            color={theme.colors.grey}
+          />
+
+          <BtnSubmit
+            text={"Publicar"}
+          />
         </View>
       </View>
     </Shadow>

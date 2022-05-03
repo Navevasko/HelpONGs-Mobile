@@ -4,10 +4,13 @@ import { theme } from "../../global/styles/theme";
 import { styles } from "./style";
 import PropTypes from "prop-types";
 
-export default function BtnSubmit({ onPress, text }) {
+export default function BtnSubmit({ onPress, text, color }) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={{ fontSize: 24, fontFamily: theme.fonts.medium }}>
+    <TouchableOpacity
+      style={[styles.button, { backgroundColor: color }]}
+      onPress={onPress}
+    >
+      <Text style={styles.buttonText}>
         {" "}
         {text}{" "}
       </Text>
@@ -18,4 +21,9 @@ export default function BtnSubmit({ onPress, text }) {
 BtnSubmit.propTypes = {
   onPress: PropTypes.func,
   text: PropTypes.string,
+  color: PropTypes.string
 };
+
+BtnSubmit.defaultProps = {
+  color: theme.colors.primary
+}

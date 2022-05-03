@@ -2,15 +2,15 @@ import { StyleSheet } from "react-native";
 import { theme } from "../../global/styles/theme";
 
 export const styles = StyleSheet.create({
-  modal: {
+  descInput: {
     width: "90%",
-    height: 600,
-    borderRadius: 15,
+    height: 200,
     alignSelf: "center",
-    backgroundColor: theme.colors.white,
-  },
-  containerInput: {
-    width: "100%",
-    height: "100%",
+    marginTop: 35,
+    borderWidth: 3,
+    borderRadius: 20,
+    borderColor: theme.colors.grey,
+    padding: 10,
+    fontSize: 20,
   },
 });

@@ -5,11 +5,14 @@ export const styles = StyleSheet.create({
   button: {
     width: "90%",
     height: 45,
-    backgroundColor: theme.colors.primary,
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,
     marginTop: 20,
+  },
+  buttonText: {
+    fontSize: 24,
+    fontFamily: theme.fonts.regular,
   },
 });
