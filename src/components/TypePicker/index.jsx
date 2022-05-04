@@ -10,7 +10,7 @@ export default function TypePicker({mode, onValueChange, selectedValue, items}) 
     <View style={styles.pickerContainer}>
       <Picker
         style={{ color: theme.colors.black }}
-        mode={'dialog'}
+        mode={mode}
         onValueChange={onValueChange}
         selectedValue={selectedValue}
       >

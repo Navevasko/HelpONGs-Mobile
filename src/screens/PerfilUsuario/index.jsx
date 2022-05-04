@@ -19,7 +19,7 @@ export default function PerfilUsuario() {
   return (
     <View style={{ justifyContent: "center" }}>
       <StatusBar barStyle={"dark-content"} backgroundColor={"transparent"} />
-      {modal && <ModalPost />}
+      {modal && <ModalPost onClose={() => {setModal(false)}} />}
       <BtnSubmit
         onPress={() => {
           setModal(true);

@@ -4,6 +4,7 @@ import { theme } from "../../global/styles/theme";
 export const styles = StyleSheet.create({
   pickerContainer: {
     marginTop: 20,
+    marginBottom: 25,
     width: "90%",
     height: 60,
     alignSelf: "center",

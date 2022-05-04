@@ -3,20 +3,26 @@ import React from 'react'
 import { styles } from './style';
 import PropTypes from 'prop-types'
 
-export default function InputDesc({onChangeText}) {
+export default function InputBorder({ onChangeText, height, placeholder }) {
   return (
     <TextInput
-      style={styles.descInput}
+      style={[styles.descInput, { height: height }]}
       contextMenuHidden={true}
       maxLength={100}
       multiline={true}
       textAlignVertical={"top"}
-      placeholder={"Faça uma descriçao de seu post"}
+      placeholder={placeholder}
       onChangeText={onChangeText}
     />
   );
 }
 
-InputDesc.propTypes = {
-    onChangeText: PropTypes.func.isRequired
+InputBorder.propTypes = {
+  onChangeText: PropTypes.func.isRequired,
+  height: PropTypes.number,
+  placeholder: PropTypes.string.isRequired
+};
+
+InputBorder.defaultProps = {
+  height: 50
 }
