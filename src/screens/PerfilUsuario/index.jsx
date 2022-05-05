@@ -25,6 +25,7 @@ export default function PerfilUsuario() {
           setModal(true);
         }}
         text={"teste"}
+        size={0}
       />
     </View>
   );

@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: theme.fonts.regular,
   },
 });

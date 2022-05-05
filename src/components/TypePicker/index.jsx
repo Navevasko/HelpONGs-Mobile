@@ -30,7 +30,7 @@ TypePicker.propTypes = {
   mode: PropTypes.string,
   onValueChange: PropTypes.func,
   selectedValue: PropTypes.string,
-  items: PropTypes.array
+  items: PropTypes.array.isRequired
 };
 
 TypePicker.defaultProps = {

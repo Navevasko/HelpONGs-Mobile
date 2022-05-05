@@ -59,6 +59,7 @@ export default function ModalPost({onClose}) {
                 <BtnSubmit
                   text={"Adicionar Imagem/Vídeo"}
                   color={theme.colors.grey}
+                  size={0}
                 />
               </View>
             )}
@@ -80,16 +81,31 @@ export default function ModalPost({onClose}) {
                   placeholder={"Faça uma descrição de seu evento"}
                 />
 
-                <View>
-                  <TextInput style={styles.input} />
-                  <TextInput style={styles.input} />
-                  <TextInput style={styles.input} />
-                  <Touchable />
-
-                  {modalEndereco && <View></View>}
+                <View style={styles.containerInfoInputs}>
+                  <View style={styles.inputCom}>
+                    <Text> DATA </Text>
+                    <TextInput style={styles.input} />
+                  </View>
+                  <View style={styles.inputCom}>
+                    <Text> D </Text>
+                    <TextInput style={styles.input} />
+                  </View>
+                  <View style={styles.inputCom}>
+                    <Text> A </Text>
+                    <TextInput style={styles.input} />
+                  </View>
+                  <View style={styles.inputCom}>
+                    <BtnSubmit
+                      text="Adicionar endereço"
+                      color={theme.colors.grey}
+                      size={2}
+                    />
+                  </View>
                 </View>
 
-                <BtnSubmit text={"teste"} color={theme.colors.grey} size={"small"}/>
+                {modalEndereco && <View></View>}
+
+                <BtnSubmit text={"teste"} color={theme.colors.grey} size={0} />
               </View>
             )}
 
@@ -110,7 +126,7 @@ export default function ModalPost({onClose}) {
                   placeholder={"Faça uma descrição de sua vaga"}
                 />
 
-                <BtnSubmit text={"teste"} color={theme.colors.grey} />
+                <BtnSubmit text={"teste"} color={theme.colors.grey} size={0} />
               </View>
             )}
 
@@ -124,9 +140,8 @@ export default function ModalPost({onClose}) {
               text={"Adicionar Imagem/Vídeo"}
               color={theme.colors.grey}
             /> */}
-
-            <BtnSubmit text={"Publicar"} />
           </ScrollView>
+          <BtnSubmit text={"Publicar"} size={0} />
         </View>
       </ModalShadow>
     </Modal>
