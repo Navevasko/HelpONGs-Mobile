@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         flexDirection:"column",
         padding:7,
         margin:20,
-        justifyContent:"space-around"
+        justifyContent:"space-around",
     },
     icon:{
         color:"red",
@@ -19,9 +19,11 @@ export const styles = StyleSheet.create({
     },
     imgOng:{
         height:90,
-        width:83,
-        resizeMode:"cover",
-        alignSelf:"center"
+        width:90,
+        resizeMode:"contain",
+        alignSelf:"center",
+        // borderRadius:50,
+        // backgroundColor:"green"
     },
 
     btnDoar:{
@@ -32,5 +34,5 @@ export const styles = StyleSheet.create({
         width:110,
         height:30,
         alignSelf:"center"
-    }
+    }   
 })

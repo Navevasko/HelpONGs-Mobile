@@ -16,6 +16,7 @@ export default function Doar() {
   const [dataOng, setDataOng] = useState([]);
   const [dataEstado, setDataEstado] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  
 
   React.useEffect(() =>{
     api.get(`/ong`).then((response) => {
@@ -23,7 +24,10 @@ export default function Doar() {
     });
     api.get('/uf').then((response) => {
       setDataEstado(response.data)
-    }); 
+    });
+    // api.get(`/favorite/${idUser}`).then((response) =>{
+    //   console.log(response.data);
+    // }) 
 }, []);
 
 

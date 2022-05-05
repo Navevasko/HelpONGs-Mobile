@@ -38,7 +38,7 @@ export default function Select( options, onChangeSelect) {
         </TouchableOpacity>
         </View>
         <FlatList
-            data={ [{
+            data={ options ?? [{
                     "idEstado": 27,
                     "nome": "Tocantins",
                     "sigla": "TO",
