@@ -60,6 +60,16 @@ export const styles = StyleSheet.create({
     containerCardsDoar:{
       flexDirection:"row",
       flexWrap:"wrap",
-      justifyContent:"center"
-    }
+      justifyContent:"center",
+      marginBottom:70
+    },
+
+    containerCardsFavoritos:{
+      flexDirection:"row-reverse",
+      flexWrap:"wrap",
+      justifyContent:"center",
+      marginBottom:70,
+
+    },
+
   });

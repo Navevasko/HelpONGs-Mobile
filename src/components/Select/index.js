@@ -6,7 +6,7 @@ import { theme } from '../../global/styles/theme';
 export default function Select( options, onChangeSelect) {
     const [modalVisible, setModalVisible ] = useState(false);
     const [data, setData] = useState([])
-    console.log(JSON.stringify(options))
+    // console.log(JSON.stringify(options))
     function renderOption(item){
         return(
             <TouchableOpacity onPress={()=>{onChangeSelect(item.idEstado);setModalVisible(false)}} style={{height:20}}>

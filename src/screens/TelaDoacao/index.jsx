@@ -8,6 +8,7 @@ import Select from '../../components/Select'
 import { api } from '../../../api'
 import InputPesquisar from '../../components/InputPesquisar'
 import Filter from '../../components/Filter'
+import ExibirDoar from '../../components/ExibirDoar'
 
 
 export default function Doar() {
@@ -15,7 +16,8 @@ export default function Doar() {
   const [pesquisa, setPesquisa] = useState();
   const [dataOng, setDataOng] = useState([]);
   const [dataEstado, setDataEstado] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisible, setModalVisible] = useState(false);
+  const [exibir, setExibir] = useState("");
   
 
   React.useEffect(() =>{
@@ -25,9 +27,6 @@ export default function Doar() {
     api.get('/uf').then((response) => {
       setDataEstado(response.data)
     });
-    // api.get(`/favorite/${idUser}`).then((response) =>{
-    //   console.log(response.data);
-    // }) 
 }, []);
 
 
@@ -37,11 +36,17 @@ export default function Doar() {
     <Menu/>
     <ScrollView style={styles.container}>
       <View style={styles.containerOpcoes}>
+      <TouchableOpacity onPress={() => {setExibir("first")}}>
         <Text style={styles.txtOpcoes}>Recentes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {setExibir("ExibirFavoritos")}}>
         <Text style={styles.txtOpcoes}>Favoritos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}}>
         <Text style={styles.txtOpcoes}>Mais Famosas</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.containerPesquisa}>
+      {/* <View style={styles.containerPesquisa}>
         <TouchableOpacity onPress={() =>{setModalVisible(true)}} style={styles.boxFilter}>
           <Text>Filter</Text>
         </TouchableOpacity>
@@ -61,7 +66,8 @@ export default function Doar() {
           )
         })
       }
-      </View>
+      </View> */}
+      {ExibirDoar(exibir, dataOng)}
     </ScrollView>
     </SafeAreaView>
   )

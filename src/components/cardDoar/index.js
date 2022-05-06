@@ -7,41 +7,43 @@ import { api } from "../../../api";
 export default function CardDoar({ data }) {
   const [favoritar, setFavoritar] = useState("heart-o");
   const [state, setState] = useState(true);
-  const [idUser, setIdUser] = useState(1);
-
-  // console.log(data);
+  const [idUser, setIdUser] = useState(5);
+  // const [favoriteOng, setFavoriteOng] = useState("heart")
+  
 
   const { foto } = data;
 
   // console.log("data", data, "\nfoto",foto);
 
   const onsubmit = async () => {
-    if (state == true) {
-      setState(false);
-      setFavoritar("heart");
 
-      api
-        .post(`/favorite`, {
-          idOng: data.idOng,
-          idUsuario: idUser,
-        })
+      if (state == true) {
+        setState(false);
+        setFavoritar("heart");
+
+        api
+          .post(`/favorite`, {
+            idOng: data.idOng,
+            idUsuario: idUser,
+          })
+          .then((response) => {
+            console.log("Ong favoritada com sucesso");
+          }).catch((error) =>{
+            console.log(error);
+          })
+
+      } else {
+        setState(true);
+        setFavoritar("heart-o");
+
+        api.delete(`/favorite/${idUser}/${data.idOng}`)
         .then((response) => {
-          console.log("Ong favoritada com sucesso");
+          console.log(response)
         }).catch((error) =>{
-          console.log(error);
+          console.log("erro desfavoritar",error);
         })
-
-    } else {
-      setState(true);
-      setFavoritar("heart-o");
-
-      api.delete(`/favorite/${data.idOng}/${idUser}`)
-      .then((response) => {
-        console.log("Ong desfavoritada")
-      }).catch((error) =>{
-        console.log("erro desfavoritar",error);
-      })
-    }
+      }
+  // }
   };
 
   return (
@@ -53,7 +55,7 @@ export default function CardDoar({ data }) {
         onPress={() => onsubmit()}
       />
       <Image source={{ uri: foto }} style={styles.imgOng} />
-      <TouchableOpacity style={styles.btnDoar}>
+      <TouchableOpacity style={styles.btnDoar} onPress={()=>{}}>
         <Text>Doar</Text>
       </TouchableOpacity>
     </View>
