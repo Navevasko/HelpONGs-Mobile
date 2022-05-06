@@ -1,0 +1,43 @@
+import { StyleSheet } from "react-native";
+import { theme } from "../../global/styles/theme";
+
+export const styles = StyleSheet.create({
+  containerInfoInputs: {
+    width: "95%",
+    height: 200,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignSelf: "center",
+    justifyContent: "space-evenly",
+  },
+  inputCom: {
+    width: "50%",
+    height: 70,
+    marginBottom: 20,
+    justifyContent: "center",
+    padding: 5,
+  },
+  input: {
+    width: 150,
+    height: 45,
+    backgroundColor: theme.colors.white,
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: theme.colors.grey,
+    marginTop: 0,
+    textAlign: "center",
+  },
+  ContainerCheckBox: {
+    width: "100%",
+    height: "100%",
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  checkBox: {
+    width: "20%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginEnd: 40,
+  },
+});

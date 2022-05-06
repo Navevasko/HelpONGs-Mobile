@@ -1,16 +1,10 @@
 import {
   View,
-  Text,
-  ImageBackground,
   StatusBar,
-  ScrollView,
-  Image,
-  TouchableOpacity,
 } from "react-native";
-import React, {useState, useEffect} from "react";
-import User from '../../../api/Controllers/userController'
-import ModalPost from "../../components/ModalPost";
+import React, {useState} from "react";
 import BtnSubmit from "../../components/BtnSubmit";
+import ModalCreate from "../../components/ModalCreate";
 
 export default function PerfilUsuario() {
 
@@ -19,7 +13,7 @@ export default function PerfilUsuario() {
   return (
     <View style={{ justifyContent: "center" }}>
       <StatusBar barStyle={"dark-content"} backgroundColor={"transparent"} />
-      {modal && <ModalPost onClose={() => {setModal(false)}} />}
+      {modal && <ModalCreate isModalVisible={modal} onClose={() => {setModal(false)}} />}
       <BtnSubmit
         onPress={() => {
           setModal(true);

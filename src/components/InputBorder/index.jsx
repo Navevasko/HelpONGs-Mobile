@@ -3,7 +3,7 @@ import React from 'react'
 import { styles } from './style';
 import PropTypes from 'prop-types'
 
-export default function InputBorder({ onChangeText, height, placeholder }) {
+export default function InputBorder({ onChangeText, height, placeholder, keyboardType }) {
   return (
     <TextInput
       style={[styles.descInput, { height: height }]}
@@ -13,6 +13,7 @@ export default function InputBorder({ onChangeText, height, placeholder }) {
       textAlignVertical={"top"}
       placeholder={placeholder}
       onChangeText={onChangeText}
+      keyboardType={keyboardType}
     />
   );
 }
@@ -20,9 +21,11 @@ export default function InputBorder({ onChangeText, height, placeholder }) {
 InputBorder.propTypes = {
   onChangeText: PropTypes.func.isRequired,
   height: PropTypes.number,
-  placeholder: PropTypes.string.isRequired
+  placeholder: PropTypes.string.isRequired,
+  keyboardType: PropTypes.string,
 };
 
 InputBorder.defaultProps = {
-  height: 50
-}
+  height: 50,
+  keyboardType: 'default'
+};

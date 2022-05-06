@@ -6,6 +6,18 @@ const cnpjMask = (CNPJ) => {
       .replace(/(\d{4})(\d)/, "$1-$2")
       .replace(/(-\d{2})\d+?$/, "$1"); // captura os dois últimos 2 números, com um - antes dos dois números
   };
+
+  const dateMask = (Date) => {
+    return Date.replace(/\D+/g, "")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .replace(/(\d{2})(\d)/, "$1/$2");
+  }
+
+  const timeMask = (Time) => {
+    return Time.replace(/\D+/g, "")
+      .replace(/(\d{2})(\d)/, "$1:$2")
+      .replace(/(\d{2})(\d)/, "$1:$2");
+  }
   
   const emailMask = (Email) => {
     return Email.replace(/[\[\]}!'-,?><|://#"%$°ºª§\\;&*()'ˆß+={]/g, "")
@@ -28,4 +40,4 @@ const cnpjMask = (CNPJ) => {
   };
 
   
-  export {cnpjMask, emailMask, nameMask, passwordMask}
+  export { cnpjMask, emailMask, nameMask, passwordMask, dateMask, timeMask };

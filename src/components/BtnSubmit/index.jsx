@@ -9,7 +9,7 @@ export default function BtnSubmit({ onPress, text, color, size }) {
   const sizes = [
     { name: "big", width: "90%", height: 45, fontSize: 22 },
     { name: "medium", width: "60%", height: 35, fontSize: 17 },
-    { name: "small", width: 140, height: 25, fontSize: 12 },
+    { name: "small", width: '45%', height: 30, fontSize: 14 },
   ];
 
   return (
