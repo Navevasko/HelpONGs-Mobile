@@ -3,14 +3,15 @@ import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { api } from "../../../api";
 import { theme } from "../../global/styles/theme";
+import ModalDoar from "../ModalDoar";
 
 export default function CardDoarFavorito({ data }) {
   const [favoritar, setFavoritar] = useState("heart");
   const [state, setState] = useState(true);
   const [idUser, setIdUser] = useState(5);
+  const [removeCard, setRemoveCard] = useState(styles.visibleCard);
+  const [visibleModalDoacao, setVisibleModalDoacao] = useState(false);
   // const [favoriteOng, setFavoriteOng] = useState("heart")
-  
-
   const { foto } = data;
 
   // console.log("data", data, "\nfoto",foto);
@@ -20,7 +21,7 @@ export default function CardDoarFavorito({ data }) {
 
         api.delete(`/favorite/${idUser}/${data.idOng}`)
         .then((response) => {
-          console.log(response)
+          setRemoveCard(styles.removeCard)
         }).catch((error) =>{
           console.log("erro desfavoritar",error);
         })
@@ -29,7 +30,7 @@ export default function CardDoarFavorito({ data }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, removeCard]}>
       <Icon
         name={favoritar}
         size={17}
@@ -37,9 +38,10 @@ export default function CardDoarFavorito({ data }) {
         onPress={() => onsubmit()}
       />
       <Image source={{ uri: foto }} style={styles.imgOng} />
-      <TouchableOpacity style={styles.btnDoar} onPress={()=>{}}>
+      <TouchableOpacity style={styles.btnDoar} onPress={()=> setVisibleModalDoacao(true)}>
         <Text>Doar</Text>
       </TouchableOpacity>
+      <ModalDoar visible={visibleModalDoacao}/>
     </View>
   );
   }
@@ -65,7 +67,6 @@ export default function CardDoarFavorito({ data }) {
         resizeMode:"contain",
         alignSelf:"center",
         // borderRadius:50,
-        // backgroundColor:"green"
     },
 
     btnDoar:{
@@ -76,5 +77,11 @@ export default function CardDoarFavorito({ data }) {
         width:110,
         height:30,
         alignSelf:"center"
-    }   
+    },
+    removeCard:{
+      display:"none"
+    },
+    visibleCard:{
+      display:"flex"
+    },  
 })

@@ -6,7 +6,6 @@ import { styles } from './style'
 import CardDoar from '../../components/cardDoar'
 import Select from '../../components/Select'
 import { api } from '../../../api'
-import InputPesquisar from '../../components/InputPesquisar'
 import Filter from '../../components/Filter'
 import ExibirDoar from '../../components/ExibirDoar'
 
@@ -46,27 +45,6 @@ export default function Doar() {
         <Text style={styles.txtOpcoes}>Mais Famosas</Text>
         </TouchableOpacity>
       </View>
-      {/* <View style={styles.containerPesquisa}>
-        <TouchableOpacity onPress={() =>{setModalVisible(true)}} style={styles.boxFilter}>
-          <Text>Filter</Text>
-        </TouchableOpacity>
-        {modalVisible && <Filter visible={modalVisible}/>}
-        <InputPesquisar/>
-      </View>
-      <View style={styles.containerSelectEstado}>
-      <Text style={styles.txtTituloEstado}>Estados</Text>
-      <Select options={dataEstado} onChangeSelect={(id) => alert(id)}/>
-      </View>
-      <View style={styles.containerCardsDoar}>
-      {
-        
-        dataOng.map(ong => {
-          return (
-            <CardDoar data={ong} key={ong.idOng} /> 
-          )
-        })
-      }
-      </View> */}
       {ExibirDoar(exibir, dataOng)}
     </ScrollView>
     </SafeAreaView>

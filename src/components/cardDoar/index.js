@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { styles } from "./style";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { api } from "../../../api";
+import ModalDoar from "../ModalDoar";
 
 export default function CardDoar({ data }) {
   const [favoritar, setFavoritar] = useState("heart-o");
   const [state, setState] = useState(true);
   const [idUser, setIdUser] = useState(5);
+  const [visibleModalDoacao, setVisibleModalDoacao] = useState(false);
   // const [favoriteOng, setFavoriteOng] = useState("heart")
   
 
@@ -55,7 +57,7 @@ export default function CardDoar({ data }) {
         onPress={() => onsubmit()}
       />
       <Image source={{ uri: foto }} style={styles.imgOng} />
-      <TouchableOpacity style={styles.btnDoar} onPress={()=>{}}>
+      <TouchableOpacity style={styles.btnDoar} onPress={()=>{{visibleModalDoacao && <ModalDoar visible={visibleModalDoacao}/>}}}>
         <Text>Doar</Text>
       </TouchableOpacity>
     </View>
