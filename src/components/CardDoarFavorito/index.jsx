@@ -10,7 +10,9 @@ export default function CardDoarFavorito({ data }) {
   const [state, setState] = useState(true);
   const [idUser, setIdUser] = useState(5);
   const [removeCard, setRemoveCard] = useState(styles.visibleCard);
-  const [visibleModalDoacao, setVisibleModalDoacao] = useState(false);
+  // const [visibleModalDoacao, setVisibleModalDoacao] = useState(false);
+  let myStatus = false;
+  const [visibility, setVisibility] = useState(myStatus);
   // const [favoriteOng, setFavoriteOng] = useState("heart")
   const { foto } = data;
 
@@ -38,10 +40,15 @@ export default function CardDoarFavorito({ data }) {
         onPress={() => onsubmit()}
       />
       <Image source={{ uri: foto }} style={styles.imgOng} />
-      <TouchableOpacity style={styles.btnDoar} onPress={()=> setVisibleModalDoacao(true)}>
+      <TouchableOpacity style={styles.btnDoar} onPress={()=> {
+          setVisibility(!myStatus);
+          myStatus = !myStatus;
+        }}>
         <Text>Doar</Text>
       </TouchableOpacity>
-      <ModalDoar visible={visibleModalDoacao}/>
+      <View style={{ display: "flex" }}>
+        <ModalDoar /> 
+      </View>
     </View>
   );
   }

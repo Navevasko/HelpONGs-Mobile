@@ -5,23 +5,21 @@ import CardDoar from '../../components/cardDoar'
 import CardDoarFavorito from '../CardDoarFavorito/index.jsx'
 import Select from '../../components/Select'
 import Filter from '../../components/Filter'
-import InputPesquisar from '../inputPesquisar/index.jsx'
-import TypePicker from '../TypePicker/index.jsx'
+import InputPesquisar from '../InputPesquisar/index.jsx'
 import { api } from '../../../api/index.js'
 import { useNavigation } from '@react-navigation/native'
 
 export default function ExibirDoar(exibir, dataOng) {
-    console.log(dataOng)
+    // console.log(dataOng)
     const [modalVisible, setModalVisible] = useState(false);
     const [dataEstado, setDataEstado] = useState([]);
     const [dataOngFavoritadas, setDataOngsFavoritadas] = useState([]);
     const [idUser, setIdUser] = useState(5);
     const navigation = useNavigation();
-    const [type, setType] = useState("porra");
+    const [type, setType] = useState("teste");
     // const [search, setSearch] = useState(func);
-    const [teste, setTeste] = useState(dataOng);
+    const [teste, setTeste] = useState(dataOng || []);
     
-
     React.useEffect(() =>{
         api.get(`/favorite/${idUser}`).then((response) =>{
             setDataOngsFavoritadas(response.data.data);
@@ -87,6 +85,7 @@ export default function ExibirDoar(exibir, dataOng) {
                 <Select options={dataEstado} onChangeSelect={(id) => alert(id)}/>
                 </View>
                 <View style={styles.containerCardsDoar}>
+                
                 {
                     
                     teste.map(ong => {

@@ -4,11 +4,16 @@ import { theme } from '../../global/styles/theme';
 import Icon from "react-native-vector-icons/Feather";
 
 export default function ModalDoar({visible}) {
+  // const [visibility, setvisibility] = useState(true);
 
-  const [modalVisible, setModalVisible] = useState(visible)
+  // function trocarVisibilidade(atual) {
+    // setvisibility(!atual);
+  // }
+  // console.log(oi);
+  console.log(`visible: `, visible);
 
   return (
-    <Modal animationType="fade" visible={modalVisible} transparent>
+    <Modal animationType="fade" visible={true} transparent>
       <View style={styles.containerPrincipal}>
         <View style={styles.container}>
         <ScrollView>
@@ -16,65 +21,67 @@ export default function ModalDoar({visible}) {
           name="x"
           size={30}
           style={styles.icon}
-          onPress={() => setModalVisible(false)}
+          onPress={() => {
+            // trocarVisibilidade(true);
+
+            console.log(`visible: `, visible);
+            }}
         />
         <Text style={styles.txtTitulo}>Ultilize as informações{"\n"}para fazer uma doação</Text>
         <Image
           source={require("../../assets/img/ImgmPrincipalModalDoar.png")}
           style={styles.imgPrincipal}
         />
-        <View>
+        <View style={{marginBottom:10}}>
           <Text style={styles.txtSubtitulo}>Informações de contato</Text>
           <View style={{flexDirection:'row'}}>
-            <Text>Celular</Text>
-            <Text>(11)786855575</Text>
+            <Text style={styles.informacoestxt}>Celular: </Text>
+            <Text style={styles.informacoestxtbold}>(11)786855575</Text>
           </View>
           <View style={{flexDirection:'row'}}>
-            <Text>Telefone</Text>
-            <Text>(11)786855575</Text>
+            <Text style={styles.informacoestxt}>Telefone: </Text>
+            <Text style={styles.informacoestxtbold}>(11)786855575</Text>
           </View>
           <View style={{flexDirection:'row'}}>
-            <Text>Email</Text>
-            <Text>ongBrasil@gmail.com</Text>
+            <Text style={styles.informacoestxt}>Email: </Text>
+            <Text style={styles.informacoestxtbold}>ongBrasil@gmail.com</Text>
           </View>
           <View style={{flexDirection:'row'}}>
-            <Text>Site: </Text>
-            <Text>www.ongBrasil.com.br</Text>
+            <Text style={styles.informacoestxt}>Site: </Text>
+            <Text style={styles.informacoestxtbold}>www.ongBrasil.com.br</Text>
           </View>
         </View>
         <View>
           <Text style={styles.txtSubtitulo}>Meios De Doação</Text>
-          <View style={{flexDirection:'row'}}>
-            <Text>Celular</Text>
-            <Text>(11)786855575</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text>Telefone</Text>
-            <Text>(11)786855575</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text>Email</Text>
-            <Text>ongBrasil@gmail.com</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text>Site: </Text>
-            <Text>www.ongBrasil.com.br</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text>Celular</Text>
-            <Text>(11)786855575</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text>Telefone</Text>
-            <Text>(11)786855575</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text>Email</Text>
-            <Text>ongBrasil@gmail.com</Text>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Text>Site: </Text>
-            <Text>www.ongBrasil.com.br</Text>
+          <View style={{flexDirection:"row"}}>
+            <View style={styles.containerMeiosdeDoacao}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.informacoestxt}>Conta: </Text>
+                <Text style={styles.informacoestxtbold}>3434.767.67567.09</Text>
+              </View>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.informacoestxt}>Tipo: </Text>
+                <Text style={styles.informacoestxtbold}>Corrente</Text>
+              </View>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.informacoestxt}>Pix: </Text>
+                <Text style={styles.informacoestxtbold}>(11)95286-6414</Text>
+              </View>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.informacoestxt}>Agencia: </Text>
+                <Text style={styles.informacoestxtbold}>0001</Text>
+              </View>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.informacoestxt}>Banco: </Text>
+                <Text style={styles.informacoestxtbold}>Bradesco</Text>
+              </View>
+            </View>
+            <View style={styles.fotoBanco}>
+              <Image
+                source={require('../../assets/img/banco.png')}
+                style={{resizeMode:"cover"}}
+              />
+            </View>
           </View>
         </View>
         </ScrollView>
@@ -124,5 +131,31 @@ const styles = StyleSheet.create({
     color:theme.colors.black,
     alignSelf:'center',
     marginBottom:10
+  },
+  informacoestxt:{
+    fontSize:16,
+    fontFamily:theme.fonts.regular,
+    lineHeight:22,
+    color:theme.colors.black,
+    marginTop:3,
+    alignSelf:'center'
+  },
+  informacoestxtbold:{
+    fontSize:16,
+    fontFamily:theme.fonts.semiBold,
+    lineHeight:22,
+    color:theme.colors.black,
+    marginTop:3, alignSelf:'center'
+  },
+  containerMeiosdeDoacao:{
+    width:"60%",
+    alignSelf:"flex-start",
+  }, 
+  fotoBanco:{
+    alignSelf:'flex-end',
+    height:96,
+    width:115,
+    marginLeft: 20,
+    borderRadius:5
   }
 })
