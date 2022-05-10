@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
   },
   containerEdit: {
     borderRadius: 20,
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
@@ -46,10 +46,10 @@ export const styles = StyleSheet.create({
     fontSize: 22,
   },
   option: {
-    width: "75%",
+    width: "85%",
     alignSelf: "center",
     flexDirection: "row",
-    marginTop: 20
+    marginTop: 40
   },
   optionStyle: {
       width: '100%'
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     textAlign: "left",
     fontFamily: theme.fonts.semiBold,
     color: theme.colors.primary,
-    fontSize: 22,
+    fontSize: 25,
     marginBottom: 2,
   },
   line: {

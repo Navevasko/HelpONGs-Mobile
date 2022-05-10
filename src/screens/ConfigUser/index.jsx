@@ -1,4 +1,5 @@
 import { ScrollView, View, Text, Image, TouchableOpacity, StatusBar } from 'react-native'
+import TextUnderline from '../../components/TextUnderline';
 import React from 'react'
 import { styles } from './style'
 import Icon from 'react-native-vector-icons/Feather';
@@ -19,7 +20,7 @@ export default function ConfigUser() {
         />
 
         <TouchableOpacity style={styles.containerEdit} onPress={() => {}}>
-          <Icon name="edit" size={15} style={styles.edit} />
+          <Icon name="edit" size={20} style={styles.edit} />
         </TouchableOpacity>
       </View>
 
