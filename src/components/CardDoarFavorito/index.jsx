@@ -40,14 +40,8 @@ export default function CardDoarFavorito({ data }) {
         onPress={() => onsubmit()}
       />
       <Image source={{ uri: foto }} style={styles.imgOng} />
-      <TouchableOpacity style={styles.btnDoar} onPress={()=> {
-          setVisibility(!myStatus);
-          myStatus = !myStatus;
-        }}>
-        <Text>Doar</Text>
-      </TouchableOpacity>
+      <ModalDoar/>
       <View style={{ display: "flex" }}>
-        <ModalDoar /> 
       </View>
     </View>
   );

@@ -18,7 +18,7 @@ export default function ExibirDoar(exibir, dataOng) {
     const navigation = useNavigation();
     const [type, setType] = useState("teste");
     // const [search, setSearch] = useState(func);
-    const [teste, setTeste] = useState(dataOng || []);
+    const [teste, setTeste] = useState(dataOng);
     
     React.useEffect(() =>{
         api.get(`/favorite/${idUser}`).then((response) =>{
@@ -35,13 +35,13 @@ export default function ExibirDoar(exibir, dataOng) {
     // dataOng.filter(i => i.nome.includes(text))
     /**** PESQUISAR PELAS ONGS ******/
     const searchOng = (text) =>{
-        
-        if(text){
+         if(text){
             const ResultSearchOngs = dataOng.filter((item) =>{
                 const itemData = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
             });
+            
             setTeste(ResultSearchOngs);
         }else{
             setTeste(dataOng);
