@@ -10,7 +10,7 @@ import ModalEvento from "../ModalEvento";
 import ContainerModal from "../ContainerModal";
 
 export default function ModalCreate({ onClose }) {
-  const [Type, setType] = useState("post");
+  const [Type, setType] = useState("evento");
   const types = [
     { label: "Post", value: "post" },
     { label: "Evento", value: "evento" },

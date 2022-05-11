@@ -3,7 +3,7 @@ import React from 'react'
 import { styles } from './style';
 import PropTypes from 'prop-types'
 
-export default function InputBorder({ onChangeText, height, placeholder, keyboardType }) {
+export default function InputBorder({ onChangeText, onChange, height, placeholder, keyboardType, value }) {
   return (
     <TextInput
       style={[styles.descInput, { height: height }]}
@@ -14,15 +14,19 @@ export default function InputBorder({ onChangeText, height, placeholder, keyboar
       placeholder={placeholder}
       onChangeText={onChangeText}
       keyboardType={keyboardType}
+      value={value}
+      onEndEditing={onChange}
     />
   );
 }
 
 InputBorder.propTypes = {
-  onChangeText: PropTypes.func.isRequired,
+  onChangeText: PropTypes.func,
   height: PropTypes.number,
   placeholder: PropTypes.string.isRequired,
   keyboardType: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func
 };
 
 InputBorder.defaultProps = {

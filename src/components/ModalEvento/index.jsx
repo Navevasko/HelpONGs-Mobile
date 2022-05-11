@@ -13,6 +13,8 @@ export default function ModalEvento() {
     const [date, setDate] = useState("")
     const [time, setTime] = useState("");
     const [candidato, setCandidato] = useState("")
+    const [desc, setDesc] = useState("")
+    const [endereco, setEndereco] = useState({})
     
     const [modal, setModal] = useState(false)
 
@@ -99,7 +101,9 @@ export default function ModalEvento() {
         />
       </View>
 
-      {modal && <ModalEndereco onClose={() => {setModal(false)}}/>}
+      {modal && <ModalEndereco setData={(data) => {
+        setEndereco(data);
+      }} onClose={() => {setModal(false)}}/>}
 
       <BtnSubmit text={"teste"} color={theme.colors.grey} size={0} />
     </View>
