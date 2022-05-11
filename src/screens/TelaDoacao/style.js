@@ -28,14 +28,6 @@ export const styles = StyleSheet.create({
       alignItems:"center",
       justifyContent:"space-between",
     },
-    boxFilter:{
-      borderWidth:1,
-      borderColor:theme.colors.black,
-      height:30,
-      width:90,
-      borderRadius:5,
-      padding:3
-    },
     containerSelectEstado:{
       paddingLeft:20,
       paddingRight:20,

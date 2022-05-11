@@ -66,9 +66,7 @@ export default function ExibirDoar(exibir, dataOng) {
         return(
             <View>
                 <View style={styles.containerPesquisa}>
-                    <TouchableOpacity onPress={() =>{setModalVisible(true)}} style={styles.boxFilter}>
-                    <Text>Filter</Text>
-                    </TouchableOpacity>
+                    <Filter/>
                     {/* {modalVisible && <Filter visible={modalVisible}/>} */}
                     {/* <TypePicker
                         onValueChange={(item) => {
