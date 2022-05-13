@@ -7,22 +7,34 @@ import { theme } from '../../global/styles/theme';
 
 export default function TypePicker({mode, onValueChange, selectedValue, items}) {
   return (
-    <View style={styles.pickerContainer}>
-      <Picker
-        style={{ color: theme.colors.black }}
-        mode={mode}
-        onValueChange={onValueChange}
-        selectedValue={selectedValue}
+
+      <View
+        style={{
+          width: "90%",
+          borderWidth: 2,
+          borderColor: theme.colors.grey,
+          borderRadius: 5,
+          alignSelf: "center",
+          marginBottom: 30,
+        }}
       >
-        {
-          items.map(item => {
+        <Picker
+          style={{ height: 50, width: "100%" }}
+          mode={mode}
+          onValueChange={onValueChange}
+          selectedValue={selectedValue}
+        >
+          {items.map((item) => {
             return (
-            <Picker.Item label={item.label} value={item.value} key={item.value}/>
+              <Picker.Item
+                label={item.label}
+                value={item.value}
+                key={item.value}
+              />
             );
-          })  
-        }
-      </Picker>
-    </View>
+          })}
+        </Picker>
+      </View>
   );
 }
 

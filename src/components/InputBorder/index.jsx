@@ -1,22 +1,34 @@
-import { TextInput } from 'react-native'
-import React from 'react'
-import { styles } from './style';
-import PropTypes from 'prop-types'
+import React from "react";
+import { TextInput, View, Text } from "react-native";
+import { styles } from "./style";
+import PropTypes from "prop-types";
 
-export default function InputBorder({ onChangeText, onChange, height, placeholder, keyboardType, value }) {
+export default function InputBorder({
+  onChangeText,
+  onChange,
+  height,
+  placeholder,
+  keyboardType,
+  value,
+  max,
+  text,
+}) {
   return (
-    <TextInput
-      style={[styles.descInput, { height: height }]}
-      contextMenuHidden={true}
-      maxLength={100}
-      multiline={true}
-      textAlignVertical={"top"}
-      placeholder={placeholder}
-      onChangeText={onChangeText}
-      keyboardType={keyboardType}
-      value={value}
-      onEndEditing={onChange}
-    />
+    <View style={styles.container}>
+      {text && <Text style={styles.text}>{text}</Text>}
+
+      <TextInput
+        style={[styles.input, { height: height }]}
+        maxLength={max}
+        multiline={true}
+        textAlignVertical={"top"}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        value={value}
+        onEndEditing={onChange}
+      />
+    </View>
   );
 }
 
@@ -26,10 +38,11 @@ InputBorder.propTypes = {
   placeholder: PropTypes.string.isRequired,
   keyboardType: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 InputBorder.defaultProps = {
   height: 50,
-  keyboardType: 'default'
+  keyboardType: "default",
+  max: 100,
 };

@@ -37,8 +37,21 @@ const passwordMask = (Senha) => {
   return Senha.replace(/[\[\]}.',><|://"°ºª§\\;&'"()_+={]/g, "");
 };
 
-const cepMask = (CEP) => {
-  return CEP.replace(/\D+/g, "").replace(/(\d{5})(\d)/, "$1-$2");
+const cepMask = (cep) => {
+  return cep.replace(/\D+/g, "").replace(/(\d{5})(\d)/, "$1-$2");
 };
 
-export { cnpjMask, emailMask, nameMask, passwordMask, dateMask, timeMask, cepMask };
+const numberMask = (Number) => {
+  return Number.replace(/\D+/g, "");
+};
+
+export {
+  cnpjMask,
+  emailMask,
+  nameMask,
+  passwordMask,
+  dateMask,
+  timeMask,
+  cepMask,
+  numberMask,
+};

@@ -1,15 +1,14 @@
-import { TouchableOpacity, Text } from "react-native";
 import React from "react";
+import { TouchableOpacity, Text } from "react-native";
 import { theme } from "../../global/styles/theme";
 import { styles } from "./style";
 import PropTypes from "prop-types";
 
 export default function BtnSubmit({ onPress, text, color, size }) {
-  
   const sizes = [
     { name: "big", width: "90%", height: 45, fontSize: 22 },
     { name: "medium", width: "60%", height: 35, fontSize: 17 },
-    { name: "small", width: '45%', height: 30, fontSize: 14 },
+    { name: "small", width: "45%", height: 30, fontSize: 14 },
   ];
 
   return (
@@ -24,7 +23,10 @@ export default function BtnSubmit({ onPress, text, color, size }) {
       ]}
       onPress={onPress}
     >
-      <Text style={[styles.buttonText, {fontSize: sizes[size].fontSize}]}> {text} </Text>
+      <Text style={[styles.buttonText, { fontSize: sizes[size].fontSize }]}>
+        {" "}
+        {text}{" "}
+      </Text>
     </TouchableOpacity>
   );
 }

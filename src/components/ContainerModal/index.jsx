@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { styles } from './style'
-import ModalShadow from '../ModalShadow'
-import Icon from 'react-native-vector-icons/Feather'
+import React from "react";
+import { View } from "react-native";
+import ModalShadow from "../ModalShadow";
+import Icon from "react-native-vector-icons/Feather";
 
-export default function ContainerModal({children, onClose}) {
+import { styles } from "./style";
+
+export default function ContainerModal({ children, onClose }) {
   return (
     <ModalShadow>
       <View style={styles.modal}>

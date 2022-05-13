@@ -1,13 +1,14 @@
-import { View, Text, Modal, ScrollView, ToastAndroid } from "react-native";
-import ContainerModal from "../ContainerModal";
 import React, { useState } from "react";
+import { Modal, ScrollView, ToastAndroid } from "react-native";
+import ContainerModal from "../ContainerModal";
 import PropTypes from "prop-types";
 import ONGData from "../ONGData";
 import { styles } from "./style";
 import InputBorder from "../InputBorder";
 import BtnSubmit from "../BtnSubmit";
 import APICEP from "../../../api/Controllers/cepController";
-import { cepMask } from "../../utils/mask";
+import { cepMask, numberMask } from "../../utils/mask";
+import { Button } from "react-native-paper";
 
 export default function ModalEndereco({ onClose, setData }) {
   const [cep, setCEP] = useState("");
@@ -17,34 +18,41 @@ export default function ModalEndereco({ onClose, setData }) {
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
   const [complemento, setComplemento] = useState("");
-  let enderecoArray = {}
 
-  const onSubmit = async (enderecoArray) => {
-    if (cep != "" && estado != "" && cidade != "" && bairro != "" && rua != "") {
-      setData(enderecoArray)
-      console.log(enderecoArray)
-    }
-    else {
-      ToastAndroid.show("TESTE", ToastAndroid.SHORT)
+  const onSubmit = async () => {
+    if (
+      cep != "" &&
+      estado != "" &&
+      cidade != "" &&
+      bairro != "" &&
+      rua != ""
+    ) {
+      return (enderecoArray = {
+        Bairro: bairro,
+        Cep: cep,
+        Cidade: cidade,
+        Complemento: complemento,
+        Estado: estado,
+        Rua: rua,
+        Numero: numero,
+      });
+    } else {
+      ToastAndroid.show("TESTE", ToastAndroid.SHORT);
+      return;
     }
   };
 
   const handleAPICEP = async (cep) => {
-    let response = await APICEP.get(cep);
-    enderecoArray = {
-      bairro: response.bairro,
-      cep: response.cep,
-      complemento: response.complemento,
-      cidade: response.localidade,
-      estado: response.uf,
-      rua: response.logradouro,
-    };
-    setBairro(enderecoArray.bairro);
-    setCEP(enderecoArray.cep);
-    setComplemento(enderecoArray.complemento);
-    setCidade(enderecoArray.cidade);
-    setRua(enderecoArray.rua);
-    setEstado(enderecoArray.estado);
+    if (cep != "") {
+      let response = await APICEP.get(cep);
+
+      setBairro(response.bairro);
+      setCEP(response.cep);
+      setComplemento(response.complemento);
+      setCidade(response.localidade);
+      setRua(response.logradouro);
+      setEstado(response.uf);
+    }
   };
 
   return (
@@ -66,6 +74,7 @@ export default function ModalEndereco({ onClose, setData }) {
             onChange={(text) => {
               handleAPICEP(cep);
             }}
+            max={9}
           />
           <InputBorder
             placeholder="Estado"
@@ -101,7 +110,7 @@ export default function ModalEndereco({ onClose, setData }) {
             onChangeText={(text) => {
               setNumero(text);
             }}
-            value={numero}
+            value={numberMask(numero)}
           />
           <InputBorder
             placeholder="Complemento"
@@ -114,9 +123,12 @@ export default function ModalEndereco({ onClose, setData }) {
           <BtnSubmit
             size={0}
             text={"Salvar"}
-            onPress={() => {
-              onSubmit(enderecoArray);
-              console.log(enderecoArray)
+            onPress={async () => {
+              const enderecoArray = await onSubmit();
+              if(enderecoArray){
+                setData(enderecoArray)
+                onClose()
+              }
             }}
           />
         </ScrollView>

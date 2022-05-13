@@ -58,7 +58,15 @@ export default Ong = new Object({
     return get;
   },
 
-  getCEP (CEP) {
+  postEvent (titulo, dataHora, descricao, foto, candidatos, endereco) {
 
+  },
+
+  postPost () {
+
+  },
+
+  postVaga () {
+    
   }
 });
