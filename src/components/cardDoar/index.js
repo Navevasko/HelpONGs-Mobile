@@ -57,7 +57,7 @@ export default function CardDoar({ data }) {
         onPress={() => onsubmit()}
       />
       <Image source={{ uri: foto }} style={styles.imgOng} />
-      <ModalDoar/>
+      <ModalDoar data={data}/>
     </View>
   );
 }

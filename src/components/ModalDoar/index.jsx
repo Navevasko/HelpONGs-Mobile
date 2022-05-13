@@ -4,14 +4,14 @@ import { theme } from '../../global/styles/theme';
 import Icon from "react-native-vector-icons/Feather";
 
 
-export default function ModalDoar({visible}) {
+export default function ModalDoar({data}) {
   const [visibility, setVisibility] = useState(false);
 
   // function trocarVisibilidade(atual) {
   //   setvisibility(!atual);
   // }
   // console.log(oi);
-  // console.log(`visible: `, visible);
+  console.log(data);
 
   return (
     <View>

@@ -5,7 +5,7 @@ import CardDoar from '../../components/cardDoar'
 import CardDoarFavorito from '../CardDoarFavorito/index.jsx'
 import Select from '../../components/Select'
 import Filter from '../../components/Filter'
-import InputPesquisar from '../InputPesquisar/index.jsx'
+import InputPesquisar from '../inputPesquisar/index.jsx'
 import { api } from '../../../api/index.js'
 import { useNavigation } from '@react-navigation/native'
 
@@ -19,6 +19,7 @@ export default function ExibirDoar(exibir, dataOng) {
     const [type, setType] = useState("teste");
     // const [search, setSearch] = useState(func);
     const [teste, setTeste] = useState(dataOng);
+    const [nomeOngFiltradas, setnomeOngFiltradas] =useState([]);
     
     React.useEffect(() =>{
         api.get(`/favorite/${idUser}`).then((response) =>{
@@ -66,7 +67,7 @@ export default function ExibirDoar(exibir, dataOng) {
         return(
             <View>
                 <View style={styles.containerPesquisa}>
-                    <Filter/>
+                    <Filter setnomeOngFiltradas={setnomeOngFiltradas} nomeOngFiltradas={nomeOngFiltradas}/>
                     {/* {modalVisible && <Filter visible={modalVisible}/>} */}
                     {/* <TypePicker
                         onValueChange={(item) => {
@@ -75,6 +76,7 @@ export default function ExibirDoar(exibir, dataOng) {
                         selectedValue={type}
                         items={type}
                     /> */}
+                    {console.log(nomeOngFiltradas)}
 
                     <InputPesquisar onChangeText={text =>{{searchOng(text)}}} />
                 </View>

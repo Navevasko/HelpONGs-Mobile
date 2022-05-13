@@ -7,9 +7,11 @@ import { FlatList } from 'react-native-gesture-handler';
 import ItemFilter from '../ItemFilter';
 
 
-export default function Filter() {
+export default function Filter({setnomeOngFiltradas, nomeOngFiltradas}) {
   const [filterVisible, setModalVisible] = useState(false);
   const [dataCategoria, setDataCategoria] = useState([]);
+  const [father, setFather] = useState([]);
+  
   
   React.useEffect(() =>{
     api.get(`/category`).then((response) => {
@@ -17,6 +19,19 @@ export default function Filter() {
     });
   }, 
   []);
+
+  const filtrarCategorias = (father) =>{
+    if(father){
+       api.post('/category/filter', {
+         categorias:[father]
+       }).then((response) =>{
+        setnomeOngFiltradas(response.data.data);
+       })
+   }else{
+       
+   }
+   
+}
   
   
   return (
@@ -42,12 +57,13 @@ export default function Filter() {
             <FlatList
               data={dataCategoria}
               keyExtractor={(item) => String(item.idCategorias)} 
-              renderItem={({item}) =><ItemFilter item={item}/>}
+              renderItem={({item}) =><ItemFilter setProps={setFather} value={father} item={item}/>}
             />
+            
         </View>
         <View style={{flexDirection:'row', justifyContent:"space-around", paddingTop:5, alignItems:'center'}}>
           <TouchableOpacity style={styles.btnFiltrar} onPress={() => {
-            console.log("ongs Filtradas");
+            filtrarCategorias(father);
           }}>
           <Text>Filtrar</Text>
           </TouchableOpacity>
@@ -59,6 +75,7 @@ export default function Filter() {
       </View>
     </Modal>
     </View>
+    
   )
 }
 
