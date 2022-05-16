@@ -35,7 +35,7 @@ BtnSubmit.propTypes = {
   onPress: PropTypes.func,
   text: PropTypes.string,
   color: PropTypes.string,
-  size: PropTypes.oneOf([0, 2, 2]),
+  size: PropTypes.oneOf([0, 1, 2]),
 };
 
 BtnSubmit.defaultProps = {

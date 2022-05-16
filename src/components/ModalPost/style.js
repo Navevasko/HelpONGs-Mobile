@@ -29,9 +29,8 @@ export const styles = StyleSheet.create({
     fontSize: 17,
   },
   image: {
-    width: "90%",
-    height: 200,
+    width: "100%",
+    height: 400,
     alignSelf: "center",
-    borderRadius: 12,
   },
 });

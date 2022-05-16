@@ -49,8 +49,8 @@ export const styles = StyleSheet.create({
     marginEnd: 40,
   },
   image: {
-    width: '90%',
-    height: 200,
+    width: '100%',
+    height: 400,
     alignSelf: 'center'
   }
 });

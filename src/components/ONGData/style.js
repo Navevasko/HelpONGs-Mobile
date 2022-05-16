@@ -13,15 +13,15 @@ export const styles = StyleSheet.create({
     paddingStart: 30,
   },
   imageONG: {
-    width: 75,
-    height: 75,
+    width: 90,
+    height: 90,
     borderRadius: 75,
     marginBottom: 50,
   },
   textONG: {
-    fontFamily: theme.fonts.name,
-    fontSize: 23,
-    marginTop: -35,
+    fontFamily: theme.fonts.alternateBold,
+    fontSize: 27,
+    marginTop: -55,
     marginStart: 10,
   },
 });

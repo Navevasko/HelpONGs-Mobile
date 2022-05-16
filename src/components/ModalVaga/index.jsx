@@ -1,11 +1,12 @@
-import { View, Text, TextInput } from 'react-native'
-import InputBorder from '../InputBorder';
+import { View } from 'react-native'
+import InvisibleInput from '../InvisibleInput';
+import InputUnderline from '../InputUnderline';
 import React, {useState} from 'react'
 
 import { theme } from '../../global/styles/theme';
 import { styles } from './style';
 
-export default function ModalVaga() {
+export default function ModalVaga({file}) {
 
     const [titulo, setTitulo] = useState("")
     const [desc, setDesc] = useState("")
@@ -13,36 +14,16 @@ export default function ModalVaga() {
 
   return (
     <View>
-      <InputBorder text={"Titulo"} placeholder={"Titulo do evento"} />
-
-      <InputBorder
-        text={"Descrição"}
-        height={200}
-        placeholder={"Faça uma descrição de seu evento"}
+      <InputUnderline
+        keyboardType="default"
+        borderColor={theme.colors.primary}
+        placeholder={"Crie um título para seu evento"}
+        textCenter={true}
       />
 
-      <InputBorder
-        text={"Requisitos da vaga"}
-        height={200}
-        placeholder={"Descreva os requisitos da vaga"}
-      />
+      <InvisibleInput placeholder={"Faça uma descrição de seu evento"} />
 
-      <View style={styles.containerInfoInputs}>
-        <View style={styles.inputCom}>
-          <InputBorder
-            text={"Inicio do horário"}
-            placeholder={"00:00"}
-            keyboardType={"number-pad"}
-          />
-        </View>
-        <View style={styles.inputCom}>
-          <InputBorder
-            text={"Fim do horário"}
-            placeholder={"00:00"}
-            keyboardType={"number-pad"}
-          />
-        </View>
-      </View>
+      {file && <Image source={{ uri: file }} style={styles.image} />}
     </View>
   );
 }

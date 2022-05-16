@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Modal, ScrollView, ToastAndroid } from "react-native";
+import { Modal, ScrollView, ToastAndroid, View } from "react-native";
 import ContainerModal from "../ContainerModal";
 import PropTypes from "prop-types";
-import ONGData from "../ONGData";
 import { styles } from "./style";
-import InputBorder from "../InputBorder";
-import BtnSubmit from "../BtnSubmit";
 import APICEP from "../../../api/Controllers/cepController";
 import { cepMask, numberMask } from "../../utils/mask";
-import { Button } from "react-native-paper";
+import InputUnderline from "../InputUnderline";
+import { theme } from "../../global/styles/theme";
+import FullButton from "../FullButton";
 
 export default function ModalEndereco({ onClose, setData }) {
   const [cep, setCEP] = useState("");
@@ -19,7 +18,7 @@ export default function ModalEndereco({ onClose, setData }) {
   const [numero, setNumero] = useState("");
   const [complemento, setComplemento] = useState("");
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     if (
       cep != "" &&
       estado != "" &&
@@ -27,7 +26,7 @@ export default function ModalEndereco({ onClose, setData }) {
       bairro != "" &&
       rua != ""
     ) {
-      return (enderecoArray = {
+      return {
         Bairro: bairro,
         Cep: cep,
         Cidade: cidade,
@@ -35,7 +34,7 @@ export default function ModalEndereco({ onClose, setData }) {
         Estado: estado,
         Rua: rua,
         Numero: numero,
-      });
+      };
     } else {
       ToastAndroid.show("TESTE", ToastAndroid.SHORT);
       return;
@@ -52,86 +51,103 @@ export default function ModalEndereco({ onClose, setData }) {
       setCidade(response.localidade);
       setRua(response.logradouro);
       setEstado(response.uf);
+
+      console.log(response);
     }
   };
 
   return (
-    <Modal transparent={true} animationType={"fade"}>
-      <ContainerModal onClose={onClose}>
-        <ONGData
-          image={require("../../assets/img/ONG.png")}
-          name={"Greenpeace"}
-        />
-
+    <Modal transparent={true} animationType={"slide"}>
+      <ContainerModal onClose={onClose} title={"Endereço"} publish={false}>
         <ScrollView style={styles.containerInput}>
-          <InputBorder
+          <InputUnderline
             placeholder="CEP"
             keyboardType={"number-pad"}
             value={cepMask(cep)}
             onChangeText={(text) => {
               setCEP(text);
             }}
-            onChange={(text) => {
+            onEndEditing={() => {
               handleAPICEP(cep);
             }}
             max={9}
-          />
-          <InputBorder
-            placeholder="Estado"
-            onChangeText={(text) => {
-              setEstado(text);
-            }}
-            value={estado}
-          />
-          <InputBorder
-            placeholder="Cidade"
-            onChangeText={(text) => {
-              setCidade(text);
-            }}
-            value={cidade}
-          />
-          <InputBorder
-            placeholder="Bairro"
-            onChangeText={(text) => {
-              setBairro(text);
-            }}
-            value={bairro}
-          />
-          <InputBorder
-            placeholder="Rua"
-            onChangeText={(text) => {
-              setRua(text);
-            }}
-            value={rua}
-          />
-          <InputBorder
-            placeholder="Número"
-            keyboardType={"number-pad"}
-            onChangeText={(text) => {
-              setNumero(text);
-            }}
-            value={numberMask(numero)}
-          />
-          <InputBorder
-            placeholder="Complemento"
-            onChangeText={(text) => {
-              setComplemento(text);
-            }}
-            value={complemento}
+            borderColor={theme.colors.primary}
           />
 
-          <BtnSubmit
-            size={0}
-            text={"Salvar"}
-            onPress={async () => {
-              const enderecoArray = await onSubmit();
-              if(enderecoArray){
-                setData(enderecoArray)
-                onClose()
-              }
+          <View
+            style={{
+              marginTop: 30,
+              minHeight: 450,
+              justifyContent: "space-evenly",
             }}
-          />
+          >
+            <InputUnderline
+              placeholder="Estado"
+              keyboardType={"number-pad"}
+              value={estado}
+              onChangeText={(text) => {
+                setEstado(text);
+              }}
+              max={2}
+              borderColor={theme.colors.primary}
+            />
+            <InputUnderline
+              placeholder="Cidade"
+              keyboardType={"number-pad"}
+              value={cidade}
+              onChangeText={(text) => {
+                setCidade(text);
+              }}
+              borderColor={theme.colors.primary}
+            />
+            <InputUnderline
+              placeholder="Bairro"
+              value={bairro}
+              onChangeText={(text) => {
+                setBairro(text);
+              }}
+              borderColor={theme.colors.primary}
+            />
+            <InputUnderline
+              placeholder="Rua"
+              value={rua}
+              onChangeText={(text) => {
+                setRua(text);
+              }}
+              borderColor={theme.colors.primary}
+            />
+
+            <InputUnderline
+              placeholder="Número"
+              value={numberMask(numero)}
+              keyboardType={"number-pad"}
+              onChangeText={(text) => {
+                setNumero(text);
+              }}
+              borderColor={theme.colors.primary}
+            />
+
+            <InputUnderline
+              placeholder="Complemento"
+              value={complemento}
+              onChangeText={(text) => {
+                setComplemento(text);
+              }}
+              borderColor={theme.colors.primary}
+            />
+          </View>
         </ScrollView>
+        <FullButton
+          text="Salvar"
+          backColor={theme.colors.primary}
+          onPress={() => {
+            const enderecoArray = onSubmit();
+            if (enderecoArray) {
+              setData(enderecoArray);
+              onClose();
+            }
+          }}
+        />
       </ContainerModal>
     </Modal>
   );

@@ -3,13 +3,13 @@ import { theme } from "../../global/styles/theme";
 
 export const styles = StyleSheet.create({
   pickerContainer: {
-    width: '90%',
-    borderRadius: 15,
-    borderWidth: 0,
-    overflow: "hidden",
-    alignSelf: 'center',
-    borderColor: theme.colors.grey,
-    height: 50,
-    padding: 0,
+    width: "50%",
+    borderRadius: 5,
+    backgroundColor: theme.colors.primary,
+    alignSelf: "center",
+    marginBottom: 30,
+    marginLeft: 12,
+    justifyContent: "center",
   },
+  picker: { height: 35, width: "100%" },
 });

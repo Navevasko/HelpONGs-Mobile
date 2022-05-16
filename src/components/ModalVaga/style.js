@@ -28,4 +28,9 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 17,
   },
+  image: {
+    width: "100%",
+    height: 400,
+    alignSelf: "center",
+  },
 });

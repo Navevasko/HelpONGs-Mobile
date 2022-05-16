@@ -11,9 +11,9 @@ export default function PerfilUsuario() {
   const [modal, setModal] = useState(false)
   
   return (
-    <View style={{ justifyContent: "center" }}>
-      <StatusBar barStyle={"dark-content"} backgroundColor={"transparent"} />
-      {modal && <ModalCreate isModalVisible={modal} onClose={() => {setModal(false)}} />}
+      <View style={{ justifyContent: "center" }}>
+        <StatusBar barStyle={"dark-content"} backgroundColor={"transparent"} />
+        {modal && <ModalCreate isModalVisible={modal} onClose={() => {setModal(false)}} />}
       <BtnSubmit
         onPress={() => {
           setModal(true);
@@ -21,6 +21,6 @@ export default function PerfilUsuario() {
         text={"teste"}
         size={0}
       />
-    </View>
+      </View>
   );
 }
