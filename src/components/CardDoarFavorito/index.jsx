@@ -40,7 +40,7 @@ export default function CardDoarFavorito({ data }) {
         onPress={() => onsubmit()}
       />
       <Image source={{ uri: foto }} style={styles.imgOng} />
-      <ModalDoar/>
+      <ModalDoar data={data}/>
       <View style={{ display: "flex" }}>
       </View>
     </View>

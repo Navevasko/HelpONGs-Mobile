@@ -1,22 +1,46 @@
-import { StyleSheet, Text, Modal, View, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react';
+import { StyleSheet, Text, Modal, View, Image, ScrollView, TouchableOpacity , ToastAndroid} from 'react-native'
+import React, {useEffect, useState} from 'react';
 import { theme } from '../../global/styles/theme';
 import Icon from "react-native-vector-icons/Feather";
+import { api } from '../../../api';
 
 
 export default function ModalDoar({data}) {
   const [visibility, setVisibility] = useState(false);
+  const [idOng, setIdOng] = useState(0);
+  const [dadosBancarios, setDadosBancarios] = useState([]);
+  const [dadosDeContato, setDadosDeContato] = useState([]);
 
-  // function trocarVisibilidade(atual) {
-  //   setvisibility(!atual);
-  // }
-  // console.log(oi);
-  console.log(data);
+if(idOng != 0){
+//  useEffect(() =>{
+    api.get(`/bank-data/${idOng}`).then((response) => {
+      setDadosBancarios(response.data.data);
+    }).catch((error) => {
+      const errorJSON = JSON.stringify(error);
+      if(errorJSON.includes("404")){
+        setVisibility(false);
+        ToastAndroid.show(
+         "Desculpe, a ong selecionada ainda não informou seus dados para doação",
+          ToastAndroid.LONG
+        );
+      }
+     
+    });
+    api.get(`/contact/${idOng}`).then((response) => {
+      setDadosDeContato(response.data.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  
+  // }, [])
+  setIdOng(0);
+}
 
   return (
     <View>
       <TouchableOpacity style={styles.btnDoar} onPress={()=> {
         setVisibility(true);
+        setIdOng(data.idOng);
       }}>
       <Text>Doar</Text>
     </TouchableOpacity>
@@ -41,15 +65,15 @@ export default function ModalDoar({data}) {
             <Text style={styles.txtSubtitulo}>Informações de contato</Text>
             <View style={{flexDirection:'row'}}>
               <Text style={styles.informacoestxt}>Celular: </Text>
-              <Text style={styles.informacoestxtbold}>(11)786855575</Text>
+              <Text style={styles.informacoestxtbold}>{dadosDeContato.numero}</Text>
             </View>
             <View style={{flexDirection:'row'}}>
               <Text style={styles.informacoestxt}>Telefone: </Text>
-              <Text style={styles.informacoestxtbold}>(11)786855575</Text>
+              <Text style={styles.informacoestxtbold}>{dadosDeContato.telefone}</Text>
             </View>
             <View style={{flexDirection:'row'}}>
               <Text style={styles.informacoestxt}>Email: </Text>
-              <Text style={styles.informacoestxtbold}>ongBrasil@gmail.com</Text>
+              <Text style={styles.informacoestxtbold}>{dadosDeContato.email}</Text>
             </View>
             <View style={{flexDirection:'row'}}>
               <Text style={styles.informacoestxt}>Site: </Text>
@@ -62,11 +86,11 @@ export default function ModalDoar({data}) {
               <View style={styles.containerMeiosdeDoacao}>
                 <View style={{flexDirection:'row'}}>
                   <Text style={styles.informacoestxt}>Conta: </Text>
-                  <Text style={styles.informacoestxtbold}>3434.767.67567.09</Text>
+                  <Text style={styles.informacoestxtbold}>{dadosBancarios.conta}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                   <Text style={styles.informacoestxt}>Tipo: </Text>
-                  <Text style={styles.informacoestxtbold}>Corrente</Text>
+                  <Text style={styles.informacoestxtbold}>{dadosBancarios.tipo}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                   <Text style={styles.informacoestxt}>Pix: </Text>
@@ -74,11 +98,11 @@ export default function ModalDoar({data}) {
                 </View>
                 <View style={{flexDirection:'row'}}>
                   <Text style={styles.informacoestxt}>Agencia: </Text>
-                  <Text style={styles.informacoestxtbold}>0001</Text>
+                  <Text style={styles.informacoestxtbold}>{dadosBancarios.agencia}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                   <Text style={styles.informacoestxt}>Banco: </Text>
-                  <Text style={styles.informacoestxtbold}>Bradesco</Text>
+                  <Text style={styles.informacoestxtbold}>{dadosBancarios.banco}</Text>
                 </View>
               </View>
               <View style={styles.fotoBanco}>

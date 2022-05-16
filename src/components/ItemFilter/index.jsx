@@ -1,25 +1,44 @@
-import { StyleSheet, Text, View } from 'react-native'
+import {  StyleSheet, Text, View, } from 'react-native'
 import React, { useState } from 'react'
 import { Checkbox } from 'react-native-paper';
 
-export default function ItemFilter({item, setProps, value }) {
-    const [checked, setChecked] = React.useState(false);
-    // const [categoriasSelecionadas, setcategoriasSelecionadas] = useState([]);
-    // const categoriasSelecionadas = [];
+export default function ItemFilter({item, setProps, value, data }) {
+
+  const [checked, setChecked] = useState(false);
+  const [teste, setTeste] = useState([]);
+//  console.log();  
+  const onChangeValue = (itemSelected) => {
     
+    const newData = data.map(item => {
+      if( item.idCategorias == itemSelected.idCategorias){
+        return {          
+          ...item,
+          selected: !item.selected
+        }
+        
+      }
+      return{
+        ...item,
+        selected: item.selected
+      }
+    })
+    // if(item.selected == true){
+    //   console.log("novo valor", newData)
+    // }
+    setProps(...newData);
+    console.log(value);
+    
+    // console.log(itemSelected);
+    // console.log("num deu certo ",value)
+  }
+
     return(
       <View style={{flexDirection:"row", alignItems:'center'}}>
         <Checkbox
           status={checked ? 'checked' : 'unchecked'}
           color="red"
-          onPress={() => {setProps(item.nome);  setChecked(!checked);}}
-          //   // Alert.alert(`Categoria, ${item.nome} clicado!`);
-          //   setChecked(!checked);
-          //   // setcategoriasSelecionadas(push(item.nome));
-          //   // setProps.push(item.nome);
-          // }}
-          // onChange={(e) => setProps(e.target.value)}
-
+          onPress={() => {onChangeValue(item),  setChecked(!checked);}}
+          // onValueChange={() => } 
         />
         <Text>
           {item.nome}

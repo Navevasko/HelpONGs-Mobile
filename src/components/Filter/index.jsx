@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { api } from '../../../api';
 import { FlatList } from 'react-native-gesture-handler';
 import ItemFilter from '../ItemFilter';
+import BtnFiltrar from '../BtnFiltrar';
 
 
 export default function Filter({setnomeOngFiltradas, nomeOngFiltradas}) {
@@ -20,20 +21,7 @@ export default function Filter({setnomeOngFiltradas, nomeOngFiltradas}) {
   }, 
   []);
 
-  const filtrarCategorias = (father) =>{
-    if(father){
-       api.post('/category/filter', {
-         categorias:[father]
-       }).then((response) =>{
-        setnomeOngFiltradas(response.data.data);
-       })
-   }else{
-       
-   }
-   
-}
-  
-  
+ 
   return (
     <View>
     <TouchableOpacity onPress={() =>{setModalVisible(true)}} style={styles.boxFilter}>
@@ -56,17 +44,13 @@ export default function Filter({setnomeOngFiltradas, nomeOngFiltradas}) {
         <View style={styles.checkboxContainer}>
             <FlatList
               data={dataCategoria}
-              keyExtractor={(item) => String(item.idCategorias)} 
-              renderItem={({item}) =><ItemFilter setProps={setFather} value={father} item={item}/>}
+              keyExtractor={(item) => `key-${item.idCategorias}`} 
+              renderItem={({item}) =><ItemFilter setProps={setFather} data={dataCategoria} value={father} item={item}/>}
             />
             
         </View>
         <View style={{flexDirection:'row', justifyContent:"space-around", paddingTop:5, alignItems:'center'}}>
-          <TouchableOpacity style={styles.btnFiltrar} onPress={() => {
-            filtrarCategorias(father);
-          }}>
-          <Text>Filtrar</Text>
-          </TouchableOpacity>
+          <BtnFiltrar setnomeOngFiltradas={setnomeOngFiltradas} father={father}/>
           <TouchableOpacity>
           <Text>Limpar</Text>
           </TouchableOpacity>

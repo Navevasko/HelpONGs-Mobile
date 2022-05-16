@@ -15,9 +15,8 @@ export default function ExibirDoar(exibir, dataOng) {
     const [dataEstado, setDataEstado] = useState([]);
     const [dataOngFavoritadas, setDataOngsFavoritadas] = useState([]);
     const [idUser, setIdUser] = useState(5);
-    const navigation = useNavigation();
     const [type, setType] = useState("teste");
-    // const [search, setSearch] = useState(func);
+    const [ongsFiltradas, setOngsFiltradas] = useState([]);
     const [teste, setTeste] = useState(dataOng);
     const [nomeOngFiltradas, setnomeOngFiltradas] =useState([]);
     
@@ -27,13 +26,16 @@ export default function ExibirDoar(exibir, dataOng) {
         }).catch((error) =>{
             console.log("erro de ongsFavoritadas Pelo usúario", )
         }) 
-        api.get(`/category`).then((response) =>{
+        api.get(`/category`).then((response) =>{    
             setType(response.data.data)
         })
     }, []);
 
+    if(nomeOngFiltradas.length > 0){
 
-    // dataOng.filter(i => i.nome.includes(text))
+        // setTeste(dataOng.map(ong => ong.nome.includes(nomeOngFiltradas)));
+    }
+
     /**** PESQUISAR PELAS ONGS ******/
     const searchOng = (text) =>{
          if(text){
@@ -68,15 +70,7 @@ export default function ExibirDoar(exibir, dataOng) {
             <View>
                 <View style={styles.containerPesquisa}>
                     <Filter setnomeOngFiltradas={setnomeOngFiltradas} nomeOngFiltradas={nomeOngFiltradas}/>
-                    {/* {modalVisible && <Filter visible={modalVisible}/>} */}
-                    {/* <TypePicker
-                        onValueChange={(item) => {
-                        setType(item);
-                        }}
-                        selectedValue={type}
-                        items={type}
-                    /> */}
-                    {console.log(nomeOngFiltradas)}
+                    {/* {console.log(nomeOngFiltradas)} */}
 
                     <InputPesquisar onChangeText={text =>{{searchOng(text)}}} />
                 </View>
