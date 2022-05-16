@@ -50,7 +50,7 @@ export default function Filter({setnomeOngFiltradas, nomeOngFiltradas}) {
             
         </View>
         <View style={{flexDirection:'row', justifyContent:"space-around", paddingTop:5, alignItems:'center'}}>
-          <BtnFiltrar setnomeOngFiltradas={setnomeOngFiltradas} father={father}/>
+          <BtnFiltrar setnomeOngFiltradas={setnomeOngFiltradas} nomeOngFiltradas={nomeOngFiltradas} father={father}/>
           <TouchableOpacity>
           <Text>Limpar</Text>
           </TouchableOpacity>

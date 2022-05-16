@@ -7,37 +7,38 @@ export default function ItemFilter({item, setProps, value, data }) {
   const [checked, setChecked] = useState(false);
   const [teste, setTeste] = useState([]);
 //  console.log();  
-  const onChangeValue = (itemSelected) => {
+  // const onChangeValue = (itemSelected) => {
     
-    const newData = data.map(item => {
-      if( item.idCategorias == itemSelected.idCategorias){
-        return {          
-          ...item,
-          selected: !item.selected
-        }
+    // const newData = data.map(item => {
+    //   if( item.idCategorias == itemSelected.idCategorias){
+    //     return {          
+    //       ...item,
+    //       selected: !item.selected
+    //     }
         
-      }
-      return{
-        ...item,
-        selected: item.selected
-      }
-    })
+    //   }
+    //   return{
+    //     ...item,
+    //     selected: item.selected
+    //   }
+    // })
+
     // if(item.selected == true){
     //   console.log("novo valor", newData)
     // }
-    setProps(...newData);
-    console.log(value);
+    // setProps(...newData);
+    // console.log(value);
     
     // console.log(itemSelected);
     // console.log("num deu certo ",value)
-  }
+  // }
 
     return(
       <View style={{flexDirection:"row", alignItems:'center'}}>
         <Checkbox
           status={checked ? 'checked' : 'unchecked'}
           color="red"
-          onPress={() => {onChangeValue(item),  setChecked(!checked);}}
+          onPress={() => {setProps(item.nome),  setChecked(!checked);}}
           // onValueChange={() => } 
         />
         <Text>

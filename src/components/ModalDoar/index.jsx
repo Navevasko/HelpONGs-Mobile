@@ -10,11 +10,13 @@ export default function ModalDoar({data}) {
   const [idOng, setIdOng] = useState(0);
   const [dadosBancarios, setDadosBancarios] = useState([]);
   const [dadosDeContato, setDadosDeContato] = useState([]);
+  const [meiosDeDoacao, setMeiosDeDoacao] = useState([]);
 
 if(idOng != 0){
 //  useEffect(() =>{
     api.get(`/bank-data/${idOng}`).then((response) => {
       setDadosBancarios(response.data.data);
+      console.log(response.data.data);
     }).catch((error) => {
       const errorJSON = JSON.stringify(error);
       if(errorJSON.includes("404")){
@@ -31,6 +33,11 @@ if(idOng != 0){
     }).catch((error) => {
       console.log(error);
     });
+    api.get(`/donation-data/${idOng}`).then((response) => {
+      setMeiosDeDoacao(response.data.data);
+    }).catch((error) =>{
+      console.log("error requisição meios de doacao", error)
+    })
   
   // }, [])
   setIdOng(0);
@@ -77,7 +84,7 @@ if(idOng != 0){
             </View>
             <View style={{flexDirection:'row'}}>
               <Text style={styles.informacoestxt}>Site: </Text>
-              <Text style={styles.informacoestxtbold}>www.ongBrasil.com.br</Text>
+              <Text style={styles.informacoestxtbold}>{meiosDeDoacao.site}</Text>
             </View>
           </View>
           <View>
@@ -94,7 +101,7 @@ if(idOng != 0){
                 </View>
                 <View style={{flexDirection:'row'}}>
                   <Text style={styles.informacoestxt}>Pix: </Text>
-                  <Text style={styles.informacoestxtbold}>(11)95286-6414</Text>
+                  <Text style={styles.informacoestxtbold}>{meiosDeDoacao.pix}</Text>
                 </View>
                 <View style={{flexDirection:'row'}}>
                   <Text style={styles.informacoestxt}>Agencia: </Text>

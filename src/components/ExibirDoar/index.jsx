@@ -9,7 +9,7 @@ import InputPesquisar from '../inputPesquisar/index.jsx'
 import { api } from '../../../api/index.js'
 import { useNavigation } from '@react-navigation/native'
 
-export default function ExibirDoar(exibir, dataOng) {
+export default function ExibirDoar({exibir, dataOng, setDataOng}) {
     // console.log(dataOng)
     const [modalVisible, setModalVisible] = useState(false);
     const [dataEstado, setDataEstado] = useState([]);
@@ -17,8 +17,9 @@ export default function ExibirDoar(exibir, dataOng) {
     const [idUser, setIdUser] = useState(5);
     const [type, setType] = useState("teste");
     const [ongsFiltradas, setOngsFiltradas] = useState([]);
-    const [teste, setTeste] = useState(dataOng);
+    // const [teste, setTeste] = useState(dataOng);
     const [nomeOngFiltradas, setnomeOngFiltradas] =useState([]);
+    const [search, setSearch] = useState('');
     
     React.useEffect(() =>{
         api.get(`/favorite/${idUser}`).then((response) =>{
@@ -31,23 +32,47 @@ export default function ExibirDoar(exibir, dataOng) {
         })
     }, []);
 
-    if(nomeOngFiltradas.length > 0){
+    
+    // if(nomeOngFiltradas.length != 0){ 
 
-        // setTeste(dataOng.map(ong => ong.nome.includes(nomeOngFiltradas)));
-    }
+    //     const ongsFiltradas = []; 
+        
+    //     dataOng.map((ong) => { 
+        
+    //     if (nomeOngFiltradas.includes(ong.nome)) { 
+        
+    //     ongsFiltradas.push(ong); 
+        
+    //     } 
+    // }); 
+
+    // // console.log(ongsFiltradas); 
+    
+    // setDataOng(ongsFiltradas); 
+    
+    // } 
 
     /**** PESQUISAR PELAS ONGS ******/
+    useEffect(() =>{
+        searchOng();
+    }, [])
+
     const searchOng = (text) =>{
+        
          if(text){
             const ResultSearchOngs = dataOng.filter((item) =>{
                 const itemData = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
+                
             });
             
-            setTeste(ResultSearchOngs);
+            setDataOng(ResultSearchOngs);
+            console.log(text);
+
         }else{
-            setTeste(dataOng);
+            setDataOng(dataOng);
+            setSearch(text);
         }
         // console.log(ResultSearchOngs)
     }
@@ -82,7 +107,7 @@ export default function ExibirDoar(exibir, dataOng) {
                 
                 {
                     
-                    teste.map(ong => {
+                    dataOng.map(ong => {
                     return (
                         <CardDoar data={ong} key={ong.idOng} /> 
                     )

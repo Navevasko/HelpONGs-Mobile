@@ -45,7 +45,7 @@ export default function Doar() {
         <Text style={styles.txtOpcoes}>Mais Famosas</Text>
         </TouchableOpacity>
       </View>
-      {ExibirDoar(exibir, dataOng)}
+      {ExibirDoar({exibir, dataOng, setDataOng})}
     </ScrollView>
     </SafeAreaView>
   )
