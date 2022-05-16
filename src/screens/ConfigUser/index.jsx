@@ -1,39 +1,20 @@
-import { ScrollView, View, Text, Image, TouchableOpacity, StatusBar } from 'react-native'
-import TextUnderline from '../../components/TextUnderline';
+import { View, Text, Image, ImageBackground, StatusBar } from 'react-native'
 import React from 'react'
-import { styles } from './style'
-import Icon from 'react-native-vector-icons/Feather';
+import ContainerTitle from "../../components/ContainerTitle";
+import { styles } from './style';
 
-export default function ConfigUser() {
+export default function ConfigONG() {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <StatusBar barStyle={"dark-content"} backgroundColor={"transparent"} />
-      <View style={styles.containerProfilePictures}>
-        <Image
-          style={styles.banner}
-          source={require("../../assets/img/Banner.png")}
-        />
-
-        <Image
-          style={styles.profilePicture}
-          source={require("../../assets/img/PFP.png")}
-        />
-
-        <TouchableOpacity style={styles.containerEdit} onPress={() => {}}>
-          <Icon name="edit" size={20} style={styles.edit} />
-        </TouchableOpacity>
+    <ContainerTitle title={"Configurações"}>
+      <View>
+        <StatusBar />
+        <ImageBackground>
+          <View>
+            <Image source={require("../../assets/img/Banner.png")} />
+            <Image source={require("../../assets/img/PFP.png")} />
+          </View>
+        </ImageBackground>
       </View>
-
-      <Text style={styles.name}> Maria da Silva </Text>
-
-      <View style={{ marginTop: 40 }}>
-        <TextUnderline text={"Informações da conta"}/>
-
-        <TextUnderline text={"Endereço"}/>
-
-        <TextUnderline text={"Opções da conta"}/>
-
-      </View>
-    </ScrollView>
+    </ContainerTitle>
   );
 }
