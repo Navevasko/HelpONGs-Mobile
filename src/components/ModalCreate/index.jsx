@@ -15,7 +15,7 @@ import ModalEndereco from "../ModalEndereco";
 import ModalDataHora from "../ModalDataHora";
 
 export default function ModalCreate({ onClose }) {
-  const [Type, setType] = useState("vaga");
+  const [Type, setType] = useState("post");
   const types = [
     { label: "Post", value: "post" },
     { label: "Evento", value: "evento" },
@@ -117,7 +117,13 @@ export default function ModalCreate({ onClose }) {
                   }}
                 />
 
-                <FullButton icon={"calendar"} text={"Adicionar Data e Hora"} />
+                <FullButton
+                  icon={"calendar"}
+                  text={"Adicionar Data e Hora"}
+                  onPress={() => {
+                    setModalDataHora(true);
+                  }}
+                />
               </>
             )}
 

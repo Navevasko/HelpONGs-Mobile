@@ -46,10 +46,9 @@ export default function BottomSheetPost({children}) {
         style={[
           styles.container,
           rBottomSheetStyle,
-          { top: SCREEN_HEIGHT },
+          { top: SCREEN_HEIGHT, height: SCREEN_HEIGHT,},
         ]}
       >
-        <View style={styles.line}></View>
         {children}
       </Animated.View>
     </GestureDetector>

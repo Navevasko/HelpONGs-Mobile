@@ -10,10 +10,19 @@ export default function ModalPost({file}) {
 
 
   return (
-    <View>
-      <InvisibleInput placeholder={"Faça uma descrição de seu evento"} />
+    <>
+      <View style={{ paddingStart: 20, paddingEnd: 25 }}>
+        
+        <InvisibleInput
+          placeholder={"Faça uma descrição de seu evento"}
+          value={desc}
+          onChangeText={(text) => {
+            setDesc(text);
+          }}
+        />
+      </View>
 
-      {file && <Image source={{ uri: file }} style={styles.image} />}
-    </View>
+      <>{file && <Image source={{ uri: file }} style={styles.image} />}</>
+    </>
   );
 }
