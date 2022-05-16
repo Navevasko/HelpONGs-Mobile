@@ -20,7 +20,7 @@ export default function InformacoesConta() {
         style={styles.imageBackground}
         source={require("../../assets/img/Background.png")}
       >
-        <TextUnderline name="Informações da Conta" title={true} />
+        <TextUnderline text="Informações da Conta" title={true} />
         <ScrollView
           style={styles.containerInfo}
           contentContainerStyle={{

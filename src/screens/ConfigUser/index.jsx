@@ -27,45 +27,12 @@ export default function ConfigUser() {
       <Text style={styles.name}> Maria da Silva </Text>
 
       <View style={{ marginTop: 40 }}>
-        <TouchableOpacity style={styles.option}>
-          <View style={styles.optionStyle}>
-            <Text style={styles.textOption}>Informações da conta</Text>
+        <TextUnderline text={"Informações da conta"}/>
 
-            <View style={styles.line}></View>
-          </View>
+        <TextUnderline text={"Endereço"}/>
 
-          <Icon name="arrow-right" style={styles.optionArrow} size={25} />
-        </TouchableOpacity>
+        <TextUnderline text={"Opções da conta"}/>
 
-        <TouchableOpacity style={styles.option}>
-          <View style={styles.optionStyle}>
-            <Text style={styles.textOption}>Endereço</Text>
-
-            <View style={styles.line}></View>
-          </View>
-
-          <Icon name="arrow-right" style={styles.optionArrow} size={25} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.option}>
-          <View style={styles.optionStyle}>
-            <Text style={styles.textOption}>Opções da conta</Text>
-
-            <View style={styles.line}></View>
-          </View>
-
-          <Icon name="arrow-right" style={styles.optionArrow} size={25} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.option}>
-          <View style={styles.optionStyle}>
-            <Text style={styles.textOption}>Mudar tema</Text>
-
-            <View style={styles.line}></View>
-          </View>
-
-          <Icon name="arrow-right" style={styles.optionArrow} size={25} />
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );

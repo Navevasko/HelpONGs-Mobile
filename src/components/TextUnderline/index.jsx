@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Feather";
 import PropTypes from "prop-types";
 import { styles } from "./style";
 
-export default function TextUnderline({ name, title, onPress }) {
+export default function TextUnderline({ text, title, onPress }) {
   return (
     <TouchableOpacity style={styles.option} onPress={onPress}>
       <View style={styles.optionStyle}>
@@ -12,7 +12,7 @@ export default function TextUnderline({ name, title, onPress }) {
           <Icon name="arrow-left" style={styles.optionArrow} size={25} />
         )}
 
-        <Text style={styles.textOption}>{name}</Text>
+        <Text style={styles.textOption}>{text}</Text>
 
         {!title && (
           <Icon name="arrow-right" style={styles.optionArrow} size={25} />
@@ -25,7 +25,7 @@ export default function TextUnderline({ name, title, onPress }) {
 }
 
 TextUnderline.propTypes = {
-  name: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   title: PropTypes.bool.isRequired,
   onPress: PropTypes.func
 };
