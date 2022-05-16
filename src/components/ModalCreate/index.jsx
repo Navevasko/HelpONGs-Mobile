@@ -13,6 +13,7 @@ import { styles } from "./style";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ModalEndereco from "../ModalEndereco";
 import ModalDataHora from "../ModalDataHora";
+import base64 from 'react-native-base64'
 
 export default function ModalCreate({ onClose }) {
   const [Type, setType] = useState("post");
@@ -30,6 +31,24 @@ export default function ModalCreate({ onClose }) {
   const [postArray, setPostArray] = useState({});
   const [vagaArray, setVagaArray] = useState({});
 
+  const handlePost = (descricao, {uri, type}) => {
+
+    console.log(file)
+
+    const file64 = base64.encode(file)
+
+    const arrayPost = {
+        idOng: 1,
+        descricao: descricao,
+        media: [
+          {
+            fileName: file.uri,
+            base64: file64,
+          }
+        ]
+    }
+  }
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -44,14 +63,14 @@ export default function ModalCreate({ onClose }) {
 
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setFile(result.uri);
+      setFile(result);
     }
   };
   return (
@@ -63,8 +82,11 @@ export default function ModalCreate({ onClose }) {
           publish={true}
           onPress={() => {
             if (Type === "post") {
+              handlePost('tesrte' ,file)
             } else if (Type === "evento") {
+              console.log(eventoArray)
             } else if (Type === "vaga") {
+              console.log(vagaArray)
             }
           }}
         >

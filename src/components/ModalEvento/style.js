@@ -9,8 +9,8 @@ export const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignSelf: "center",
     justifyContent: "space-between",
-    alignItems: 'center',
-    marginTop: 20
+    alignItems: "center",
+    marginTop: 20,
   },
   inputCom: {
     width: "50%",
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     padding: 5,
   },
   texta: {
-    width: '100%',
+    width: "100%",
     fontSize: 17,
     fontFamily: theme.fonts.regular,
   },
@@ -48,9 +48,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     marginEnd: 40,
   },
-  image: {
-    width: '100%',
+  file: {
+    width: "100%",
     height: 400,
-    alignSelf: 'center'
-  }
+    alignSelf: "center",
+  },
 });

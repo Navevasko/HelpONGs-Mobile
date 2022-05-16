@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 17,
   },
-  image: {
+  file: {
     width: "100%",
     height: 400,
     alignSelf: "center",
