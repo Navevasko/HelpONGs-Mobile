@@ -8,7 +8,7 @@ import ItemFilter from '../ItemFilter';
 import BtnFiltrar from '../BtnFiltrar';
 
 
-export default function Filter({setnomeOngFiltradas, nomeOngFiltradas}) {
+export default function Filter({exibirOngFiltradas}) {
   const [filterVisible, setModalVisible] = useState(false);
   const [dataCategoria, setDataCategoria] = useState([]);
   const [father, setFather] = useState([]);
@@ -50,7 +50,7 @@ export default function Filter({setnomeOngFiltradas, nomeOngFiltradas}) {
             
         </View>
         <View style={{flexDirection:'row', justifyContent:"space-around", paddingTop:5, alignItems:'center'}}>
-          <BtnFiltrar setnomeOngFiltradas={setnomeOngFiltradas} nomeOngFiltradas={nomeOngFiltradas} father={father}/>
+          <BtnFiltrar father={father} setOi={exibirOngFiltradas} setFather={setFather}/>
           <TouchableOpacity>
           <Text>Limpar</Text>
           </TouchableOpacity>

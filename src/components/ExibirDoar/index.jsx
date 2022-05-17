@@ -10,15 +10,13 @@ import { api } from '../../../api/index.js'
 import { useNavigation } from '@react-navigation/native'
 
 export default function ExibirDoar({exibir, dataOng, setDataOng}) {
-    // console.log(dataOng)
     const [modalVisible, setModalVisible] = useState(false);
     const [dataEstado, setDataEstado] = useState([]);
     const [dataOngFavoritadas, setDataOngsFavoritadas] = useState([]);
     const [idUser, setIdUser] = useState(5);
     const [type, setType] = useState("teste");
     const [ongsFiltradas, setOngsFiltradas] = useState([]);
-    // const [teste, setTeste] = useState(dataOng);
-    const [nomeOngFiltradas, setnomeOngFiltradas] =useState([]);
+    const [teste, setTeste] = useState([]);
     const [search, setSearch] = useState('');
     
     React.useEffect(() =>{
@@ -30,6 +28,9 @@ export default function ExibirDoar({exibir, dataOng, setDataOng}) {
         api.get(`/category`).then((response) =>{    
             setType(response.data.data)
         })
+        api.get(`/ong`).then((response) => {
+            setTeste(response.data.data)
+          });
     }, []);
 
     
@@ -67,11 +68,11 @@ export default function ExibirDoar({exibir, dataOng, setDataOng}) {
                 
             });
             
-            setDataOng(ResultSearchOngs);
-            console.log(text);
+            setTeste(ResultSearchOngs);
+            setSearch('');
 
         }else{
-            setDataOng(dataOng);
+            setTeste(dataOng);
             setSearch(text);
         }
         // console.log(ResultSearchOngs)
@@ -94,10 +95,9 @@ export default function ExibirDoar({exibir, dataOng, setDataOng}) {
         return(
             <View>
                 <View style={styles.containerPesquisa}>
-                    <Filter setnomeOngFiltradas={setnomeOngFiltradas} nomeOngFiltradas={nomeOngFiltradas}/>
-                    {/* {console.log(nomeOngFiltradas)} */}
+                    <Filter exibirOngFiltradas={setTeste}/>
 
-                    <InputPesquisar onChangeText={text =>{{searchOng(text)}}} />
+                    <InputPesquisar value={search} onChangeText={text =>{{searchOng(text)}}} />
                 </View>
                 <View style={styles.containerSelectEstado}>
                 <Text style={styles.txtTituloEstado}>Estados</Text>
@@ -107,7 +107,7 @@ export default function ExibirDoar({exibir, dataOng, setDataOng}) {
                 
                 {
                     
-                    dataOng.map(ong => {
+                    teste.map(ong => {
                     return (
                         <CardDoar data={ong} key={ong.idOng} /> 
                     )

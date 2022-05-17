@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import { api } from "../../../api";
 
-export default function BtnFiltrar({ father, setnomeOngFiltradas, nomeOngFiltradas }) {
+export default function BtnFiltrar({ father, setOi }) {
+
+  const [nomeOngFiltradas, setnomeOngFiltradas] =useState([]);
+  const [dataOng, setDataOng] = useState([]);
 
   React.useEffect(() => {
     onSubmit();
@@ -19,8 +22,12 @@ export default function BtnFiltrar({ father, setnomeOngFiltradas, nomeOngFiltrad
         });
     }
 
-
+    console.log(nomeOngFiltradas);
     if(nomeOngFiltradas.length != 0){ 
+
+      api.get(`/ong`).then((response) => {
+        setDataOng(response.data.data)
+      });
 
       const ongsFiltradas = []; 
       
@@ -33,9 +40,9 @@ export default function BtnFiltrar({ father, setnomeOngFiltradas, nomeOngFiltrad
       } 
   }); 
 
-  // console.log(ongsFiltradas); 
-  
   console.log(ongsFiltradas); 
+  
+  // console.log(ongsFiltradas); 
   
   }
   }
