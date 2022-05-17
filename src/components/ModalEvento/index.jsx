@@ -5,8 +5,9 @@ import { styles } from "./style";
 import { theme } from "../../global/styles/theme";
 import InputUnderline from "../InputUnderline";
 import InvisibleInput from "../InvisibleInput";
+import Icon from "react-native-vector-icons/Feather";
 
-export default function ModalEvento({ file }) {
+export default function ModalEvento({ file, setFile }) {
   const [titulo, setTitulo] = useState("");
   const [desc, setDesc] = useState("");
 
@@ -44,7 +45,23 @@ export default function ModalEvento({ file }) {
       </View>
 
       {handleFile(file) == "image" && (
-        <Image source={{uri: file.uri}} style={styles.file} />
+        <View>
+          <Icon
+            name="x"
+            size={45}
+            color={theme.colors.secondary}
+            style={{
+              position: "relative",
+              top: 60,
+              alignSelf: "flex-end",
+              zIndex: 1,
+            }}
+            onPress={() => {
+              setFile('')
+            }}
+          />
+          <Image source={{ uri: file.uri }} style={styles.file} />
+        </View>
       )}
       {handleFile(file) == "video" && (
         <Video

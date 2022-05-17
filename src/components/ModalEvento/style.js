@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
   },
   file: {
     width: "100%",
-    height: 400,
+    height: 500,
     alignSelf: "center",
   },
 });

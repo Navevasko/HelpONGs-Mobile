@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Modal, ScrollView, Text } from "react-native";
+import { Modal, ScrollView, Text, ToastAndroid } from "react-native";
 import ContainerModal from "../ContainerModal";
 import TypePicker from "../TypePicker";
 import ONGData from "../ONGData";
@@ -13,7 +13,8 @@ import { styles } from "./style";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ModalEndereco from "../ModalEndereco";
 import ModalDataHora from "../ModalDataHora";
-import base64 from 'react-native-base64'
+import base64 from "react-native-base64";
+import { api } from "../../../api";
 
 export default function ModalCreate({ onClose }) {
   const [Type, setType] = useState("post");
@@ -27,27 +28,39 @@ export default function ModalCreate({ onClose }) {
   const [modalDataHora, setModalDataHora] = useState(false);
   const [endereco, setEndereco] = useState({});
   const [data, setData] = useState({});
-  const [eventoArray, setEventoArray] = useState({});
-  const [postArray, setPostArray] = useState({});
-  const [vagaArray, setVagaArray] = useState({});
+  const [tituloEvento, setTituloEvento] = useState("");
+  const [descEvento, setDescEvento] = useState("");
+  const [descPost, setDescPost] = useState({});
+  const [descVaga, setVagaArray] = useState({});
+  const [reqVaga, setReqVaga] = useState({});
 
-  const handlePost = (descricao, {uri, type}) => {
+  const handlePost = (desc, file) => {
+    const file64 = base64.encode(file.uri);
 
-    console.log(file)
-
-    const file64 = base64.encode(file)
-
-    const arrayPost = {
-        idOng: 1,
-        descricao: descricao,
-        media: [
-          {
-            fileName: file.uri,
-            base64: file64,
-          }
-        ]
+    if(desc !== ""){
+      api
+        .post("/post", {
+          idOng: 1,
+          descricao: desc,
+          media: [
+            {
+              filename: file.uri,
+              base64: file64,
+              type: file.type,
+            },
+          ],
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-  }
+    else {
+      ToastAndroid.show("Por favor, faça uma descrição de seu post")
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -82,11 +95,11 @@ export default function ModalCreate({ onClose }) {
           publish={true}
           onPress={() => {
             if (Type === "post") {
-              handlePost('tesrte' ,file)
+              handlePost("tesrte", file);
             } else if (Type === "evento") {
-              console.log(eventoArray)
+              console.log(eventoArray);
             } else if (Type === "vaga") {
-              console.log(vagaArray)
+              console.log(vagaArray);
             }
           }}
         >
@@ -107,9 +120,23 @@ export default function ModalCreate({ onClose }) {
             style={styles.containerInput}
             contentContainerStyle={{ justifyContent: "center" }}
           >
-            {Type == "post" && <ModalPost file={file} />}
+            {Type == "post" && (
+              <ModalPost
+                file={file}
+                setFile={(data) => {
+                  setFile(data);
+                }}
+              />
+            )}
 
-            {Type == "evento" && <ModalEvento file={file} />}
+            {Type == "evento" && (
+              <ModalEvento
+                file={file}
+                setFile={(data) => {
+                  setFile(data);
+                }}
+              />
+            )}
 
             {Type == "vaga" && <ModalVaga />}
           </ScrollView>

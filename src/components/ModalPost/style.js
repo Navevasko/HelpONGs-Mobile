@@ -33,4 +33,11 @@ export const styles = StyleSheet.create({
     height: 400,
     alignSelf: "center",
   },
+  close: {
+    position: "relative",
+    top: 60,
+    alignSelf: "flex-end",
+    zIndex: 1,
+    color: theme.colors.secondary
+  },
 });

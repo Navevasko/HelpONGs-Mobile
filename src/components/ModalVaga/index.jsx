@@ -33,6 +33,16 @@ export default function ModalVaga({file}) {
             setDesc(text);
           }}
         />
+
+        <View style={{ marginTop: 50, borderTopWidth: 1, borderTopColor: 'red' }}>
+          <InvisibleInput
+            placeholder={"Adicione requisitos para sua vaga"}
+            value={desc}
+            onChangeText={(text) => {
+              setDesc(text);
+            }}
+          />
+        </View>
       </View>
 
       <>{file && <Image source={{ uri: file }} style={styles.image} />}</>

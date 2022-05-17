@@ -3,11 +3,10 @@ import { Video } from "expo-av";
 import React, { useState } from "react";
 import { styles } from "./style";
 import InvisibleInput from "../InvisibleInput";
+import Icon from "react-native-vector-icons/Feather";
 
-export default function ModalPost({file}) {
-  const [titulo, setTitulo] = useState("");
+export default function ModalPost({file, setFile}) {
   const [desc, setDesc] = useState("");
-  const [cargaHoraria, setDate] = useState("");
 
   const handleFile = (file) => {
     if (file == null) {
@@ -25,7 +24,7 @@ export default function ModalPost({file}) {
     <>
       <View style={{ paddingStart: 20, paddingEnd: 25 }}>
         <InvisibleInput
-          placeholder={"Faça uma descrição de seu evento"}
+          placeholder={"Faça uma descrição de seu post"}
           value={desc}
           onChangeText={(text) => {
             setDesc(text);
@@ -34,7 +33,17 @@ export default function ModalPost({file}) {
       </View>
 
       {handleFile(file) == "image" && (
-        <Image source={{uri: file.uri}} style={styles.file} />
+        <View>
+          <Icon
+            name="x"
+            size={45}
+            style={styles.close}
+            onPress={() => {
+              setFile("");
+            }}
+          />
+          <Image source={{ uri: file.uri }} style={styles.file} />
+        </View>
       )}
       {handleFile(file) == "video" && (
         <Video
