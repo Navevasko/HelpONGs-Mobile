@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as ImagePicker from "expo-image-picker";
+import { ImagePicker } from "react-native-image-picker";
 import { Modal, ScrollView, Text, ToastAndroid } from "react-native";
 import ContainerModal from "../ContainerModal";
 import TypePicker from "../TypePicker";
@@ -62,29 +62,18 @@ export default function ModalCreate({ onClose }) {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Desculpe! Precisamos de permissão para fazer isso funcionar");
-        }
-      }
-    })();
-  }, []);
-
+  
   const handleChoosePhoto = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
+    const options = {
+      storageOptions: {
+        skipBackup: true,
+        path: "images",
+      },
+    };
 
-    if (!result.cancelled) {
-      setFile(result);
-    }
+    ImagePicker.launchImageLibrary(options, (response) => {
+      console.log(response);
+    });
   };
   return (
     <Modal transparent={true} animationType={"slide"} onRequestClose={onClose}>
