@@ -20,7 +20,6 @@ export default function Filter({exibirOngFiltradas}) {
     });
   }, 
   []);
-
  
   return (
     <View>
@@ -50,7 +49,7 @@ export default function Filter({exibirOngFiltradas}) {
             
         </View>
         <View style={{flexDirection:'row', justifyContent:"space-around", paddingTop:5, alignItems:'center'}}>
-          <BtnFiltrar father={father} setOi={exibirOngFiltradas} setFather={setFather}/>
+          <BtnFiltrar father={father} setOngsFiltradasPorCategorias={exibirOngFiltradas} setFather={setFather}/>
           <TouchableOpacity>
           <Text>Limpar</Text>
           </TouchableOpacity>

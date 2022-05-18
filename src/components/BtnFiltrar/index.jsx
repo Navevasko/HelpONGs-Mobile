@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, {useState} from "react";
 import { api } from "../../../api";
 
-export default function BtnFiltrar({ father, setOi }) {
+export default function BtnFiltrar({ father, setOngsFiltradasPorCategorias }) {
 
   const [nomeOngFiltradas, setnomeOngFiltradas] =useState([]);
   const [dataOng, setDataOng] = useState([]);
@@ -10,9 +10,9 @@ export default function BtnFiltrar({ father, setOi }) {
   React.useEffect(() => {
     onSubmit();
   }, []);
-
+  console.log("nome da opcao selecionada", father);
     const onSubmit =() =>{
-      if (father) {
+      if (father.length > 0) {
       api
         .post("/category/filter", {
           categorias: [father],
@@ -22,7 +22,7 @@ export default function BtnFiltrar({ father, setOi }) {
         });
     }
 
-    console.log(nomeOngFiltradas);
+    console.log("pegando o nome das opçoes selecionadas e buscando ong que trabalham com essa categoria",nomeOngFiltradas);
     if(nomeOngFiltradas.length != 0){ 
 
       api.get(`/ong`).then((response) => {
@@ -40,9 +40,8 @@ export default function BtnFiltrar({ father, setOi }) {
       } 
   }); 
 
-  console.log(ongsFiltradas); 
+  setOngsFiltradasPorCategorias(ongsFiltradas); 
   
-  // console.log(ongsFiltradas); 
   
   }
   }
