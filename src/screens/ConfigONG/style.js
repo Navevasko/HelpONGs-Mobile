@@ -53,10 +53,4 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.alternateMedium,
     color: theme.colors.grey,
   },
-  inputContainer: {
-    padding: 10,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
 });
