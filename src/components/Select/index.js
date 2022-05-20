@@ -3,21 +3,22 @@ import React, {useState} from 'react'
 import Icon from "react-native-vector-icons/Feather";
 import { theme } from '../../global/styles/theme';
 
-export default function Select( options, onChangeSelect) {
+export default function Select({options, onChangeSelect}) {
+    const [txt, setTxt] = useState("Selecione um estado");
     const [modalVisible, setModalVisible ] = useState(false);
-    const [data, setData] = useState([])
-    // console.log(JSON.stringify(options))
+    const [data, setData] = useState([]);
+
     function renderOption(item){
         return(
-            <TouchableOpacity onPress={()=>{onChangeSelect(item.idEstado);setModalVisible(false)}} style={{height:20}}>
-                <Text>{item.nome}</Text>
+            <TouchableOpacity onPress={()=>{onChangeSelect(item.nome); setTxt(item.nome); setModalVisible(false)}} style={styles.optionContainer}>
+                <Text style={styles.txtOption}>{item.nome}</Text>
             </TouchableOpacity>
         )
     }
   return (
     <View>
       <TouchableOpacity style={styles.container} onPress={()=>setModalVisible(true)}>
-        <Text style={styles.txtSelecione}>Selecione um estado</Text>
+        <Text style={styles.txtSelecione}>{txt}</Text>
         <Icon
             name="chevron-down"
             size={15}
@@ -32,7 +33,7 @@ export default function Select( options, onChangeSelect) {
                 size={30}
             />
         </TouchableOpacity>
-        <Text style={styles.modalTitulo}>Selecione um estado</Text>
+        <Text style={styles.modalTitulo}>{txt}</Text>
         <TouchableOpacity onPress={()=>setModalVisible(false)}>
             <Text style={styles.modalCancel}>Cancelar</Text>
         </TouchableOpacity>
@@ -43,7 +44,7 @@ export default function Select( options, onChangeSelect) {
                     "nome": "Tocantins",
                     "sigla": "TO",
                 }]}
-            keyExtractor={(item) => String(item.id)} renderItem={({item}) =>renderOption(item)}
+            keyExtractor={(item) => String(item.idEstado)} renderItem={({item}) =>renderOption(item)}
         />
       </SafeAreaView>
       </Modal>
@@ -83,5 +84,19 @@ const styles = StyleSheet.create({
         fontSize:14,
         color:"blue",
         fontWeight:"bold"
+    },
+    optionContainer:{
+        flexDirection:"row",
+        borderBottomColor:"#eee",
+        alignItems:'center',
+        justifyContent:'space-between',
+        borderBottomWidth:1,
+        padding:10
+    },
+    txtOption:{
+        fontSize:16, 
+        fontFamily:theme.fonts.medium,
+        color:theme.colors.black
     }
+
 })

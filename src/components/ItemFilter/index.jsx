@@ -7,6 +7,8 @@ export default function ItemFilter({item, setProps, value, data }) {
   const [checked, setChecked] = useState(false);
   const [teste, setTeste] = useState([]);
 
+  // setTeste(...teste, fgdfgdg);
+
 //  console.log();  
   // const onChangeValue = (itemSelected) => {
     
