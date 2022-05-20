@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ImagePicker } from "react-native-image-picker";
-import { Modal, ScrollView, Text, ToastAndroid } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Modal, ScrollView, Text, ToastAndroid, View } from "react-native";
 import ContainerModal from "../ContainerModal";
 import TypePicker from "../TypePicker";
 import ONGData from "../ONGData";
@@ -13,8 +13,10 @@ import { styles } from "./style";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ModalEndereco from "../ModalEndereco";
 import ModalDataHora from "../ModalDataHora";
-import base64 from "react-native-base64";
 import { api } from "../../../api";
+import ModalShadow from "../ModalShadow";
+import { theme } from "../../global/styles/theme";
+import { ActivityIndicator } from "react-native";
 
 export default function ModalCreate({ onClose }) {
   const [Type, setType] = useState("post");
@@ -33,58 +35,110 @@ export default function ModalCreate({ onClose }) {
   const [descPost, setDescPost] = useState({});
   const [descVaga, setVagaArray] = useState({});
   const [reqVaga, setReqVaga] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [fileArray, setFileArray] = useState([]);
 
-  const handlePost = (desc, file) => {
-    const file64 = base64.encode(file.uri);
+  const handlePost = (desc, fileArray) => {
+    console.log(fileArray);
+    // let fileName;
+    // let fileType;
 
-    if(desc !== ""){
-      api
-        .post("/post", {
-          idOng: 1,
-          descricao: desc,
-          media: [
-            {
-              filename: file.uri,
-              base64: file64,
-              type: file.type,
-            },
-          ],
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    else {
-      ToastAndroid.show("Por favor, faça uma descrição de seu post")
-    }
+    // if (desc !== "") {
+    //   if (fileArray !== null) {
+    //     fileArray.map((file) => {});
+    //   }
+
+    //   const arrayPost = {
+    //     idOng: 1,
+    //     descricao: desc,
+    //     media: [],
+    //   };
+
+    //   fileArray.map((file) => {
+    //     if (file.type === "image") {
+    //       fileName = file.uri.split("/")[11];
+    //       fileType = file.type + "/" + fileName.split(".")[1];
+    //     } else if (file.type === "video") {
+    //       fileName = file.uri.split("/")[11];
+    //       fileType = file.type + "/" + fileName.split(".")[1];
+    //     }
+    //     arrayPost.media.push({
+    //       fileName: fileName,
+    //       type: fileType,
+    //     });
+    //   });
+
+    //   console.log(arrayPost);
+
+    //   api
+    //     .post("/post", arrayPost)
+    //     .then((data) => {
+    //       console.log(data);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } else {
+    //   ToastAndroid.show("Por favor, faça uma descrição de seu post");
+    // }
   };
 
-  
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Desculpe! Precisamos de permissão para fazer isso funcionar");
+        }
+      }
+    })();
+  }, []);
+
   const handleChoosePhoto = async () => {
-    const options = {
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
-
-    ImagePicker.launchImageLibrary(options, (response) => {
-      console.log(response);
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsMultipleSelection: true,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
     });
+
+    if (!result.cancelled) {
+      setFileArray([...fileArray, result]);
+    }
   };
+
   return (
     <Modal transparent={true} animationType={"slide"} onRequestClose={onClose}>
-      <GestureHandlerRootView style={{ flex: 1, backgroundColor: "red" }}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        {loading && (
+          <ModalShadow>
+            <View
+              style={{
+                width: "40%",
+                height: "20%",
+                backgroundColor: theme.colors.white,
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <ActivityIndicator size={60} color={theme.colors.secondary} />
+              <Text style={{ fontSize: 20, fontFamily: theme.fonts.medium }}>
+                {" "}
+                Carregando...{" "}
+              </Text>
+            </View>
+          </ModalShadow>
+        )}
         <ContainerModal
           onClose={onClose}
           title={"Criar Publicação"}
           publish={true}
           onPress={() => {
             if (Type === "post") {
-              handlePost("tesrte", file);
+              handlePost("teste", fileArray);
             } else if (Type === "evento") {
               console.log(eventoArray);
             } else if (Type === "vaga") {
@@ -111,7 +165,7 @@ export default function ModalCreate({ onClose }) {
           >
             {Type == "post" && (
               <ModalPost
-                file={file}
+                fileArray={fileArray}
                 setFile={(data) => {
                   setFile(data);
                 }}
@@ -120,7 +174,7 @@ export default function ModalCreate({ onClose }) {
 
             {Type == "evento" && (
               <ModalEvento
-                file={file}
+                fileArray={fileArray}
                 setFile={(data) => {
                   setFile(data);
                 }}

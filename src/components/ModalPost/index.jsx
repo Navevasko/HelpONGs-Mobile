@@ -5,20 +5,8 @@ import { styles } from "./style";
 import InvisibleInput from "../InvisibleInput";
 import Icon from "react-native-vector-icons/Feather";
 
-export default function ModalPost({file, setFile}) {
+export default function ModalPost({ fileArray, setFile }) {
   const [desc, setDesc] = useState("");
-
-  const handleFile = (file) => {
-    if (file == null) {
-      return;
-    } else if(file.type == 'image'){
-      return 'image'
-    }
-    else if (file.type == 'video'){
-      return 'video'
-    }
-  };
-
 
   return (
     <>
@@ -32,28 +20,54 @@ export default function ModalPost({file, setFile}) {
         />
       </View>
 
-      {handleFile(file) == "image" && (
-        <View>
-          <Icon
-            name="x"
-            size={45}
-            style={styles.close}
-            onPress={() => {
-              setFile("");
-            }}
-          />
-          <Image source={{ uri: file.uri }} style={styles.file} />
-        </View>
-      )}
-      {handleFile(file) == "video" && (
-        <Video
-          source={{ uri: file.uri }}
-          style={styles.file}
-          resizeMode={"cover"}
-          shouldPlay
-          isLooping
-        />
-      )}
+      <View style={{ width: "100%", minHeight: 400, backgroundColor: "red" }}>
+        {fileArray.map((file) => {
+          if (file.type === "image") {
+            return (
+              <View>
+                <Icon
+                  name="x"
+                  size={45}
+                  style={styles.close}
+                  onPress={() => {
+                    setFile("");
+                  }}
+                />
+                <Image
+                  source={{ uri: file.uri }}
+                  style={[styles.file, { height: file.height }]}
+                  key={file.uri}
+                />
+              </View>
+            );
+          }
+        })}
+        {fileArray.map((file, index) => {
+          console.log(`file[${index}]: `, file);
+          if (file.type === "video") {
+            return (
+              <View>
+                <Icon
+                  name="x"
+                  size={45}
+                  style={styles.close}
+                  onPress={() => {
+                    setFileArray(fi);
+                  }}
+                />
+                <Video
+                  source={{ uri: file.uri }}
+                  style={styles.file}
+                  resizeMode={"cover"}
+                  shouldPlay
+                  isLooping
+                  key={file.uri}
+                />
+              </View>
+            );
+          }
+        })}
+      </View>
     </>
   );
 }
