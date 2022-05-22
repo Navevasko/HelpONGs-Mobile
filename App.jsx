@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import AppLoading from "expo-app-loading";
 import {
@@ -11,7 +12,11 @@ import {
 } from "@expo-google-fonts/montserrat";
 import {
   MontserratAlternates_200ExtraLight,
+  MontserratAlternates_300Light,
+  MontserratAlternates_400Regular,
+  MontserratAlternates_500Medium,
   MontserratAlternates_600SemiBold,
+  MontserratAlternates_700Bold,
 } from "@expo-google-fonts/montserrat-alternates";
 import { useFonts } from "expo-font";
 import StackNavigation from "./src/routes/auth.routes";
@@ -20,7 +25,11 @@ import { NavigationContainer } from "@react-navigation/native";
 export default function App() {
   const [fontsLoaded] = useFonts({
     MontserratAlternates_200ExtraLight,
+    MontserratAlternates_300Light,
+    MontserratAlternates_400Regular,
+    MontserratAlternates_500Medium,
     MontserratAlternates_600SemiBold,
+    MontserratAlternates_700Bold,
     Montserrat_100Thin,
     Montserrat_100Thin_Italic,
     Montserrat_300Light,
@@ -43,7 +52,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },

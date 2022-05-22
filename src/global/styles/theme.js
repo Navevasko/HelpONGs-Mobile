@@ -1,18 +1,3 @@
-import {
-  Montserrat_100Thin,
-  Montserrat_100Thin_Italic,
-  Montserrat_300Light,
-  Montserrat_400Regular,
-  Montserrat_500Medium,
-  Montserrat_600SemiBold,
-  Montserrat_700Bold,
-} from "@expo-google-fonts/montserrat";
-import {
-  MontserratAlternates_100Thin,
-  MontserratAlternates_200ExtraLight,
-  MontserratAlternates_600SemiBold,
-} from "@expo-google-fonts/montserrat-alternates";
-
 export const theme = {
   colors: {
     primary: "#eb994d",
@@ -20,12 +5,12 @@ export const theme = {
     primaryFaded: "#FFB26A",
     secondary: "#FC595E",
     black: "#292929",
+    shadow: "rgba(41,41,41,50)",
     lightBlack: "#434343",
     white: "#FAFAFA",
     grey: "#CCCCCC",
     input: "#ECECEC",
     placeholder: "#8C8C8C",
-    vagas:"#E5E5E5"
   },
   fonts: {
     bold: "Montserrat_700Bold",
@@ -35,7 +20,11 @@ export const theme = {
     light: "Montserrat_300Light",
     thin: "Montserrat_100Thin",
     thinItalic: "Montserrat_100Thin_Italic",
-    name: "MontserratAlternates_600SemiBold",
-    nameThin: "MontserratAlternates_200ExtraLight",
+    alternateExtraLight: "MontserratAlternates_200ExtraLight",
+    alternateLight: "MontserratAlternates_300Light",
+    alternateRegular: "MontserratAlternates_400Regular",
+    alternateMedium: "MontserratAlternates_500Medium",
+    alternateSemiBold: "MontserratAlternates_600SemiBold",
+    alternateBold: "MontserratAlternates_700Bold",
   },
 };

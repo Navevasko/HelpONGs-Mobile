@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19000,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://yg-gt9.anonymous.helpongs-mobile.exp.direct",
+  "packagerNgrokUrl": "https://yg-gt9.anonymous.helpongs-mobile.exp.direct",
+  "ngrokPid": 5720,
   "webpackServerPort": null
 }
