@@ -50,7 +50,14 @@ export const styles = StyleSheet.create({
   },
   file: {
     width: "100%",
-    height: 500,
+    height: 400,
     alignSelf: "center",
+  },
+  close: {
+    position: "relative",
+    top: 60,
+    alignSelf: "flex-end",
+    zIndex: 1,
+    color: theme.colors.secondary,
   },
 });

@@ -10,7 +10,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-export default function BottomSheetPost({children}) {
+export default function BottomSheetPost({ children }) {
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
 
@@ -20,13 +20,13 @@ export default function BottomSheetPost({children}) {
     })
     .onUpdate((event) => {
       translateY.value = event.translationY + context.value.y;
-      translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 570);
+      translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 510);
     })
     .onEnd((event) => {
       if (translateY.value > SCREEN_HEIGHT - 947) {
         translateY.value = withSpring(-SCREEN_HEIGHT + 690, { damping: 15 });
       } else if (translateY.value > -SCREEN_HEIGHT) {
-        translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 570);
+        translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 510);
       }
     });
 
@@ -37,7 +37,7 @@ export default function BottomSheetPost({children}) {
   });
 
   useEffect(() => {
-    translateY.value = withSpring(-SCREEN_HEIGHT + 570, { damping: 15 });
+    translateY.value = withSpring(-SCREEN_HEIGHT + 510, { damping: 15 });
   }, []);
 
   return (
@@ -46,7 +46,7 @@ export default function BottomSheetPost({children}) {
         style={[
           styles.container,
           rBottomSheetStyle,
-          { top: SCREEN_HEIGHT, height: SCREEN_HEIGHT,},
+          { top: SCREEN_HEIGHT, height: SCREEN_HEIGHT },
         ]}
       >
         {children}

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://10.107.144.26:3131",
+  baseURL: "http://10.107.144.24:3131",
 });
 
 const apiExterna = axios.create({
@@ -12,4 +12,4 @@ const apiCEP = axios.create({
   baseURL: "https://viacep.com.br/ws",
 });
 
-export {api, apiExterna, apiCEP}
+export { api, apiExterna, apiCEP };

@@ -7,7 +7,7 @@ export default Ong = new Object({
       CNPJ.substring(3, 6) +
       CNPJ.substring(7, 10) +
       CNPJ.substring(11, 15) +
-      CNPJ.substring(16, 18));  
+      CNPJ.substring(16, 18));
   },
 
   post(CNPJ, Email, Senha) {
@@ -58,15 +58,50 @@ export default Ong = new Object({
     return get;
   },
 
-  postEvent (titulo, dataHora, descricao, foto, candidatos, endereco) {
+  postPost(desc, fileArray, idOng) {
+    let fileName;
+    let fileType;
 
+    if (desc !== "") {
+      if (fileArray !== null) {
+        fileArray.map(() => {});
+      }
+      const arrayPost = {
+        idOng: idOng,
+        descricao: desc,
+        media: [],
+      };
+      fileArray.map((file) => {
+        if (file.type === "image") {
+          fileName = file.uri.split("/")[11];
+          fileType = file.type + "/" + fileName.split(".")[1];
+        } else if (file.type === "video") {
+          fileName = file.uri.split("/")[11];
+          fileType = file.type + "/" + fileName.split(".")[1];
+        }
+        arrayPost.media.push({
+          fileName: fileName,
+          type: fileType,
+        });
+      });
+
+      console.log(arrayPost);
+      api
+        .post("/posta", arrayPost)
+        .then(({ data }) => {
+          return data;
+        })
+        .catch((error) => {
+          return error;
+        });
+    } else {
+      return "errorDesc";
+    }
   },
 
-  postPost () {
-
+  postEvent(titulo, dataHora, descricao, foto, candidatos, endereco) {
+    console.log(titulo, dataHora, descricao, candidatos, endereco)
   },
 
-  postVaga () {
-    
-  }
+  postVaga() {},
 });

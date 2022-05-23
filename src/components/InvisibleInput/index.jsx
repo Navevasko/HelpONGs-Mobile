@@ -28,4 +28,22 @@ export default function InvisibleInput({
   );
 }
 
-InvisibleInput.propTypes = {};
+InvisibleInput.propTypes = {
+  value: PropTypes.any,
+  max: PropTypes.number,
+  placeholder: PropTypes.string,
+  onChangeText: PropTypes.func,
+  onEndEditing: PropTypes.func,
+  keyboardType: PropTypes.oneOf([
+    "number-pad",
+    "decimal-pad",
+    "numeric",
+    "email-address",
+    "phone-pad",
+    "default",
+  ]),
+};
+
+InvisibleInput.defaultProps = {
+  keyboardType: "default",
+};

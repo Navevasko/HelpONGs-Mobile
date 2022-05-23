@@ -1,22 +1,31 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, ToastAndroid } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import React from "react";
 import { styles } from "./style";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { theme } from "../../global/styles/theme";
 
-export default function FullButton({ icon, text, backColor, onPress }) {
+export default function FullButton({
+  icon,
+  text,
+  backColor,
+  onPress,
+  disabled,
+  toast,
+}) {
   return (
-    <TouchableOpacity style={[styles.button, {backgroundColor: backColor}]} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.button, { backgroundColor: backColor }]}
+      onPress={() => {
+        if (disabled) {
+          ToastAndroid.show(toast, ToastAndroid.SHORT);
+        } else {
+          onPress();
+        }
+      }}
+    >
       {icon && <Icon name={icon} size={45} style={styles.icon} />}
-      <Text
-        style={[
-          styles.text,
-          {marginStart: icon ? 10 : 0}
-        ]}
-      >
-        {text}
-      </Text>
+      <Text style={[styles.text, { marginStart: icon ? 10 : 0 }]}>{text}</Text>
     </TouchableOpacity>
   );
 }
@@ -24,10 +33,12 @@ export default function FullButton({ icon, text, backColor, onPress }) {
 FullButton.propTypes = {
   icon: PropTypes.string,
   text: PropTypes.string.isRequired,
+  toast: PropTypes.string,
   backColor: PropTypes.string,
   onPress: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 FullButton.defaultProps = {
-    backColor: theme.colors.grey
-}
+  backColor: theme.colors.grey,
+};

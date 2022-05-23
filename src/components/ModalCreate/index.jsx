@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Modal, ScrollView, Text, ToastAndroid, View } from "react-native";
+import {
+  Image,
+  Modal,
+  ScrollView,
+  Text,
+  ToastAndroid,
+  View,
+} from "react-native";
 import ContainerModal from "../ContainerModal";
 import TypePicker from "../TypePicker";
 import ONGData from "../ONGData";
@@ -14,12 +21,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ModalEndereco from "../ModalEndereco";
 import ModalDataHora from "../ModalDataHora";
 import { api } from "../../../api";
-import ModalShadow from "../ModalShadow";
-import { theme } from "../../global/styles/theme";
-import { ActivityIndicator } from "react-native";
+import Loading from "../Loading";
+import Ong from "../../../api/Controllers/ongController";
 
 export default function ModalCreate({ onClose }) {
-  const [Type, setType] = useState("post");
+  const [Type, setType] = useState("evento");
   const types = [
     { label: "Post", value: "post" },
     { label: "Evento", value: "evento" },
@@ -32,57 +38,29 @@ export default function ModalCreate({ onClose }) {
   const [data, setData] = useState({});
   const [tituloEvento, setTituloEvento] = useState("");
   const [descEvento, setDescEvento] = useState("");
-  const [descPost, setDescPost] = useState({});
+  const [descPost, setDescPost] = useState("");
   const [descVaga, setVagaArray] = useState({});
   const [reqVaga, setReqVaga] = useState({});
   const [loading, setLoading] = useState(false);
   const [fileArray, setFileArray] = useState([]);
+  const [disableFile, setDisableFile] = useState(false);
 
-  const handlePost = (desc, fileArray) => {
-    console.log(fileArray);
-    // let fileName;
-    // let fileType;
-
-    // if (desc !== "") {
-    //   if (fileArray !== null) {
-    //     fileArray.map((file) => {});
-    //   }
-
-    //   const arrayPost = {
-    //     idOng: 1,
-    //     descricao: desc,
-    //     media: [],
-    //   };
-
-    //   fileArray.map((file) => {
-    //     if (file.type === "image") {
-    //       fileName = file.uri.split("/")[11];
-    //       fileType = file.type + "/" + fileName.split(".")[1];
-    //     } else if (file.type === "video") {
-    //       fileName = file.uri.split("/")[11];
-    //       fileType = file.type + "/" + fileName.split(".")[1];
-    //     }
-    //     arrayPost.media.push({
-    //       fileName: fileName,
-    //       type: fileType,
-    //     });
-    //   });
-
-    //   console.log(arrayPost);
-
-    //   api
-    //     .post("/post", arrayPost)
-    //     .then((data) => {
-    //       console.log(data);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   ToastAndroid.show("Por favor, faça uma descrição de seu post");
-    // }
+  const handlePost = (type) => {
+    if (type == "post") {
+      const response = Ong.postPost(descPost, fileArray, 1);
+      console.log(response);
+      if (response == "errorDesc") {
+        ToastAndroid.show(
+          "Por favor, faça uma descrição de seu post",
+          ToastAndroid.SHORT
+        );
+      }
+    } else if (type == "evento") {
+    } else if (type == "vaga") {
+    }
   };
 
+  // EFFECT PARA PEDIR PERMISSÃO PARA ACESSO A GALERIA
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -95,6 +73,7 @@ export default function ModalCreate({ onClose }) {
     })();
   }, []);
 
+  // FUNÇÃO PARA ABRIR A GALERIA
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -105,47 +84,28 @@ export default function ModalCreate({ onClose }) {
     });
 
     if (!result.cancelled) {
-      setFileArray([...fileArray, result]);
+      if (fileArray.length >= 2) {
+        setDisableFile(true);
+        setFileArray([...fileArray, result]);
+      } else {
+        setFileArray([...fileArray, result]);
+      }
     }
   };
 
   return (
     <Modal transparent={true} animationType={"slide"} onRequestClose={onClose}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        {loading && (
-          <ModalShadow>
-            <View
-              style={{
-                width: "40%",
-                height: "20%",
-                backgroundColor: theme.colors.white,
-                borderRadius: 10,
-                alignItems: "center",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <ActivityIndicator size={60} color={theme.colors.secondary} />
-              <Text style={{ fontSize: 20, fontFamily: theme.fonts.medium }}>
-                {" "}
-                Carregando...{" "}
-              </Text>
-            </View>
-          </ModalShadow>
-        )}
         <ContainerModal
           onClose={onClose}
           title={"Criar Publicação"}
           publish={true}
           onPress={() => {
-            if (Type === "post") {
-              handlePost("teste", fileArray);
-            } else if (Type === "evento") {
-              console.log(eventoArray);
-            } else if (Type === "vaga") {
-              console.log(vagaArray);
-            }
+            handlePost(Type);
           }}
         >
+          {loading && <Loading />}
+
           <ONGData
             image={require("../../assets/img/ONG.png")}
             name={"GreenPeace"}
@@ -166,8 +126,11 @@ export default function ModalCreate({ onClose }) {
             {Type == "post" && (
               <ModalPost
                 fileArray={fileArray}
-                setFile={(data) => {
-                  setFile(data);
+                setFileArray={(data) => {
+                  setFileArray(data);
+                }}
+                setDesc={(text) => {
+                  setDescPost(text);
                 }}
               />
             )}
@@ -175,8 +138,16 @@ export default function ModalCreate({ onClose }) {
             {Type == "evento" && (
               <ModalEvento
                 fileArray={fileArray}
-                setFile={(data) => {
-                  setFile(data);
+                setFileArray={(data) => {
+                  setFileArray(data);
+                }}
+                setDesc={(text) => {
+                  setDescEvento(text);
+                  console.log(descEvento);
+                }}
+                setTitle={(text) => {
+                  setTituloEvento(text);
+                  console.log(tituloEvento);
                 }}
               />
             )}
@@ -190,6 +161,8 @@ export default function ModalCreate({ onClose }) {
                 icon={"image"}
                 text={"Adicionar Foto/Vídeo"}
                 onPress={handleChoosePhoto}
+                disabled={disableFile}
+                toast="Um post só pode ter três fotos."
               />
             )}
 
@@ -198,6 +171,12 @@ export default function ModalCreate({ onClose }) {
                 <FullButton
                   icon={"image"}
                   text={"Adicionar Foto/Vídeo"}
+                  onPress={handleChoosePhoto}
+                />
+
+                <FullButton
+                  icon={"image"}
+                  text={"Adicionar Candidatos"}
                   onPress={handleChoosePhoto}
                 />
 
