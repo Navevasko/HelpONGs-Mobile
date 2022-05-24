@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import DatePicker from 'react-native-datepicker'
+console.disableYellowBox = true;
 
-export default class MyDatePicker extends Component {
-  constructor(props){
-    super(props)
-    this.state = {date:""}
-  }
-
-  render(){
+export default function MyDatePicker(setDate, date){
+  console.log({date});
     return (
       <DatePicker
-        style={{width: 200, backgroundColor:"#FAFAFA", height:37}}
-        date={this.state.date}
+        style={{width: 200, backgroundColor:"#FAFAFA", height:39}}
+        date={date}
         mode="date"
         placeholder="selecione a data"
-        format="YYYY-MM-DD"
-        minDate="1900-01-01"
-        maxDate="2300-01-01"
+        format="DD-MM-YYYY"
+        minDate="01-01-1900"
+        maxDate="01-01-2300"
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         customStyles={{
@@ -30,10 +26,9 @@ export default class MyDatePicker extends Component {
             marginLeft: 36
           }
         }}
-        onDateChange={(date) => {this.setState({date: date})}}
+        onDateChange={(date) => {setDate(date)}}
       />
     )
-  }
 }
 
 // https://github.com/xgfe/react-native-datepicker

@@ -38,9 +38,9 @@ export default function ConfigONG() {
   const [numero, setNumero] = useState();
   const [date, setDate] = useState('23/10/2000');
 
-useEffect(()=>{
+useEffect(async()=>{
 
-  api.get(`/ong/${idOng}`).then((response) =>{
+  await api.get(`/ong/${idOng}`).then((response) =>{
     setDataOng(response.data.data);
   })
 

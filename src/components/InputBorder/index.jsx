@@ -16,7 +16,8 @@ export default function InputBorder({
   color,
   borderColor,
   txtColor, 
-  multiline
+  multiline,
+  placeholder
 }) {
   return (
     <View
@@ -44,6 +45,8 @@ export default function InputBorder({
         max={max}
         keyboardType={keyboardType}
         multiline={multiline}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
       />
     </View>
   );
@@ -54,6 +57,7 @@ InputBorder.propTypes = {
   color: PropTypes.string,
   multiline: PropTypes.bool,
   txtColor: PropTypes.string,
+  placeholder: PropTypes.string,
   borderColor: PropTypes.string,
   onChangeText: PropTypes.func,
   max: PropTypes.number,

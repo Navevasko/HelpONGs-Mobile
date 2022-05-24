@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView,ScrollView,Button, Modal, TouchableOpacity, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView,ScrollView,Button, Modal, TouchableOpacity, ImageBackground, } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import CardContainer from "../../components/CardContainer";
 import OptionsConfig from '../OptionsConfig';
@@ -19,13 +19,50 @@ export default function InformacaoContaOng({data, setData}) {
     const [dataCategoriasOng, setdataCategoriasOng] = useState([]);
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
+    const [nome, setNome] = useState();
+    const [descricao, setDescricao] = useState(data.descricao);
+    const [historia, setHistoria] = useState(data.historia);
+    const [membros, setMembros] = useState(data.qtdDeMembros ? String(data.qtdDeMembros) : "");
+    const [fundacao, setFundacao] = useState(data.dataDeFundacao); 
+    const [numeroDeSeguidores, setNumeroDeSeguidores] = useState(data.numeroDeSeguidores); 
+    const [cnpj, setCNPJ] = useState(data.cnpj);
+    const [banner, setBanner] = useState(data.banner);
+    const [foto, setFoto] = useState(data.foto);
+    const idOng = 1;
 
     useEffect(async() =>{
 
         await api.get(`/category`).then((response) =>{
             setdataCategoriasOng(response.data.data);
+            
           })
+
+        //   onSubmit();
     }, [])
+
+    const onSubmit = () =>{
+        console.log("variaveis",nome)
+        console.log(descricao, numeroDeSeguidores, cnpj, banner, historia, foto, )
+        console.log(membros)
+        console.log(fundacao)
+        api.put(`/ong/${data.idOng}`, {
+            ong: {
+                nome: nome,
+                descricao: descricao,
+                numeroDeSeguidores: numeroDeSeguidores,
+                cnpj: cnpj,
+                banner: banner,
+                historia: historia,
+                foto: foto,
+                qtdDeMembros: Number(membros),
+                dataDeFundacao: fundacao,
+            }
+        }).then((response) =>{
+            console.log(response);
+        })
+    }
+
+    setNome(data.nome);
 
   return (
     <SafeAreaView>
@@ -47,21 +84,26 @@ export default function InformacaoContaOng({data, setData}) {
         <InputContainer>
             <InputBorder 
             title="Nome" 
-            value={data.nome}
+            placeholder={"Digite seu nome"}
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            value={nome}
+            onChangeText={(text) =>{setNome(text)}}
+            max={100}
             />
 
             <InputBorder
               title="Descrição"
               width={"100%"}
               keyboardType={"number-pad"}
-              value={data.descricao}
+              value={descricao}
               color={"#FAFAFA"}
               borderColor={theme.colors.placeholder}
               txtColor={theme.colors.black}
+              placeholder={"Digite uma descrição"}
+              onChangeText={(text) =>{setDescricao(text)}}
             />
 
             <InputBorder 
@@ -70,23 +112,29 @@ export default function InformacaoContaOng({data, setData}) {
                 width={"100%"} 
                 height={200} 
                 color={"#FAFAFA"} 
-                value={data.historia}
+                placeholder={"Digite a história da sua ONG"}
                 borderColor={theme.colors.placeholder}
                 txtColor={theme.colors.black}
                 multiline={true}
+                value={historia}
+                onChangeText={(text) =>{setHistoria(text)}}
             />
             
             <InputBorder 
                 title="Membros" 
                 color={"#FAFAFA"} 
                 keyboardType={"number-pad"} 
-                value={data.qtdDeMembros}
+                value={membros}
                 txtColor={theme.colors.black}
                 borderColor={theme.colors.placeholder}
+                placeholder={"quantidade"}
+                onChangeText={(text) =>{setMembros(text)}}
             />
             <View>
                 <Text style={{fontSize: 20,fontFamily: theme.fonts.regular,color: theme.colors.black, marginBottom:5}}>Fundação</Text>
-                <MyDatePicker/>
+                
+                <MyDatePicker date={date} setDate={setDate}/>
+                
             </View>
             
             
@@ -123,7 +171,7 @@ export default function InformacaoContaOng({data, setData}) {
                     width="35%"
                     height={40}
                     onPress={() => {
-                        onSubmit();
+                        
                     }}
                 />
             </View>
