@@ -9,9 +9,8 @@ import FullButton from "../FullButton";
 import { dateMask, timeMask } from "../../utils/mask";
 
 export default function ModalDataHora({ onClose, setData }) {
-
-    const [date, setDate] = useState("")
-    const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
   return (
     <Modal transparent={true} animationType={"slide"}>
@@ -42,12 +41,18 @@ export default function ModalDataHora({ onClose, setData }) {
           text="Salvar"
           backColor={theme.colors.primary}
           onPress={() => {
-              const dataHoraArray = {
-                  data: date,
-                  horario: time
-              }
-              setData(dataHoraArray)
-              onClose()
+            const ano = Number(date.split("/")[0]);
+            const mes = Number(date.split("/")[1]);
+            const dia = Number(date.split("/")[2]);
+
+            const hora = Number(date.split(":")[0]);
+            const minuto = Number(date.split(":")[1]);
+
+            const d = new Date(ano, mes, dia, hora, minuto);
+
+            console.log(d);
+            // setData(dataHoraArray);
+            // onClose();
           }}
         />
       </ContainerModal>

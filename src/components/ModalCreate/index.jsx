@@ -23,6 +23,8 @@ import ModalDataHora from "../ModalDataHora";
 import { api } from "../../../api";
 import Loading from "../Loading";
 import Ong from "../../../api/Controllers/ongController";
+import { theme } from "../../global/styles/theme";
+import { Switch } from "react-native-paper";
 
 export default function ModalCreate({ onClose }) {
   const [Type, setType] = useState("evento");
@@ -37,6 +39,7 @@ export default function ModalCreate({ onClose }) {
   const [endereco, setEndereco] = useState({});
   const [data, setData] = useState({});
   const [tituloEvento, setTituloEvento] = useState("");
+  const [objetivo, setObjetivo] = useState("");
   const [descEvento, setDescEvento] = useState("");
   const [descPost, setDescPost] = useState("");
   const [descVaga, setVagaArray] = useState({});
@@ -44,11 +47,11 @@ export default function ModalCreate({ onClose }) {
   const [loading, setLoading] = useState(false);
   const [fileArray, setFileArray] = useState([]);
   const [disableFile, setDisableFile] = useState(false);
+  const [candidatos, setCandidatos] = useState(false);
 
   const handlePost = (type) => {
     if (type == "post") {
       const response = Ong.postPost(descPost, fileArray, 1);
-      console.log(response);
       if (response == "errorDesc") {
         ToastAndroid.show(
           "Por favor, faça uma descrição de seu post",
@@ -56,6 +59,16 @@ export default function ModalCreate({ onClose }) {
         );
       }
     } else if (type == "evento") {
+      const eventoArray = {
+        titulo: tituloEvento,
+        dataHora: data,
+        objetivo: objetivo,
+        descricao: descEvento,
+        candidato: candidatos,
+        endereco: endereco,
+        media: [],
+      };
+      console.log(eventoArray);
     } else if (type == "vaga") {
     }
   };
@@ -143,11 +156,12 @@ export default function ModalCreate({ onClose }) {
                 }}
                 setDesc={(text) => {
                   setDescEvento(text);
-                  console.log(descEvento);
                 }}
                 setTitle={(text) => {
                   setTituloEvento(text);
-                  console.log(tituloEvento);
+                }}
+                setObjective={(text) => {
+                  setObjetivo(text)
                 }}
               />
             )}
@@ -175,12 +189,6 @@ export default function ModalCreate({ onClose }) {
                 />
 
                 <FullButton
-                  icon={"image"}
-                  text={"Adicionar Candidatos"}
-                  onPress={handleChoosePhoto}
-                />
-
-                <FullButton
                   icon={"map-pin"}
                   text={"Adicionar Endereço"}
                   onPress={() => {
@@ -195,6 +203,35 @@ export default function ModalCreate({ onClose }) {
                     setModalDataHora(true);
                   }}
                 />
+
+                <FullButton
+                  icon={"user"}
+                  text="Candidatos?"
+                  backColor={
+                    candidatos == true
+                      ? theme.colors.primary
+                      : theme.colors.secondary
+                  }
+                  onPress={() => {
+                    ToastAndroid.show(
+                      "Candidatos " +
+                        (candidatos == true ? "Adicionados" : "Removidos"),
+                      ToastAndroid.SHORT
+                    );
+                    setCandidatos(!candidatos);
+                  }}
+                >
+                  <Switch
+                    style={{
+                      marginStart: 50,
+                    }}
+                    color={theme.colors.white}
+                    value={candidatos}
+                    onValueChange={() => {
+                      setCandidatos(!candidatos);
+                    }}
+                  />
+                </FullButton>
               </>
             )}
 

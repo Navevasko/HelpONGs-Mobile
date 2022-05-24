@@ -1910,6 +1910,12 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
+"@react-native-community/datetimepicker@react-native-community/datetimepicker":
+  version "6.1.3"
+  resolved "https://codeload.github.com/react-native-community/datetimepicker/tar.gz/e3c05a89b48e83512bfc1472401c826563345aca"
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-masked-view/masked-view@^0.2.6":
   version "0.2.6"
   resolved "https://registry.npmjs.org/@react-native-masked-view/masked-view/-/masked-view-0.2.6.tgz"

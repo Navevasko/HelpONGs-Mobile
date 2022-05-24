@@ -20,13 +20,13 @@ export default function BottomSheetPost({ children }) {
     })
     .onUpdate((event) => {
       translateY.value = event.translationY + context.value.y;
-      translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 510);
+      translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 511);
     })
     .onEnd((event) => {
-      if (translateY.value > SCREEN_HEIGHT - 947) {
+      if (translateY.value > SCREEN_HEIGHT - 1010) {
         translateY.value = withSpring(-SCREEN_HEIGHT + 690, { damping: 15 });
       } else if (translateY.value > -SCREEN_HEIGHT) {
-        translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 510);
+        translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT + 511);
       }
     });
 
@@ -37,7 +37,7 @@ export default function BottomSheetPost({ children }) {
   });
 
   useEffect(() => {
-    translateY.value = withSpring(-SCREEN_HEIGHT + 510, { damping: 15 });
+    translateY.value = withSpring(-SCREEN_HEIGHT + 511, { damping: 15 });
   }, []);
 
   return (

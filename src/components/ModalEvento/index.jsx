@@ -11,6 +11,7 @@ export default function ModalEvento({
   fileArray,
   setFileArray,
   setTitle,
+  setObjective,
   setDesc,
 }) {
   const handleFile = (file) => {
@@ -33,6 +34,13 @@ export default function ModalEvento({
           textCenter={true}
           onChangeText={(text) => {
             setTitle(text);
+          }}
+        />
+
+        <InvisibleInput
+          placeholder={"Descreva o objetivo do seu evento"}
+          onChangeText={(text) => {
+            setObjective(text);
           }}
         />
 

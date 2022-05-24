@@ -12,6 +12,7 @@ export default function FullButton({
   onPress,
   disabled,
   toast,
+  children,
 }) {
   return (
     <TouchableOpacity
@@ -26,13 +27,14 @@ export default function FullButton({
     >
       {icon && <Icon name={icon} size={45} style={styles.icon} />}
       <Text style={[styles.text, { marginStart: icon ? 10 : 0 }]}>{text}</Text>
+      {children}
     </TouchableOpacity>
   );
 }
 
 FullButton.propTypes = {
   icon: PropTypes.string,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   toast: PropTypes.string,
   backColor: PropTypes.string,
   onPress: PropTypes.func,
