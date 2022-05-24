@@ -5,9 +5,13 @@ export const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    backgroundColor: theme.colors.primary,
-    paddingTop: 20,
+    backgroundColor:"#FAFAFA",
     paddingBottom: 20,
+  },
+  containerPerfil:{
+    height:330,
+    width:"100%",
+    backgroundColor:"#FAFAFA"
   },
   banner: {
     width: "100%",
@@ -53,4 +57,11 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.alternateMedium,
     color: theme.colors.grey,
   },
+  containerHomeConfig:{
+    width:"100%",
+    paddingHorizontal:10,
+    marginTop:10,
+    flexDirection:"column",
+    marginBottom:50
+  }
 });

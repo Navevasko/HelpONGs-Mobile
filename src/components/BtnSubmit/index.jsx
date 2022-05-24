@@ -27,7 +27,7 @@ export default function BtnSubmit({
       ]}
       onPress={onPress}
     >
-      {icon && <Icon name={icon} size={45} style={{ marginEnd: 30 }} />}
+      {icon && <Icon name={icon} size={45} style={{ marginEnd: 10 }} />}
 
       <Text style={[styles.buttonText, { fontSize: height >= 45 ? 25 : 16 }]}>
         {" "}

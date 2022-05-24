@@ -2,16 +2,21 @@ import { View, Text, TextInput } from "react-native";
 import React from "react";
 import { styles } from "./style";
 import PropTypes from "prop-types";
+import { Colors } from "react-native-paper";
 
 export default function InputBorder({
   title,
-  onChange,
+  onChangeText,
   max,
   editable,
   value,
   width,
   height,
   keyboardType,
+  color,
+  borderColor,
+  txtColor, 
+  multiline
 }) {
   return (
     <View
@@ -22,18 +27,23 @@ export default function InputBorder({
         },
       ]}
     >
-      <Text style={styles.placeholder}>{title}</Text>
+      <Text style={[styles.placeholder, {color:txtColor}]}>
+        {title}
+      </Text>
       <TextInput
         style={[
           styles.input,
           {
             height: height,
+            backgroundColor: color,
+            borderColor: borderColor
           },
         ]}
         editable={editable}
         value={value}
         max={max}
         keyboardType={keyboardType}
+        multiline={multiline}
       />
     </View>
   );
@@ -41,10 +51,14 @@ export default function InputBorder({
 
 InputBorder.propTypes = {
   title: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
+  color: PropTypes.string,
+  multiline: PropTypes.bool,
+  txtColor: PropTypes.string,
+  borderColor: PropTypes.string,
+  onChangeText: PropTypes.func,
   max: PropTypes.number,
   editable: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string,]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   keyboardType: PropTypes.oneOf([
