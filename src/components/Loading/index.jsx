@@ -3,6 +3,7 @@ import ModalShadow from "../ModalShadow";
 import { ActivityIndicator } from "react-native";
 import React from "react";
 import { styles } from "./style";
+import { theme } from "../../global/styles/theme";
 
 export default function Loading() {
   return (

@@ -27,13 +27,13 @@ export default function ModalEndereco({ onClose, setData }) {
       rua != ""
     ) {
       return {
-        Bairro: bairro,
-        Cep: cep,
-        Cidade: cidade,
-        Complemento: complemento,
-        Estado: estado,
-        Rua: rua,
-        Numero: numero,
+        bairro: bairro,
+        cep: cep,
+        municipio: cidade,
+        complemento: complemento,
+        uf: estado,
+        rua: rua,
+        numero: numero,
       };
     } else {
       ToastAndroid.show("TESTE", ToastAndroid.SHORT);
@@ -51,8 +51,6 @@ export default function ModalEndereco({ onClose, setData }) {
       setCidade(response.localidade);
       setRua(response.logradouro);
       setEstado(response.uf);
-
-      console.log(response);
     }
   };
 

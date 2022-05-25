@@ -36,39 +36,50 @@ export default function ModalCreate({ onClose }) {
   const [file, setFile] = useState();
   const [modalEndereco, setModalEndereco] = useState(false);
   const [modalDataHora, setModalDataHora] = useState(false);
+  const [titulo, setTitulo] = useState();
+  const [desc, setDesc] = useState();
+  const [objetivo, setObjetivo] = useState();
+  const [requisitos, setRequisitos] = useState();
   const [endereco, setEndereco] = useState({});
-  const [data, setData] = useState({});
-  const [tituloEvento, setTituloEvento] = useState("");
-  const [objetivo, setObjetivo] = useState("");
-  const [descEvento, setDescEvento] = useState("");
-  const [descPost, setDescPost] = useState("");
-  const [descVaga, setVagaArray] = useState({});
-  const [reqVaga, setReqVaga] = useState({});
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [fileArray, setFileArray] = useState([]);
   const [disableFile, setDisableFile] = useState(false);
   const [candidatos, setCandidatos] = useState(false);
 
-  const handlePost = (type) => {
+  const handlePost = async (type) => {
     if (type == "post") {
-      const response = Ong.postPost(descPost, fileArray, 1);
-      if (response == "errorDesc") {
+      const response = Ong.postPost(desc, fileArray, 1);
+      if (desc == undefined) {
         ToastAndroid.show(
           "Por favor, faça uma descrição de seu post",
           ToastAndroid.SHORT
         );
       }
     } else if (type == "evento") {
-      const eventoArray = {
-        titulo: tituloEvento,
-        dataHora: data,
-        objetivo: objetivo,
-        descricao: descEvento,
-        candidato: candidatos,
-        endereco: endereco,
-        media: [],
-      };
-      console.log(eventoArray);
+      if (
+        desc == undefined ||
+        objetivo == undefined ||
+        titulo == undefined ||
+        data == undefined ||
+        endereco == {}
+      ) {
+        ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
+      } else {
+        const result = await Ong.postEvent(
+          1,
+          titulo,
+          desc,
+          objetivo,
+          candidatos,
+          fileArray,
+          endereco,
+          data,
+          setLoading
+        );
+        // if (result.includes("400")) console.log(result);
+        console.log(result);
+      }
     } else if (type == "vaga") {
     }
   };
@@ -93,6 +104,7 @@ export default function ModalCreate({ onClose }) {
       allowsMultipleSelection: true,
       allowsEditing: true,
       aspect: [1, 1],
+      base64: true,
       quality: 1,
     });
 
@@ -143,7 +155,7 @@ export default function ModalCreate({ onClose }) {
                   setFileArray(data);
                 }}
                 setDesc={(text) => {
-                  setDescPost(text);
+                  setDesc(text);
                 }}
               />
             )}
@@ -155,13 +167,13 @@ export default function ModalCreate({ onClose }) {
                   setFileArray(data);
                 }}
                 setDesc={(text) => {
-                  setDescEvento(text);
+                  setDesc(text);
                 }}
                 setTitle={(text) => {
-                  setTituloEvento(text);
+                  setTitulo(text);
                 }}
                 setObjective={(text) => {
-                  setObjetivo(text)
+                  setObjetivo(text);
                 }}
               />
             )}
@@ -215,7 +227,7 @@ export default function ModalCreate({ onClose }) {
                   onPress={() => {
                     ToastAndroid.show(
                       "Candidatos " +
-                        (candidatos == true ? "Adicionados" : "Removidos"),
+                        (candidatos == true ? "Removidos" : "Adicionados"),
                       ToastAndroid.SHORT
                     );
                     setCandidatos(!candidatos);

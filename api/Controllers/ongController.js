@@ -62,45 +62,97 @@ export default Ong = new Object({
     let fileName;
     let fileType;
 
-    if (desc !== "") {
-      if (fileArray !== null) {
-        fileArray.map(() => {});
+    const arrayPost = {
+      idOng: idOng,
+      descricao: desc,
+      media: [],
+    };
+    fileArray.map((file) => {
+      if (file.type === "image") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
+      } else if (file.type === "video") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
       }
-      const arrayPost = {
-        idOng: idOng,
-        descricao: desc,
-        media: [],
-      };
-      fileArray.map((file) => {
-        if (file.type === "image") {
-          fileName = file.uri.split("/")[11];
-          fileType = file.type + "/" + fileName.split(".")[1];
-        } else if (file.type === "video") {
-          fileName = file.uri.split("/")[11];
-          fileType = file.type + "/" + fileName.split(".")[1];
-        }
-        arrayPost.media.push({
-          fileName: fileName,
-          type: fileType,
-        });
+      arrayPost.media.push({
+        fileName: fileName,
+        base64: file.base64,
+        type: fileType,
+      });
+    });
+
+    const response = api
+      .post("/post", arrayPost)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        return error;
       });
 
-      console.log(arrayPost);
-      api
-        .post("/posta", arrayPost)
-        .then(({ data }) => {
-          return data;
-        })
-        .catch((error) => {
-          return error;
-        });
-    } else {
-      return "errorDesc";
-    }
+    return response;
   },
 
-  postEvent(titulo, dataHora, descricao, foto, candidatos, endereco) {
-    console.log(titulo, dataHora, descricao, candidatos, endereco)
+  postEvent(
+    idOng,
+    titulo,
+    descricao,
+    objetivo,
+    candidatos,
+    fileArray,
+    endereco,
+    dataHora,
+    setLoading
+  ) {
+    let fileName;
+    let fileType;
+
+    setLoading(true);
+
+    const arrayEvento = {
+      idOng: idOng,
+      evento: {
+        titulo: titulo,
+        dataHora: dataHora,
+        objetivo: objetivo,
+        descricao: descricao,
+        candidatos: candidatos,
+        numeroParticipantes: 0,
+      },
+      endereco: endereco,
+      media: [],
+    };
+
+    // fileArray.map((file) => {
+    //   if (file.type === "image") {
+    //     fileName = file.uri.split("/")[11];
+    //     fileType = file.type + "/" + fileName.split(".")[1];
+    //   } else if (file.type === "video") {
+    //     fileName = file.uri.split("/")[11];
+    //     fileType = file.type + "/" + fileName.split(".")[1];
+    //   }
+    //   arrayEvento.media.push({
+    //     fileName: fileName,
+    //     base64: file.base64,
+    //     type: fileType,
+    //   });
+    // });
+
+    // console.log(arrayEvento);
+
+    const result = api
+      .post("/event", arrayEvento)
+      .then(({ data }) => {
+        setLoading(false);
+        return data;
+      })
+      .catch((error) => {
+        setLoading(false);
+        return error;
+      });
+
+    return result;
   },
 
   postVaga() {},

@@ -33,7 +33,7 @@ export default function ModalDataHora({ onClose, setData }) {
             value={timeMask(time)}
             borderColor={theme.colors.primary}
             onChangeText={(text) => {
-              setTime(text);
+              setTime(timeMask(text));
             }}
           />
         </ScrollView>
@@ -41,18 +41,17 @@ export default function ModalDataHora({ onClose, setData }) {
           text="Salvar"
           backColor={theme.colors.primary}
           onPress={() => {
-            const ano = Number(date.split("/")[0]);
-            const mes = Number(date.split("/")[1]);
-            const dia = Number(date.split("/")[2]);
+            const ano = date.split("/")[2];
+            const mes = date.split("/")[1];
+            const dia = date.split("/")[0];
 
-            const hora = Number(date.split(":")[0]);
-            const minuto = Number(date.split(":")[1]);
+            const hora = time.split(":")[0];
+            const minuto = time.split(":")[1];
 
-            const d = new Date(ano, mes, dia, hora, minuto);
+            const dataHora = new Date(ano, mes - 1, dia, hora - 3, minuto);
 
-            console.log(d);
-            // setData(dataHoraArray);
-            // onClose();
+            setData(dataHora);
+            onClose();
           }}
         />
       </ContainerModal>
