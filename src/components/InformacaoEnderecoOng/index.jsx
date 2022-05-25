@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import OptionsConfig from '../OptionsConfig';
@@ -6,8 +6,9 @@ import Icon from "react-native-vector-icons/Feather";
 import { theme } from '../../global/styles/theme';
 import InputBorder from '../InputBorder';
 import InputContainer from '../InputContainer';
-import { api, apiViaCep } from '../../../api';
+import { api } from '../../../api';
 import BtnSubmit from '../BtnSubmit';
+import APICEP from "../../../api/Controllers/cepController";
 
 export default function InformacaoEndrerecoOng() {
 
@@ -21,18 +22,86 @@ export default function InformacaoEndrerecoOng() {
     const [rua, setRua] = useState();
     const [numero, setNumero] = useState();
     const [complemento, setComplemento] = useState();
-    const [viaCep, setViaCep] = useState();
+    const [btnTxt, setBtnTxt] = useState("Salvar");
 
     useEffect(()=>{
-        api.get(`/adress/${idLogin}`).then((response) =>{
-            setdataEnderecoOng(response.data.data);
-          })
-        apiViaCep.get(`06663-430/json/`).then((response)=>{
-            console.log(response.data);
+
+        api.get(`/adress/1`).then((response) =>{
+            if(response.data.data.cep  != null){
+                setBtnTxt("Atualizar");
+                setdataEnderecoOng(response.data.data);
+                setCep(response.data.data.cep);
+                setEstado(response.data.data.estado);
+                setCidade(response.data.data.municipio);
+                setBairro(response.data.data.bairro);
+                setRua(response.data.data.rua);
+                setNumero(String(response.data.data.numero));
+                setComplemento(response.data.data.complemento)
+            }else {
+                console.log("oi",response.data.data.cep )
+            }
+            
+
+          }).catch((error) =>{
+            console.log("erro via cep", error)
         })
     },[])
 
-    const onSubmit = () =>{
+    const handleAPICEP = async (cep) => {
+        if (cep != "") {
+          let response = await APICEP.get(cep);
+    
+          setBairro(response.bairro);
+          setCep(response.cep);
+          setComplemento(response.complemento);
+          setCidade(response.localidade);
+          setRua(response.logradouro);
+          setEstado(response.uf);
+    
+          console.log(response);
+        }
+      };
+
+    const btnSalvar = () =>{
+      
+        if(cep != null && bairro != null && numero != null && rua != null && estado != null){
+
+            if(btnTxt == "Salvar"){
+
+            api.post(`/adress`,{
+                idLogin: idLogin,
+                cep: cep,
+                bairro: bairro,
+                numero: numero,
+                rua: rua,
+                municipio: cidade,
+                estado: estado,
+                complemento: complemento
+            }).then((response) =>{
+                ToastAndroid.show("Cadastro realizado com sucesso!", ToastAndroid.SHORT);
+            }).catch((error) =>{
+                console.log(error)
+            })
+
+            }else{
+                console.log("bob")
+                api.put(`/adress/${idLogin}`,{
+                    cep: cep,
+                    bairro: bairro,
+                    numero: numero,
+                    rua: rua,
+                    municipio: cidade,
+                    estado: estado,
+                    complemento: complemento
+                }).then((response) =>{
+                    ToastAndroid.show("Cadastro atualizado com sucesso!", ToastAndroid.SHORT);
+                }).catch((error) =>{
+                    console.log("Atualizar",error, cep, numero, rua, cidade, estado, complemento)
+                })
+            }
+        }else{
+            ToastAndroid.show("Por favor informe todos os dados!", ToastAndroid.SHORT);
+        }
 
     }
 
@@ -57,75 +126,90 @@ export default function InformacaoEndrerecoOng() {
             <InputBorder 
             title="CEP" 
             keyboardType={"number-pad"} 
-            value={dataEnderecoOng.cep}
+            value={cep}
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            placeholder={"Informe o número do seu cep"}
             onChangeText={(text) => setCep(text)}
+            onEndEditing={() => {
+              handleAPICEP(cep);
+            }}
             />
 
             <InputBorder 
             title="Estado" 
-            value={dataEnderecoOng.estado}
+            value={estado}
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            placeholder={"Informe o seu bairro"}
+            onChangeText={(text) => setEstado(text)}
             />
 
             <InputBorder
              title="Cidade" 
-             value={dataEnderecoOng.municipio} 
+             value={cidade} 
              color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            placeholder={"Informe sua cidade"}
+            onChangeText={(text) => setCidade(text)}
              />
 
             <InputBorder 
             title="Bairro" 
-            value={dataEnderecoOng.bairro} 
+            value={bairro} 
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            placeholder={"Informe seu bairro"}
+            onChangeText={(text) => setBairro(text)}
             />
 
             <InputBorder 
             title="Rua" 
-            value={dataEnderecoOng.rua} 
+            value={rua} 
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black} 
+            placeholder={"Informe sua rua"}
+            onChangeText={(text) => setRua(text)}
             />
 
             <InputBorder 
             title="Número"  
-            // value={dataEnderecoOng.numero}
-            value={dataEnderecoOng.numero}
+            value={numero}
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
+            placeholder={"número"}
+            onChangeText={(text) => setNumero(text)}
             />
 
             <InputBorder
               title="Complemento"
               width={"100%"} 
-              value={dataEnderecoOng.complemento}
+              value={complemento}
               color={"#FAFAFA"}
               borderColor={theme.colors.placeholder}
               txtColor={theme.colors.black}
+              placeholder={"Insira o complemento"}
+              onChangeText={(text) => setComplemento(text)}
               />
           </InputContainer>
           <View style={{flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
                 <BtnSubmit
-                    text="Salvar"
+                    text={btnTxt}
                     color={theme.colors.primaryFaded}
                     width="35%"
                     height={40}
                     onPress={() => {
-                        onSubmit();
+                        btnSalvar();
                     }}
                     />
                 <BtnSubmit
@@ -133,9 +217,8 @@ export default function InformacaoEndrerecoOng() {
                     color={theme.colors.grey}
                     width="35%"
                     height={40}
-                    onPress={() => {
-                        onSubmit();
-                    }}
+                    onPress={() =>{setModalVisible(false)}
+                    }
                 />
             </View>
         </ScrollView>

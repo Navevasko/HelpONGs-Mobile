@@ -138,6 +138,16 @@ export default function InformacaoContaOng({idOng}) {
                 placeholder={"quantidade"}
                 onChangeText={(text) =>{setMembros(text)}}
             />
+            
+            <InputBorder 
+            title="E-mal" 
+            color={"#FAFAFA"}
+            borderColor={theme.colors.placeholder}
+            txtColor={theme.colors.black}
+            width={"100%"}
+            placeholder={"Informe seu E-mail"}
+            onChangeText={(text) => setEmail(text)}
+            />
             <View>
                 <Text style={{fontSize: 20,fontFamily: theme.fonts.regular,color: theme.colors.black, marginBottom:5}}>Fundação</Text>
                 

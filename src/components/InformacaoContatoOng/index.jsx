@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import OptionsConfig from '../OptionsConfig';
@@ -7,10 +7,54 @@ import { theme } from '../../global/styles/theme';
 import InputBorder from '../InputBorder';
 import InputContainer from '../InputContainer';
 import BtnSubmit from '../BtnSubmit';
+import { api } from '../../../api';
 
 export default function InformacaoContatoOng() {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [email, setEmail] = useState();
+    const [celular, setCelular] = useState();
+    const [telefone, setTelefone] = useState();
+    const idLogin = 2;
+    const [btnTxt, setBtnTxt] = useState("Salvar");
+ 
+    useEffect(() =>{
+        api.get(`/contact/${idLogin}`).then((response) =>{
+            setCelular(response.data.data.numero);
+            setTelefone(response.data.data.telefone);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, [])
+    
+
+    const onSubmit = () => {
+        if(celular != null || telefone != null){
+            if(btnTxt == "Salvar"){
+            api.post(`/contact`, {
+                idLogin: idLogin,
+                numero: celular,
+                telefone: telefone
+            }).then((response) =>{
+                ToastAndroid.show("Cadastro realizado com sucesso!", ToastAndroid.SHORT);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }else if(btnTxt == "Atualizar"){
+            api.put(`/contact/${idLogin}`, {
+                idLogin: idLogin,
+                numero: celular,
+                telefone: telefone
+            }).then((response) =>{
+                ToastAndroid.show("Cadastro Atualizado com sucesso!", ToastAndroid.SHORT);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+    }else{
+        ToastAndroid.show("Campo obrigatorio não preenchido!", ToastAndroid.SHORT);
+    }
+    }
 
   return (
     <SafeAreaView>
@@ -31,19 +75,14 @@ export default function InformacaoContatoOng() {
         <ScrollView style={{paddingTop:20, paddingHorizontal:10}}>
           <InputContainer>
             <InputBorder 
-            title="E-mal" 
-            color={"#FAFAFA"}
-            borderColor={theme.colors.placeholder}
-            txtColor={theme.colors.black}
-            width={"100%"}
-            />
-
-            <InputBorder 
             title="Celular" 
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            placeholder={"Informe seu número de celular"}
+            onChangeText={(text) => setCelular(text)}
+            value={celular}
             />
 
             <InputBorder
@@ -52,12 +91,15 @@ export default function InformacaoContatoOng() {
              borderColor={theme.colors.placeholder}
              txtColor={theme.colors.black}
              width={"100%"}
+             value={telefone}
+             placeholder={"Informe seu número de telefone"}
+            onChangeText={(text) => setTelefone (text)}
              />
 
           </InputContainer>
           <View style={{flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
                 <BtnSubmit
-                    text="Salvar"
+                    text={btnTxt}
                     color={theme.colors.primaryFaded}
                     width="45%"
                     height={45}

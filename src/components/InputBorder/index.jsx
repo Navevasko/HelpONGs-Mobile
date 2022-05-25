@@ -17,7 +17,8 @@ export default function InputBorder({
   borderColor,
   txtColor, 
   multiline,
-  placeholder
+  placeholder, 
+  onEndEditing
 }) {
   return (
     <View
@@ -47,6 +48,7 @@ export default function InputBorder({
         multiline={multiline}
         placeholder={placeholder}
         onChangeText={onChangeText}
+        onEndEditing={onEndEditing}
       />
     </View>
   );
@@ -62,6 +64,7 @@ InputBorder.propTypes = {
   onChangeText: PropTypes.func,
   max: PropTypes.number,
   editable: PropTypes.bool,
+  onEndEditing: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string,]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

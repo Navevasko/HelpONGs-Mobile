@@ -13,13 +13,7 @@ import { theme } from "../../global/styles/theme";
 import ScreenTitle from "../../components/ScreenTitle";
 import Icon from "react-native-vector-icons/Feather";
 
-import InputBorder from "../../components/InputBorder";
-import BtnSubmit from "../../components/BtnSubmit";
 import { api } from "../../../api";
-import ScrollBorder from "../../components/ScrollBorder";
-import ChipCategoria from "../../components/ChipCategoria";
-import InputContainer from "../../components/InputContainer";
-import OptionsConfig from "../../components/OptionsConfig";
 import InformacaoContaOng from "../../components/InformacaoContaOng";
 import InformacaoEndrerecoOng from "../../components/InformacaoEnderecoOng";
 import MeioDeDoacao from "../../components/MeioDeDoacao";
