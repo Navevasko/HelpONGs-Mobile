@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { theme } from '../../global/styles/theme';
 import InputBorder from '../InputBorder';
 import InputContainer from '../InputContainer';
-import { api } from '../../../api';
+import { api, apiViaCep } from '../../../api';
 import BtnSubmit from '../BtnSubmit';
 
 export default function InformacaoEndrerecoOng() {
@@ -21,11 +21,15 @@ export default function InformacaoEndrerecoOng() {
     const [rua, setRua] = useState();
     const [numero, setNumero] = useState();
     const [complemento, setComplemento] = useState();
+    const [viaCep, setViaCep] = useState();
 
     useEffect(()=>{
         api.get(`/adress/${idLogin}`).then((response) =>{
             setdataEnderecoOng(response.data.data);
           })
+        apiViaCep.get(`06663-430/json/`).then((response)=>{
+            console.log(response.data);
+        })
     },[])
 
     const onSubmit = () =>{

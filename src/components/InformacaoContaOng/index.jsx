@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView,ScrollView,Button, Modal, TouchableOpacity, ImageBackground, } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView,ScrollView,Button, Modal, TouchableOpacity, ImageBackground, ToastAndroid, } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import CardContainer from "../../components/CardContainer";
 import OptionsConfig from '../OptionsConfig';
@@ -12,7 +12,7 @@ import ChipCategoria from '../ChipCategoria';
 import BtnSubmit from '../BtnSubmit';
 import MyDatePicker from '../MyDatePicker';
 
-export default function InformacaoContaOng({data, setData}) {
+export default function InformacaoContaOng({idOng}) {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [dataContatoOng, setdataContatoOng] = useState([]);
@@ -20,18 +20,27 @@ export default function InformacaoContaOng({data, setData}) {
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
     const [nome, setNome] = useState();
-    const [descricao, setDescricao] = useState(data.descricao);
-    const [historia, setHistoria] = useState(data.historia);
-    const [membros, setMembros] = useState(data.qtdDeMembros ? String(data.qtdDeMembros) : "");
-    const [fundacao, setFundacao] = useState(data.dataDeFundacao); 
-    const [numeroDeSeguidores, setNumeroDeSeguidores] = useState(data.numeroDeSeguidores); 
-    const [cnpj, setCNPJ] = useState(data.cnpj);
-    const [banner, setBanner] = useState(data.banner);
-    const [foto, setFoto] = useState(data.foto);
-    const idOng = 1;
+    const [descricao, setDescricao] = useState();
+    const [historia, setHistoria] = useState();
+    const [membros, setMembros] = useState("");
+    const [fundacao, setFundacao] = useState(); 
+    const [numeroDeSeguidores, setNumeroDeSeguidores] = useState(); 
+    const [cnpj, setCNPJ] = useState();
+    const [banner, setBanner] = useState();
+    const [foto, setFoto] = useState();
 
     useEffect(async() =>{
-
+        api.get(`/ong/${idOng}`).then((response) =>{
+            setNome(response.data.data.nome);
+            setDescricao(response.data.data.descricao);
+            setHistoria(response.data.data.historia);
+            setMembros(String(response.data.data.qtdDeMembros));
+            setFundacao(response.data.data.dataDeFundacao);
+            setNumeroDeSeguidores(response.data.data.numeroDeSeguidores);
+            setCNPJ(response.data.data.cnpj);
+            setBanner(response.data.data.banner);
+            setFoto(response.data.data.foto);
+          })
         await api.get(`/category`).then((response) =>{
             setdataCategoriasOng(response.data.data);
             
@@ -41,11 +50,7 @@ export default function InformacaoContaOng({data, setData}) {
     }, [])
 
     const onSubmit = () =>{
-        console.log("variaveis",nome)
-        console.log(descricao, numeroDeSeguidores, cnpj, banner, historia, foto, )
-        console.log(membros)
-        console.log(fundacao)
-        api.put(`/ong/${data.idOng}`, {
+        api.put(`/ong/${idOng}`, {
             ong: {
                 nome: nome,
                 descricao: descricao,
@@ -58,11 +63,14 @@ export default function InformacaoContaOng({data, setData}) {
                 dataDeFundacao: fundacao,
             }
         }).then((response) =>{
-            console.log(response);
+            if (response.status == "200") {
+                ToastAndroid.show("Dados salvos com sucesso!", ToastAndroid.SHORT);
+              }
+            
+        }).catch((error) =>{
+            console.log(error)
         })
     }
-
-    setNome(data.nome);
 
   return (
     <SafeAreaView>
@@ -133,7 +141,7 @@ export default function InformacaoContaOng({data, setData}) {
             <View>
                 <Text style={{fontSize: 20,fontFamily: theme.fonts.regular,color: theme.colors.black, marginBottom:5}}>Fundação</Text>
                 
-                <MyDatePicker date={date} setDate={setDate}/>
+                {/* <MyDatePicker date={date} setDate={setDate}/> */}
                 
             </View>
             

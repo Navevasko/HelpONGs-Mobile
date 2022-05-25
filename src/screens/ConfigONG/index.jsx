@@ -106,8 +106,8 @@ useEffect(async()=>{
           </View>
         </View>
         <View style={styles.containerHomeConfig}>
-          <InformacaoContaOng data={dataOng} setData={setDataOng}/>
-          <InformacaoContatoOng/>
+          <InformacaoContaOng idOng={idOng}/>
+          <InformacaoContatoOng idOng={idOng}/>
           <InformacaoEndrerecoOng/>
           <MeioDeDoacao/>
           <Patrocinadores/>
