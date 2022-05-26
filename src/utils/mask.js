@@ -8,9 +8,10 @@ const cnpjMask = (CNPJ) => {
 };
 
 const dateMask = (Date) => {
-  return Date.replace(/\D+/g, "")
-    .replace(/(\d{2})(\d)/, "$1/$2")
-    .replace(/(\d{2})(\d)/, "$1/$2");
+  if (Date.substr(0, 2) > 31) {
+    console.log("erro");
+  }
+  Date.replace();
 };
 
 const timeMask = (Time) => {
@@ -37,8 +38,8 @@ const passwordMask = (Senha) => {
   return Senha.replace(/[\[\]}.',><|://"°ºª§\\;&'"()_+={]/g, "");
 };
 
-const cepMask = (cep) => {
-  return cep.replace(/\D+/g, "").replace(/(\d{5})(\d)/, "$1-$2");
+const cepMask = (CEP) => {
+  return CEP.replace(/\D+/g, "").replace(/(\d{5})(\d)/, "$1-$2");
 };
 
 const numberMask = (Number) => {

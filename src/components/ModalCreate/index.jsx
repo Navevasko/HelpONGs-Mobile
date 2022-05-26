@@ -40,8 +40,16 @@ export default function ModalCreate({ onClose }) {
   const [desc, setDesc] = useState();
   const [objetivo, setObjetivo] = useState();
   const [requisitos, setRequisitos] = useState();
-  const [endereco, setEndereco] = useState({});
-  const [data, setData] = useState();
+  const [endereco, setEndereco] = useState({
+    bairro: "",
+    cep: "",
+    municipio: "",
+    complemento: "",
+    uf: "",
+    rua: "",
+    numero: "",
+  });
+  const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
   const [fileArray, setFileArray] = useState([]);
   const [disableFile, setDisableFile] = useState(false);
@@ -66,6 +74,7 @@ export default function ModalCreate({ onClose }) {
       ) {
         ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
       } else {
+        setLoading(true);
         const result = await Ong.postEvent(
           1,
           titulo,
@@ -78,7 +87,11 @@ export default function ModalCreate({ onClose }) {
           setLoading
         );
         // if (result.includes("400")) console.log(result);
-        console.log(result);
+
+        if (JSON.stringify(result).includes("200")) {
+          setLoading(false);
+          onClose();
+        }
       }
     } else if (type == "vaga") {
     }
@@ -249,6 +262,7 @@ export default function ModalCreate({ onClose }) {
 
             {modalEndereco && (
               <ModalEndereco
+                endereco={endereco}
                 setData={(data) => {
                   setEndereco(data);
                 }}
@@ -260,6 +274,7 @@ export default function ModalCreate({ onClose }) {
 
             {modalDataHora && (
               <ModalDataHora
+                data={data}
                 onClose={() => {
                   setModalDataHora(false);
                 }}

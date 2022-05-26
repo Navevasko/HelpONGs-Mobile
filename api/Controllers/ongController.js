@@ -103,12 +103,9 @@ export default Ong = new Object({
     fileArray,
     endereco,
     dataHora,
-    setLoading
   ) {
     let fileName;
     let fileType;
-
-    setLoading(true);
 
     const arrayEvento = {
       idOng: idOng,
@@ -124,31 +121,27 @@ export default Ong = new Object({
       media: [],
     };
 
-    // fileArray.map((file) => {
-    //   if (file.type === "image") {
-    //     fileName = file.uri.split("/")[11];
-    //     fileType = file.type + "/" + fileName.split(".")[1];
-    //   } else if (file.type === "video") {
-    //     fileName = file.uri.split("/")[11];
-    //     fileType = file.type + "/" + fileName.split(".")[1];
-    //   }
-    //   arrayEvento.media.push({
-    //     fileName: fileName,
-    //     base64: file.base64,
-    //     type: fileType,
-    //   });
-    // });
-
-    // console.log(arrayEvento);
+    fileArray.map((file) => {
+      if (file.type === "image") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
+      } else if (file.type === "video") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
+      }
+      arrayEvento.media.push({
+        fileName: fileName,
+        base64: file.base64,
+        type: fileType,
+      });
+    });
 
     const result = api
       .post("/event", arrayEvento)
       .then(({ data }) => {
-        setLoading(false);
         return data;
       })
       .catch((error) => {
-        setLoading(false);
         return error;
       });
 

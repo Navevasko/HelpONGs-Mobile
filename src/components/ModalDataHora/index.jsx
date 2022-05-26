@@ -8,9 +8,21 @@ import { theme } from "../../global/styles/theme";
 import FullButton from "../FullButton";
 import { dateMask, timeMask } from "../../utils/mask";
 
-export default function ModalDataHora({ onClose, setData }) {
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+export default function ModalDataHora({ onClose, setData, data }) {
+  let dateFix = "";
+  let timeFix = "";
+  if (data !== "") {
+    dateFix =
+      data.split("T")[0].split("-")[2] +
+      "/" +
+      data.split("-")[1] +
+      "/" +
+      data.split("-")[0];
+    timeFix = data.split("T")[1].substr(0, 5);
+  }
+
+  const [date, setDate] = useState(dateFix);
+  const [time, setTime] = useState(timeFix);
 
   return (
     <Modal transparent={true} animationType={"slide"}>

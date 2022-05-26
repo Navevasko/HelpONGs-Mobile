@@ -9,14 +9,14 @@ import InputUnderline from "../InputUnderline";
 import { theme } from "../../global/styles/theme";
 import FullButton from "../FullButton";
 
-export default function ModalEndereco({ onClose, setData }) {
-  const [cep, setCEP] = useState("");
-  const [estado, setEstado] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [bairro, setBairro] = useState("");
-  const [rua, setRua] = useState("");
-  const [numero, setNumero] = useState("");
-  const [complemento, setComplemento] = useState("");
+export default function ModalEndereco({ onClose, setData, endereco }) {
+  const [cep, setCEP] = useState(endereco.cep);
+  const [estado, setEstado] = useState(endereco.uf);
+  const [cidade, setCidade] = useState(endereco.municipio);
+  const [bairro, setBairro] = useState(endereco.bairro);
+  const [rua, setRua] = useState(endereco.rua);
+  const [numero, setNumero] = useState(endereco.numero);
+  const [complemento, setComplemento] = useState(endereco.complemento);
 
   const onSubmit = () => {
     if (
@@ -36,7 +36,7 @@ export default function ModalEndereco({ onClose, setData }) {
         numero: numero,
       };
     } else {
-      ToastAndroid.show("TESTE", ToastAndroid.SHORT);
+      ToastAndroid.show("Preencha todos os dados", ToastAndroid.SHORT);
       return;
     }
   };
@@ -154,4 +154,5 @@ export default function ModalEndereco({ onClose, setData }) {
 ModalEndereco.propTypes = {
   onClose: PropTypes.func,
   setData: PropTypes.func,
+  endereco: PropTypes.object,
 };
