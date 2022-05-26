@@ -7,10 +7,62 @@ import { theme } from '../../global/styles/theme';
 import InputBorder from '../InputBorder';
 import InputContainer from '../InputContainer';
 import BtnSubmit from '../BtnSubmit';
+import { api } from '../../../api';
 
 export default function MeioDeDoacao() {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [site, setSite] = useState();
+    const [pix, setPix] = useState();
+    const [agencia, setAgencia] = useState();
+    const [conta, setConta] = useState();
+    const [tipo, setTipo] = useState();
+    const [banco, setBanco] = useState();
+    const [btnTxt, setBtnTxt] = useState("Salvar");
+    const idOng = 2;
+    const [dataMeiosDeDoacao, setdataMeiosDeDoacao] = useState([]);
+    
+
+    useEffect(() =>{
+
+        api.get(`/donation-data/${idOng}`).then((response) =>{
+            setSite(response.data.data.site);
+            setPix(response.data.data.pix);
+
+            if(response.data.data != null ){
+                setBtnTxt("Atualizar")
+            }
+            
+        }).catch((error) => {
+            console.log(error);
+        })
+
+        api.get(`/bank-data/${idOng}`).then((response) => {
+
+            setAgencia(response.data.data.agencia);
+            setBanco(response.data.data.banco);
+            setConta(response.data.data.conta);
+            setTipo(response.data.data.tipo);
+
+        }).catch((error) => {
+            console.log(error);
+        })
+
+
+    }, [])
+
+    const onSubmit = () => {
+        if(btnTxt == "Salvar"){
+            api.post(`bank-data`,  
+            {
+                banco: banco,
+                agencia: agencia,
+                conta: conta,
+                tipo : tipo,
+                idOng: idOng
+            })
+        }
+    }
 
   return (
     <SafeAreaView>
@@ -36,6 +88,9 @@ export default function MeioDeDoacao() {
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            value={site}
+            placeholder={"Informe seu site"}
+            onChangeText={(text) => setSite(text)}
             />
 
             <InputBorder 
@@ -44,6 +99,9 @@ export default function MeioDeDoacao() {
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            placeholder={"Informe seu pix"}
+            onChangeText={(text) => setPix(text)}
+            value={pix}
             />
 
             <InputBorder
@@ -51,29 +109,44 @@ export default function MeioDeDoacao() {
              color={"#FAFAFA"}
              borderColor={theme.colors.placeholder}
              txtColor={theme.colors.black}
+             placeholder={"Agência"}
+             multiline={false}
+            onChangeText={(text) => setAgencia(text)}
+            value={agencia}
              />
 
             <InputBorder 
             title="Conta"
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
-            txtColor={theme.colors.black} />
+            txtColor={theme.colors.black}
+            placeholder={"Conta"}
+            onChangeText={(text) => setConta(text)} 
+            value={conta}
+            />
 
             <InputBorder
              title="Tipo"
              color={"#FAFAFA"}
              borderColor={theme.colors.placeholder}
-             txtColor={theme.colors.black} />
+             txtColor={theme.colors.black}
+             placeholder={"Tipo da conta"}
+            onChangeText={(text) => setTipo(text)}
+            value={tipo} />
 
             <InputBorder
              title="Banco"
              color={"#FAFAFA"}
              borderColor={theme.colors.placeholder}
-             txtColor={theme.colors.black} />
+             txtColor={theme.colors.black}
+             placeholder={"Banco"}
+             onChangeText={(text) => setBanco(text)}
+             value={banco}
+             />
           </InputContainer>
           <View style={{flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
                 <BtnSubmit
-                    text="Salvar"
+                    text={btnTxt}
                     color={theme.colors.primaryFaded}
                     width="45%"
                     height={45}

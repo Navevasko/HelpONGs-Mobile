@@ -15,11 +15,15 @@ export default function InformacaoContatoOng() {
     const [email, setEmail] = useState();
     const [celular, setCelular] = useState();
     const [telefone, setTelefone] = useState();
-    const idLogin = 2;
+    const idLogin = 3;
     const [btnTxt, setBtnTxt] = useState("Salvar");
  
     useEffect(() =>{
         api.get(`/contact/${idLogin}`).then((response) =>{
+            
+            if(response.data.data != null ){
+                setBtnTxt("Atualizar")
+            }
             setCelular(response.data.data.numero);
             setTelefone(response.data.data.telefone);
         }).catch((error) => {

@@ -82,4 +82,5 @@ InputBorder.defaultProps = {
   keyboardType: "default",
   width: 175,
   height: 45,
+  
 };
