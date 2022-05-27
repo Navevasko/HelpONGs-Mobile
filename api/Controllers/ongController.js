@@ -58,7 +58,7 @@ export default Ong = new Object({
     return get;
   },
 
-  postPost(desc, fileArray, idOng) {
+  postPost(idOng, desc, fileArray) {
     let fileName;
     let fileType;
 
@@ -82,7 +82,7 @@ export default Ong = new Object({
       });
     });
 
-    const response = api
+    const result = api
       .post("/post", arrayPost)
       .then(({ data }) => {
         return data;
@@ -91,7 +91,7 @@ export default Ong = new Object({
         return error;
       });
 
-    return response;
+    return result;
   },
 
   postEvent(
@@ -102,7 +102,7 @@ export default Ong = new Object({
     candidatos,
     fileArray,
     endereco,
-    dataHora,
+    dataHora
   ) {
     let fileName;
     let fileType;
@@ -148,5 +148,27 @@ export default Ong = new Object({
     return result;
   },
 
-  postVaga() {},
+  postVaga(idOng, titulo, desc, requisitos, cargaHoraria, endereco) {
+    const array = {
+      idOng: idOng,
+      vaga: {
+        titulo: titulo,
+        descricao: desc,
+        requisitos: requisitos,
+        cargaHoraria: cargaHoraria,
+      },
+      endereco: endereco,
+    };
+
+    const result = api
+      .post("/vacancy", array)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        return error;
+      });
+
+    return result;
+  },
 });

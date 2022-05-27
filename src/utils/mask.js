@@ -32,8 +32,6 @@ const dateMask = (value) => {
 
 const timeMask = (Time) => {
   Time = Time.replace(/\D+/g, "");
-
-  console.log(Time.substr(0, 2));
   if (Time.substr(0, 2) > 23) {
     Time = Time.replace(/(\d{1})(\d)/, Time.substr(0, 1) + "");
   }

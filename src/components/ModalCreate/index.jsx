@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
-import {
-  Image,
-  Modal,
-  ScrollView,
-  Text,
-  ToastAndroid,
-  View,
-} from "react-native";
+import { Modal, ScrollView, ToastAndroid } from "react-native";
 import ContainerModal from "../ContainerModal";
 import TypePicker from "../TypePicker";
 import ONGData from "../ONGData";
@@ -25,9 +18,10 @@ import Loading from "../Loading";
 import Ong from "../../../api/Controllers/ongController";
 import { theme } from "../../global/styles/theme";
 import { Switch } from "react-native-paper";
+import ModalCargaHoraria from "../ModalCargaHoraria";
 
 export default function ModalCreate({ onClose }) {
-  const [Type, setType] = useState("evento");
+  const [Type, setType] = useState("vaga");
   const types = [
     { label: "Post", value: "post" },
     { label: "Evento", value: "evento" },
@@ -36,10 +30,11 @@ export default function ModalCreate({ onClose }) {
   const [file, setFile] = useState();
   const [modalEndereco, setModalEndereco] = useState(false);
   const [modalDataHora, setModalDataHora] = useState(false);
-  const [titulo, setTitulo] = useState();
-  const [desc, setDesc] = useState();
-  const [objetivo, setObjetivo] = useState();
-  const [requisitos, setRequisitos] = useState();
+  const [modalCargaHoraria, setModalCargaHoraria] = useState(false);
+  const [titulo, setTitulo] = useState("a");
+  const [desc, setDesc] = useState("a");
+  const [objetivo, setObjetivo] = useState("");
+  const [requisitos, setRequisitos] = useState("a");
   const [endereco, setEndereco] = useState({
     bairro: "",
     cep: "",
@@ -55,14 +50,35 @@ export default function ModalCreate({ onClose }) {
   const [disableFile, setDisableFile] = useState(false);
   const [candidatos, setCandidatos] = useState(false);
 
-  const handlePost = async (type) => {
+  const validateResponse = (result) => {
+    console.log(result);
+
+    if (result.status == 500) {
+      ToastAndroid.show(
+        "Parece que ocorreu um erro com sua internet, por favor tente novamente mais tarde",
+        ToastAndroid.SHORT
+      );
+    } else if (result.status == 400) {
+      ToastAndroid.show(
+        "Parece que ocorreu um erro, por favor tente novamente",
+        ToastAndroid.SHORT
+      );
+    } else if (result.status == 200) {
+      setLoading(false);
+      onClose();
+    }
+  };
+
+  const handleCreate = async (type) => {
     if (type == "post") {
-      const response = Ong.postPost(desc, fileArray, 1);
       if (desc == undefined) {
         ToastAndroid.show(
           "Por favor, faça uma descrição de seu post",
           ToastAndroid.SHORT
         );
+      } else {
+        const response = Ong.postPost(1, desc, fileArray);
+        validateResponse(response);
       }
     } else if (type == "evento") {
       if (
@@ -75,7 +91,7 @@ export default function ModalCreate({ onClose }) {
         ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
       } else {
         setLoading(true);
-        const result = await Ong.postEvent(
+        const response = await Ong.postEvent(
           1,
           titulo,
           desc,
@@ -86,14 +102,34 @@ export default function ModalCreate({ onClose }) {
           data,
           setLoading
         );
-        // if (result.includes("400")) console.log(result);
 
-        if (JSON.stringify(result).includes("200")) {
-          setLoading(false);
-          onClose();
-        }
+        validateResponse(response);
       }
     } else if (type == "vaga") {
+      if (
+        titulo == "" ||
+        desc == "" ||
+        requisitos == "" ||
+        data == "" ||
+        endereco == {}
+      ) {
+        ToastAndroid.show(
+          "Por favor, preencha todos os campos",
+          ToastAndroid.SHORT
+        );
+      } else {
+        setLoading(true);
+        const response = await Ong.postVaga(
+          1,
+          titulo,
+          desc,
+          requisitos,
+          data,
+          endereco
+        );
+
+        validateResponse(response);
+      }
     }
   };
 
@@ -139,7 +175,7 @@ export default function ModalCreate({ onClose }) {
           title={"Criar Publicação"}
           publish={true}
           onPress={() => {
-            handlePost(Type);
+            handleCreate(Type);
           }}
         >
           {loading && <Loading />}
@@ -191,7 +227,22 @@ export default function ModalCreate({ onClose }) {
               />
             )}
 
-            {Type == "vaga" && <ModalVaga />}
+            {Type == "vaga" && (
+              <ModalVaga
+                setDesc={(text) => {
+                  setDesc(text);
+                  console.log(desc);
+                }}
+                setRequisito={(text) => {
+                  setRequisitos(text);
+                  console.log(requisitos);
+                }}
+                setTitulo={(text) => {
+                  setTitulo(text);
+                  console.log(titulo);
+                }}
+              />
+            )}
           </ScrollView>
 
           <BottomSheetPost>
@@ -284,6 +335,18 @@ export default function ModalCreate({ onClose }) {
               />
             )}
 
+            {modalCargaHoraria && (
+              <ModalCargaHoraria
+                data={data}
+                onClose={() => {
+                  setModalCargaHoraria(false);
+                }}
+                setData={(data) => {
+                  setData(data);
+                }}
+              />
+            )}
+
             {Type == "vaga" && (
               <>
                 <FullButton
@@ -296,9 +359,9 @@ export default function ModalCreate({ onClose }) {
 
                 <FullButton
                   icon={"calendar"}
-                  text={"Adicionar Data e Hora"}
+                  text={"Adicionar Carga horária"}
                   onPress={() => {
-                    setModalDataHora(true);
+                    setModalCargaHoraria(true);
                   }}
                 />
               </>

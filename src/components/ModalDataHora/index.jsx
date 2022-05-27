@@ -70,3 +70,9 @@ export default function ModalDataHora({ onClose, setData, data }) {
     </Modal>
   );
 }
+
+ModalDataHora.propTypes = {
+  onClose: PropTypes.func,
+  setData: PropTypes.func,
+  data: PropTypes.string,
+};
