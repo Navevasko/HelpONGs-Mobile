@@ -10,14 +10,14 @@ import ScrollBorder from '../ScrollBorder';
 import { api } from '../../../api';
 import ChipCategoria from '../ChipCategoria';
 import BtnSubmit from '../BtnSubmit';
-import MyDatePicker from '../MyDatePicker';
+import { dateMask } from '../../utils/mask';
 
 export default function InformacaoContaOng({idOng}) {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [dataContatoOng, setdataContatoOng] = useState([]);
     const [dataCategoriasOng, setdataCategoriasOng] = useState([]);
-    const [date, setDate] = useState(new Date())
+    const [dataCategorias, setdataCategorias] = useState([]);
     const [open, setOpen] = useState(false)
     const [nome, setNome] = useState();
     const [descricao, setDescricao] = useState();
@@ -28,28 +28,36 @@ export default function InformacaoContaOng({idOng}) {
     const [cnpj, setCNPJ] = useState();
     const [banner, setBanner] = useState();
     const [foto, setFoto] = useState();
-
+    const [email, setEmail] = useState();
+    const [senha, setSenha] = useState();
+    
     useEffect(async() =>{
         api.get(`/ong/${idOng}`).then((response) =>{
             setNome(response.data.data.nome);
             setDescricao(response.data.data.descricao);
             setHistoria(response.data.data.historia);
             setMembros(String(response.data.data.qtdDeMembros));
-            setFundacao(response.data.data.dataDeFundacao);
+            setFundacao(String(response.data.data.dataDeFundacao));
             setNumeroDeSeguidores(response.data.data.numeroDeSeguidores);
             setCNPJ(response.data.data.cnpj);
             setBanner(response.data.data.banner);
             setFoto(response.data.data.foto);
           })
-        await api.get(`/category`).then((response) =>{
+        await api.get(`/category/${idOng}`).then((response) =>{
             setdataCategoriasOng(response.data.data);
             
+          })
+
+          api.get(`/category`).then((response) => {
+              setdataCategorias(response.data.data);
           })
 
         //   onSubmit();
     }, [])
 
+     
     const onSubmit = () =>{
+        if(nome != null && descricao != null && historia != null && membros != null && fundacao != null && email != null && senha != null){
         api.put(`/ong/${idOng}`, {
             ong: {
                 nome: nome,
@@ -61,6 +69,10 @@ export default function InformacaoContaOng({idOng}) {
                 foto: foto,
                 qtdDeMembros: Number(membros),
                 dataDeFundacao: fundacao,
+            },
+            login: {
+                email: email,
+                senha: senha
             }
         }).then((response) =>{
             if (response.status == "200") {
@@ -70,7 +82,12 @@ export default function InformacaoContaOng({idOng}) {
         }).catch((error) =>{
             console.log(error)
         })
+    }else {
+        ToastAndroid.show("Por favor preencha todos os campos!", ToastAndroid.SHORT);
     }
+    }
+
+    
 
   return (
     <SafeAreaView>
@@ -90,7 +107,7 @@ export default function InformacaoContaOng({idOng}) {
         </View>
         <ScrollView style={{paddingHorizontal:5}}>
         <InputContainer>
-            <InputBorder 
+            <InputBorder
             title="Nome" 
             placeholder={"Digite seu nome"}
             color={"#FAFAFA"}
@@ -139,32 +156,66 @@ export default function InformacaoContaOng({idOng}) {
                 onChangeText={(text) =>{setMembros(text)}}
             />
             
-            <InputBorder 
-            title="E-mal" 
-            color={"#FAFAFA"}
-            borderColor={theme.colors.placeholder}
-            txtColor={theme.colors.black}
-            width={"100%"}
-            placeholder={"Informe seu E-mail"}
-            onChangeText={(text) => setEmail(text)}
-            />
-            <View>
-                <Text style={{fontSize: 20,fontFamily: theme.fonts.regular,color: theme.colors.black, marginBottom:5}}>Fundação</Text>
-                
-                {/* <MyDatePicker date={date} setDate={setDate}/> */}
-                
-            </View>
-            
+                <InputBorder
+                    title='Data de fundação'
+                    placeholder="Data"
+                    keyboardType={"number-pad"}
+                    color={"#FAFAFA"}
+                    width={"50%"}
+                    max={10}
+                    value={fundacao}
+                    txtColor={theme.colors.black}
+                    borderColor={theme.colors.placeholder}
+                    onChangeText={(text) => {
+                    setFundacao(text);
+                    }}
+                />
+
+            <CardContainer title={"Dados de Login"}>
+            <InputContainer flexDirection={"column"}>
+                <InputBorder 
+                title="E-mal" 
+                color={"#FAFAFA"}
+                borderColor={theme.colors.placeholder}
+                txtColor={theme.colors.black}
+                width={"100%"}
+                placeholder={"Informe seu E-mail"}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                />
+                <InputBorder 
+                title="Senha" 
+                color={"#FAFAFA"}
+                borderColor={theme.colors.placeholder}
+                txtColor={theme.colors.black}
+                width={"100%"}
+                placeholder={"Informe sua Senha"}
+                onChangeText={(text) => setSenha(text)}
+                value={senha}
+                />
+                </InputContainer>
+            </CardContainer>
             
           </InputContainer>
           <CardContainer title={"Editar Categorias"}>
             <InputContainer flexDirection={"column"}>
-                <InputBorder title="Categoria" width={"100%"} txtColor={theme.colors.black} borderColor={theme.colors.placeholder} />
+                <InputBorder 
+                title="Categoria" 
+                width={"100%"} 
+                txtColor={theme.colors.black} 
+                borderColor={theme.colors.placeholder} 
+                placeholder={"Adcione uma nova categoria"}
+                onChangeText={(text) => setEmail(text)}
+                />
 
                 <ScrollBorder>
                 {
 
-                dataCategoriasOng.map((item) =>{
+                dataCategorias.map((item) =>{
+
+                    if(item.idCategorias == dataCategoriasOng.idCategorias){
+                        
+                    }
                     return(
                     <ChipCategoria text={item.nome} key={item.idCategorias} />
                     );
@@ -175,7 +226,7 @@ export default function InformacaoContaOng({idOng}) {
             </CardContainer>
             <View style={{flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
                 <BtnSubmit
-                    text="Salvar"
+                    text="Atualizar"
                     color={theme.colors.primaryFaded}
                     width="35%"
                     height={40}

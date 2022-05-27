@@ -12,6 +12,12 @@ import BtnSubmit from '../BtnSubmit';
 export default function Patrocinadores() {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [nome, setNome] = useState();
+    const [site, setSite] = useState();
+
+    const onSubmit =  () =>{
+      console.log("oi");
+    } 
 
   return (
     <SafeAreaView>
@@ -47,6 +53,9 @@ export default function Patrocinadores() {
                 color={"#FAFAFA"}
                 borderColor={theme.colors.placeholder}
                 txtColor={theme.colors.black}
+                value={nome}
+                placeholder={"Informe o nome do seu patrocinador"}
+                onChangeText={(text) => setNome(text)}
                 />
                 <InputBorder 
                 title="Site"  
@@ -54,6 +63,9 @@ export default function Patrocinadores() {
                 color={"#FAFAFA"}
                 borderColor={theme.colors.placeholder}
                 txtColor={theme.colors.black}
+                value={site}
+                placeholder={"Informe o site do seu patrocinador"}
+                onChangeText={(text) => setSite(text)}
                 />
           </InputContainer>
           <InputContainer>

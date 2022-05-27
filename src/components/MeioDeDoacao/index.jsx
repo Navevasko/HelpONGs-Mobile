@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import OptionsConfig from '../OptionsConfig';
@@ -19,7 +19,7 @@ export default function MeioDeDoacao() {
     const [tipo, setTipo] = useState();
     const [banco, setBanco] = useState();
     const [btnTxt, setBtnTxt] = useState("Salvar");
-    const idOng = 2;
+    const idOng = 1;
     const [dataMeiosDeDoacao, setdataMeiosDeDoacao] = useState([]);
     
 
@@ -38,11 +38,13 @@ export default function MeioDeDoacao() {
         })
 
         api.get(`/bank-data/${idOng}`).then((response) => {
-
+            if(response.data.data != null){
+            setBtnTxt("Atualizar")    
             setAgencia(response.data.data.agencia);
             setBanco(response.data.data.banco);
             setConta(response.data.data.conta);
             setTipo(response.data.data.tipo);
+        }
 
         }).catch((error) => {
             console.log(error);
@@ -52,7 +54,10 @@ export default function MeioDeDoacao() {
     }, [])
 
     const onSubmit = () => {
+        if(banco != null && agencia != null && conta != null && tipo != null && site != null && pix != null){
+
         if(btnTxt == "Salvar"){
+            
             api.post(`bank-data`,  
             {
                 banco: banco,
@@ -60,8 +65,48 @@ export default function MeioDeDoacao() {
                 conta: conta,
                 tipo : tipo,
                 idOng: idOng
+            }).then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
             })
+
+            api.post(`donation-data`,{
+                idOng: idOng,
+                site: site,
+                pix: pix
+            }).then((response) => {
+                ToastAndroid.show("Cadastro realizado com sucesso!", ToastAndroid.SHORT);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }else if(btnTxt == "Atualizar"){
+
+            api.put(`donation-data/${idOng}`,{
+                site: site,
+                pix: pix
+            }).then((response) => {
+                console.log("donation data put ",response);
+            }).catch((error) => {
+                console.log(error);
+            })
+
+            api.put(`donation-data/${idOng}`, {
+                banco: banco,
+                agencia: agencia,
+                conta: conta,
+                tipo : tipo
+            }).then((response) => {
+                ToastAndroid.show("Cadastro atualizado com sucesso!", ToastAndroid.SHORT);
+            }).catch((error) => {
+                console.log(error);
+            })
+
+            
         }
+    }else{
+        ToastAndroid.show("Por favor cadastre todos os dados!", ToastAndroid.SHORT);
+    }
     }
 
   return (
