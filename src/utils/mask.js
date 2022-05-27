@@ -7,17 +7,44 @@ const cnpjMask = (CNPJ) => {
     .replace(/(-\d{2})\d+?$/, "$1"); // captura os dois últimos 2 números, com um - antes dos dois números
 };
 
-const dateMask = (Date) => {
-  if (Date.substr(0, 2) > 31) {
-    console.log("erro");
+const dateMask = (value) => {
+  const date = new Date();
+  value = value.replace(/\D+/g, "");
+
+  if (value.substr(0, 2) > 31) {
+    value = value.replace(/(\d{1})(\d)/, value.substr(0, 2) + "");
   }
-  Date.replace();
+
+  if (value.substr(2, 2) > 12) {
+    value = value.replace(/(\d{3})(\d)/, value.substr(0, 3) + "");
+  }
+
+  // console.log(value.substr(3, 4));
+  if (value.substr(4, 4) < date.getFullYear()) {
+    value = value.replace(/(\d{7})(\d)/, value.substr(0, 6) + "");
+  }
+
+  value = value.replace(/(\d{2})(\d)/, "$1/$2");
+  value = value.replace(/(\d{2})(\d)/, "$1/$2");
+
+  return value;
 };
 
 const timeMask = (Time) => {
-  return Time.replace(/\D+/g, "")
-    .replace(/(\d{2})(\d)/, "$1:$2")
-    .replace(/(\d{2})(\d)/, "$1:$2");
+  Time = Time.replace(/\D+/g, "");
+
+  console.log(Time.substr(0, 2));
+  if (Time.substr(0, 2) > 23) {
+    Time = Time.replace(/(\d{1})(\d)/, Time.substr(0, 1) + "");
+  }
+  if (Time.substr(2, 2) >= 60) {
+    Time = Time.replace(/(\d{3})(\d)/, Time.substr(0, 2) + "");
+  }
+
+  Time = Time.replace(/(\d{2})(\d)/, "$1:$2");
+  Time = Time.replace(/(\d{2})(\d)/, "$1:$2");
+
+  return Time;
 };
 
 const emailMask = (Email) => {
