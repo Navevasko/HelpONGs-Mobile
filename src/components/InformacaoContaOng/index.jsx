@@ -30,6 +30,7 @@ export default function InformacaoContaOng({idOng}) {
     const [foto, setFoto] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
+    const [categorias, setCategorias] = useState();
     
     useEffect(async() =>{
         api.get(`/ong/${idOng}`).then((response) =>{
@@ -54,6 +55,12 @@ export default function InformacaoContaOng({idOng}) {
 
         //   onSubmit();
     }, [])
+
+    // const ResultCategorias = dataCategorias.filter((item) => {
+    //     const comparar = item.idCategorias == dataCategoriasOng.idCategorias ? item : "porra"
+    //     return comparar
+    // })
+    // console.log(ResultCategorias)
 
      
     const onSubmit = () =>{
@@ -205,22 +212,19 @@ export default function InformacaoContaOng({idOng}) {
                 txtColor={theme.colors.black} 
                 borderColor={theme.colors.placeholder} 
                 placeholder={"Adcione uma nova categoria"}
-                onChangeText={(text) => setEmail(text)}
+                onChangeText={(text) => setCategorias(text)}
                 />
 
                 <ScrollBorder>
-                {
-
+                {/* {
+               
                 dataCategorias.map((item) =>{
 
-                    if(item.idCategorias == dataCategoriasOng.idCategorias){
-                        
-                    }
                     return(
                     <ChipCategoria text={item.nome} key={item.idCategorias} />
                     );
                 })
-                }
+                } */}
                 </ScrollBorder>
             </InputContainer>
             </CardContainer>

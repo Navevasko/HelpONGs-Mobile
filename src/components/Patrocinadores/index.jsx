@@ -8,15 +8,36 @@ import ScrollBorder from '../ScrollBorder';
 import InputContainer from '../InputContainer';
 import InputBorder from '../InputBorder';
 import BtnSubmit from '../BtnSubmit';
+import { api } from '../../../api';
 
 export default function Patrocinadores() {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [nome, setNome] = useState();
     const [site, setSite] = useState();
+    const [btnTxt, setBtnTxt] = useState("Adcionar");
+    const [fileName, setFileName] = useState("fbfbbb");
+    const [fileType, setFileType] = useState("fbfbbb");
+    const [base64, setBase64] = useState("fbfbbb");
 
     const onSubmit =  () =>{
-      console.log("oi");
+      if(btnTxt == "Adcionar"){
+        api.post(`/sponsor`,{
+          nome: nome,
+          site: site,
+          media: [
+              {
+                  fileName: fileName,
+                  fileType: fileType,
+                  base64: base64
+              }
+          ]
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
+      }
     } 
 
   return (
@@ -101,7 +122,7 @@ export default function Patrocinadores() {
           </InputContainer>
           <View style={{flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
                 <BtnSubmit
-                    text="Adicionar"
+                    text={btnTxt}
                     color={theme.colors.primaryFaded}
                     width="35%"
                     height={40}
