@@ -1,10 +1,10 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableHighlight } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
 import React from "react";
 import { styles } from "./style";
 import { theme } from "../../global/styles/theme";
-import Icon from "react-native-vector-icons/Feather";
 
-export default function Post() {
+export default function Vaga() {
   return (
     <View style={styles.containerShadow}>
       <View style={styles.container}>
@@ -18,16 +18,6 @@ export default function Post() {
             <Text style={styles.ONGDataName}>GreenPeace</Text>
             <Text style={styles.ONGDataDate}>25 de Fevereiro de 2022</Text>
           </View>
-
-          <Icon
-            name="more-horizontal"
-            size={30}
-            style={{
-              position: "relative",
-              right: 100,
-              bottom: 10,
-            }}
-          />
         </View>
 
         <View style={styles.postData}>
@@ -38,28 +28,56 @@ export default function Post() {
             ullamco est sit aliqua dolor do amet sint.
           </Text>
 
-          <View
-            style={{
-              width: "100%",
-              height: 270,
-              flexWrap: "wrap",
-              flexDirection: "row",
-              paddingTop: 10,
-            }}
-          >
+          <View style={styles.filesContainer}>
             <Image
               source={require("../../assets/img/Evento.png")}
-              style={styles.image}
+              style={styles.file}
             />
             <View>
               <Image
                 source={require("../../assets/img/Evento.png")}
-                style={styles.altImageTop}
+                style={[styles.altFile, { borderTopRightRadius: 5 }]}
               />
               <Image
                 source={require("../../assets/img/Evento.png")}
-                style={styles.altImagesBottom}
+                style={[
+                  styles.altFile,
+                  { marginTop: 5, borderBottomRightRadius: 5 },
+                ]}
               />
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.dataContainer}>
+              <View style={[styles.row, { marginBottom: 10 }]}>
+                <Text style={styles.textDestaque}> Objetivo: </Text>
+                <Text style={styles.text}> Salvar Peixes </Text>
+              </View>
+              <View style={[styles.row, { marginBottom: 10 }]}>
+                <Text style={styles.textDestaque}> Data/Hora: </Text>
+                <Text style={styles.text}> 26 de Janeiro ás 12:00 </Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.textDestaque}> Status: </Text>
+                <TouchableHighlight
+                  style={[
+                    styles.button,
+                    { backgroundColor: theme.colors.secondary },
+                  ]}
+                >
+                  <Text style={styles.buttonText}> Encerrado </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <TouchableHighlight style={[styles.button, { marginBottom: 20 }]}>
+                <Text style={styles.buttonText}> Candidatar-se </Text>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.button}>
+                <Text style={styles.buttonText}> Participar </Text>
+              </TouchableHighlight>
             </View>
           </View>
 

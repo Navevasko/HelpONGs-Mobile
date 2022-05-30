@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { theme } from "../../global/styles/theme";
 import EventoPreview from "../../components/EventoPreview";
 import Post from "../../components/Post";
+import Evento from "../../components/Evento";
 
 export default function Feed() {
   return (
@@ -29,7 +30,7 @@ export default function Feed() {
           />
         </View>
 
-        <ScrollView
+        {/* <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={styles.containerEventoPreview}
@@ -69,9 +70,10 @@ export default function Feed() {
             ONGProfilePic={require("../../assets/img/ONG.png")}
             imagem={require("../../assets/img/Evento.png")}
           />
-        </ScrollView>
+        </ScrollView> */}
 
-        <Post />
+        <Evento />
+        <Evento />
         <Post />
         <Post />
       </ScrollView>
