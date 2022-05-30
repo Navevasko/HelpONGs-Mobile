@@ -61,37 +61,47 @@ export default function Patrocinadores() {
       quality: 1,
     });
     if(!result.cancelled){
-      setImage({uri: result.uri});
-      setFileName(result.uri.split("/")[11]);
-      setFileType(fileName.split(".")[1] ? result.type + "/" + fileName.split(".")[1] : "")
-      setBase64(result.base64);
+      if(result.uri != null){
+        setImage({uri: result.uri});
+        setFileName(result.uri.split("/")[11]);
+        setFileType(result.type + "/" + fileName.split(".")[1]);
+        setBase64(result.base64);
+      }else{
+        ToastAndroid.show("Desculpe houve um erro nessa imagem por favor selecione outra!", ToastAndroid.SHORT);
+      }
+
     }
   };
     //FUNÇÃO PARA SALVAR CATEGORIA
     const onSubmit =  () =>{
-      if(btnTxt == "Adicionar"){
-        api.post(`/sponsor`,{
-          nome: nome,
-          site: site,
-          media: [
-              {
-                  fileName: fileName,
-                  fileType: fileType,
-                  base64: base64
-              }
-          ]
-      }).then((response) => {
-        if(response.status == 200){
-          ToastAndroid.show("Patrocinador cadastrado com sucesso!", ToastAndroid.SHORT);
-          setImage(require("../../assets/img/perfilSemFoto.png"));
-          setNome("");
-          setSite("");
-          categoria();
+      if(nome != null && site != null){
+        if(btnTxt == "Adicionar"){
+          api.post(`/sponsor`,{
+            nome: nome,
+            site: site,
+            media: [
+                {
+                    fileName: fileName,
+                    fileType: fileType,
+                    base64: base64
+                }
+            ]
+        }).then((response) => {
+          if(response.status == 200){
+            ToastAndroid.show("Patrocinador cadastrado com sucesso!", ToastAndroid.SHORT);
+            setImage(require("../../assets/img/perfilSemFoto.png"));
+            setNome("");
+            setSite("");
+            categoria();
+          }
+        }).catch((error) => {
+          console.log("error salvar informações de patrocinador",error);
+        })
         }
-      }).catch(() => {
-        console.log("error salvar informações de patrocinador",error);
-      })
+      }else{
+        ToastAndroid.show("Por favor cadastre mais informações, para completar o cadastro de patrocinadores!", ToastAndroid.SHORT);
       }
+      
     } 
 
     function excluirCategoria(id){

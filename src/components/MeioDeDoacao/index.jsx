@@ -47,7 +47,7 @@ export default function MeioDeDoacao() {
         }
 
         }).catch((error) => {
-            console.log(error);
+            console.log("dados bancarios",error);
         })
 
 

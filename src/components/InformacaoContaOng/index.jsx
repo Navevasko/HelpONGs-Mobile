@@ -11,6 +11,7 @@ import { api } from '../../../api';
 import ChipCategoria from '../ChipCategoria';
 import BtnSubmit from '../BtnSubmit';
 import { dateMask } from '../../utils/mask';
+import SelectCategoria from '../SelectCategoria';
 
 export default function InformacaoContaOng({idOng}) {
 
@@ -43,14 +44,22 @@ export default function InformacaoContaOng({idOng}) {
             setCNPJ(response.data.data.cnpj);
             setBanner(response.data.data.banner);
             setFoto(response.data.data.foto);
+          }).catch((error) => {
+              console.log(error);
           })
         await api.get(`/category/${idOng}`).then((response) =>{
-            setdataCategoriasOng(response.data.data);
+            if(response.data.data != null){
+                setdataCategoriasOng(response.data.data);
+            }
             
+          }).catch((error) => {
+            console.log("error categoria por id ong", error)
           })
 
           api.get(`/category`).then((response) => {
               setdataCategorias(response.data.data);
+          }).catch((error) => {
+              console.log("error categoria", error)
           })
 
         //   onSubmit();
@@ -206,25 +215,17 @@ export default function InformacaoContaOng({idOng}) {
           </InputContainer>
           <CardContainer title={"Editar Categorias"}>
             <InputContainer flexDirection={"column"}>
-                <InputBorder 
-                title="Categoria" 
-                width={"100%"} 
-                txtColor={theme.colors.black} 
-                borderColor={theme.colors.placeholder} 
-                placeholder={"Adcione uma nova categoria"}
-                onChangeText={(text) => setCategorias(text)}
-                />
-
+            <SelectCategoria options={dataCategorias} onChangeSelect={(idCategorias) => {console.log(idCategorias)}}/>
                 <ScrollBorder>
-                {/* {
+                {
                
-                dataCategorias.map((item) =>{
+                dataCategoriasOng.map((item) =>{
 
                     return(
-                    <ChipCategoria text={item.nome} key={item.idCategorias} />
+                    <ChipCategoria text={item.tbl_categorias.nome} key={item.idCategorias} />
                     );
                 })
-                } */}
+                }
                 </ScrollBorder>
             </InputContainer>
             </CardContainer>

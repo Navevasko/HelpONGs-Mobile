@@ -5,7 +5,8 @@ import {
   ImageBackground,
   StatusBar,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Modal
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./style";
@@ -24,13 +25,14 @@ import InformacaoContatoOng from "../../components/InformacaoContatoOng";
 
 export default function ConfigONG() {
 
-  const [idOng, setIdOng] = useState(1);
+  const [idOng, setIdOng] = useState(9);
   const [dataOng, setDataOng] = useState([]);
   const [dataContatoOng, setdataContatoOng] = useState([]);
   const [dataIdCategoriasOng, setdataIdCategoriasOng] = useState([]);
   const [qtdDeMembros, setqtdDeMembros] = useState();
   const [numero, setNumero] = useState();
   const [date, setDate] = useState('23/10/2000');
+  const [visible, setVisible] = useState();
 
 useEffect(async()=>{
 
@@ -46,9 +48,23 @@ useEffect(async()=>{
     setdataIdCategoriasOng(response.data.data);
   })
 
-  teste();
   
 }, []);
+
+  function editarPerfil(visible){
+    console.log("eaíiii");
+    if(visible){
+      return(
+        <Modal visible={visible} style={{height:200, width:300}}>
+        <TouchableOpacity>
+          <View>Ver foto</View>
+        </TouchableOpacity>
+          <View>editar foto</View>
+        </Modal>
+      )
+    }
+    
+  }
 
   const teste = () => {
 
@@ -72,6 +88,7 @@ useEffect(async()=>{
     // }
     // console.log("foi",arrayCategorias);
   }
+
   
 
   return (
@@ -80,15 +97,22 @@ useEffect(async()=>{
       <ScreenTitle title={"Configurações"} />
       <ScrollView style={styles.container}>
         <View style={styles.containerPerfil}>
+        <TouchableOpacity onLongPress={() => {editarPerfil()}}>
           <Image
             source={{uri:dataOng.banner}}
             style={styles.banner}
           />
+        </TouchableOpacity>
+        <TouchableOpacity onLongPress={() => {
+          setVisible(true);
+          editarPerfil(visible);
+        }}>
           <Image
             source={dataOng.foto ?{uri:dataOng.foto} : require('../../assets/img/perfilSemFoto.png')}
             style={styles.profilePicutre}
             resizeMode="cover"
           />
+          </TouchableOpacity>
 
           <View style={styles.edit}>
             <Icon name="edit" size={20} />

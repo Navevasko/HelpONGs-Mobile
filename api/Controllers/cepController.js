@@ -6,7 +6,7 @@ export default APICEP = new Object({
       const get = apiCEP.get(`/${cep}/json`).then(({data}) => {
           return data
       }).catch((error) => {
-        const errorJSON = JSON.stringify(error)
+        const errorJSON = console.log("api cep error",error)
         return errorJSON
       })
 

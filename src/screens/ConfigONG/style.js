@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     height: 200,
     borderTopRightRadius: 5,
     borderTopLeftRadius: 5,
+    backgroundColor:"grey"
   },
   profilePicutre: {
     width: 120,
