@@ -3,7 +3,7 @@ import React from "react";
 import { styles } from "./style";
 import PropTypes from "prop-types";
 
-export default function InputContainer({ children, flexDirection }) {
+export default function InputContainer({ children, flexDirection}) {
   return (
     <View style={[styles.inputContainer, { flexDirection: flexDirection }]}>
       {children}
@@ -13,8 +13,10 @@ export default function InputContainer({ children, flexDirection }) {
 
 InputContainer.propTypes = {
   flexDirection: PropTypes.oneOf(["row", "column"]),
+  display: PropTypes.string
 };
 
 InputContainer.defaultProps = {
   flexDirection: "row",
+  display:"flex"
 };

@@ -3,11 +3,11 @@ import React from "react";
 import { styles } from "./style";
 import PropTypes from "prop-types";
 
-export default function ScrollBorder({ children, horizontal }) {
+export default function ScrollBorder({display, children, horizontal }) {
   return (
     <ScrollView
       horizontal={horizontal}
-      style={styles.container}
+      style={[styles.container, { display:display }]}
       contentContainerStyle={{
         alignItems: "center",
         justifyContent: "center",
@@ -20,6 +20,7 @@ export default function ScrollBorder({ children, horizontal }) {
 
 ScrollBorder.propTypes = {
   horizontal: PropTypes.bool,
+  display: PropTypes.string
 };
 
 ScrollBorder.defaultProps = {
