@@ -21,13 +21,12 @@ import { Switch } from "react-native-paper";
 import ModalCargaHoraria from "../ModalCargaHoraria";
 
 export default function ModalCreate({ onClose }) {
-  const [Type, setType] = useState("vaga");
+  const [Type, setType] = useState("post");
   const types = [
     { label: "Post", value: "post" },
     { label: "Evento", value: "evento" },
     { label: "Vaga", value: "vaga" },
   ];
-  const [file, setFile] = useState();
   const [modalEndereco, setModalEndereco] = useState(false);
   const [modalDataHora, setModalDataHora] = useState(false);
   const [modalCargaHoraria, setModalCargaHoraria] = useState(false);
@@ -77,7 +76,8 @@ export default function ModalCreate({ onClose }) {
           ToastAndroid.SHORT
         );
       } else {
-        const response = Ong.postPost(1, desc, fileArray);
+        setLoading(true);
+        const response = await Ong.postPost(1, desc, fileArray);
         validateResponse(response);
       }
     } else if (type == "evento") {
@@ -231,15 +231,12 @@ export default function ModalCreate({ onClose }) {
               <ModalVaga
                 setDesc={(text) => {
                   setDesc(text);
-                  console.log(desc);
                 }}
                 setRequisito={(text) => {
                   setRequisitos(text);
-                  console.log(requisitos);
                 }}
                 setTitulo={(text) => {
                   setTitulo(text);
-                  console.log(titulo);
                 }}
               />
             )}
