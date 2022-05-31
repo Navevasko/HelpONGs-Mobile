@@ -9,7 +9,7 @@ export const theme = {
     lightBlack: "#434343",
     white: "#FAFAFA",
     grey: "#CCCCCC",
-    input: "#ECECEC",
+    input: "#e6e6e6",
     placeholder: "#8C8C8C",
   },
   fonts: {

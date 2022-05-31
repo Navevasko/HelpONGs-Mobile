@@ -14,6 +14,8 @@ import { theme } from "../../global/styles/theme";
 import EventoPreview from "../../components/EventoPreview";
 import Post from "../../components/Post";
 import Evento from "../../components/Evento";
+import Vaga from "../../components/Vaga";
+import CreatePost from "../../components/CreatePost";
 
 export default function Feed() {
   return (
@@ -22,7 +24,7 @@ export default function Feed() {
       <Menu />
       <ScrollView>
         <View style={styles.search}>
-          <Icon name="search" size={30} color={theme.colors.grey} />
+          <Icon name="search" size={30} color={theme.colors.secondary} />
           <TextInput
             style={styles.searchInput}
             placeholder={"Pesquise por uma ONG"}
@@ -30,7 +32,7 @@ export default function Feed() {
           />
         </View>
 
-        {/* <ScrollView
+        <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={styles.containerEventoPreview}
@@ -70,11 +72,13 @@ export default function Feed() {
             ONGProfilePic={require("../../assets/img/ONG.png")}
             imagem={require("../../assets/img/Evento.png")}
           />
-        </ScrollView> */}
+        </ScrollView>
+
+        <CreatePost/>
 
         <Evento />
-        <Evento />
         <Post />
+        <Vaga />
         <Post />
       </ScrollView>
     </View>

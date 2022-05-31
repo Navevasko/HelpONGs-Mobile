@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http:/10.107.144.19:3131",
+  baseURL: "http:/10.107.144.30:3131",
 });
 
 const apiExterna = axios.create({
   baseURL: "https://publica.cnpj.ws/cnpj",
 });
 
-export {api, apiExterna}
+export { api, apiExterna };
