@@ -7,6 +7,11 @@ export const styles = StyleSheet.create({
     minHeight: 100,
     alignSelf: "center",
   },
+  title: {
+    fontSize: 20,
+    fontFamily: theme.fonts.bold,
+    marginBottom: 10,
+  },
   desc: {
     fontSize: 13,
     fontFamily: theme.fonts.regular,

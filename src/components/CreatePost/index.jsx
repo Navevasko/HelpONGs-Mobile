@@ -4,26 +4,19 @@ import { format } from "../../global/styles/format";
 import { theme } from "../../global/styles/theme";
 import { styles } from "./style";
 import Icon from "react-native-vector-icons/Feather";
+import PropTypes from "prop-types";
 
-export default function CreatePost() {
+export default function CreatePost({ image, setOpenModal }) {
   return (
     <View style={[format.row, styles.container]}>
-      <Image
-        source={require("../../assets/img/ONG.png")}
-        style={styles.image}
-      />
+      <Image source={image} style={styles.image} />
 
       <Text style={styles.text}>No que está pensando?</Text>
 
       <TouchableHighlight
-        style={{
-          width: 30,
-          height: 30,
-          borderRadius: 20,
-          alignItems: "center",
-          justifyContent: "center",
-          marginStart: 20,
-          backgroundColor: theme.colors.primary,
+        style={styles.createButton}
+        onPress={() => {
+          setOpenModal(true);
         }}
       >
         <Icon name="plus" size={20} />
@@ -31,3 +24,12 @@ export default function CreatePost() {
     </View>
   );
 }
+
+CreatePost.propTypes = {
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  setOpenModal: PropTypes.func,
+};
+
+CreatePost.defaultProps = {
+  image: require("../../assets/img/Avatar.png"),
+};

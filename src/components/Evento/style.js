@@ -4,7 +4,6 @@ import { theme } from "../../global/styles/theme";
 export const styles = StyleSheet.create({
   postData: {
     width: "105%",
-    minHeight: 200,
     alignSelf: "center",
   },
   title: {
@@ -28,8 +27,6 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     width: "100%",
     height: 50,
-    marginBottom: 10,
-    marginTop: -20,
     justifyContent: "space-between",
   },
   button: {

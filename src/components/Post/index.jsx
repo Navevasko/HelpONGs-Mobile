@@ -7,40 +7,22 @@ import CardContainer from "../CardContainer";
 import ONGData from "../ONGData";
 import Options from "../Options";
 import FileContainer from "../FileContainer";
+import PropTypes from "prop-types";
 
-export default function Post() {
-  const fileArray = [
-    {
-      fileName: require("../../assets/img/Evento.png"),
-      base64: "",
-      fileType: "image/jpg",
-    },
-    {
-      fileName: require("../../assets/img/Evento.png"),
-      base64: "",
-      fileType: "image/jpg",
-    },
-    {
-      fileName: require("../../assets/img/Evento.png"),
-      base64: "",
-      fileType: "image/jpg",
-    },
-  ];
+export default function Post({
+  fileArray,
+  desc,
+  ONGdata,
+  date,
+  likes,
+  comments,
+}) {
   return (
     <CardContainer>
-      <ONGData
-        name="GreenPeace"
-        date="24 de Fevereiro de 2022"
-        image={require("../../assets/img/ONG.png")}
-      />
+      <ONGData name={ONGdata.nome} date={date} image={ONGdata.foto} />
 
       <View style={styles.postData}>
-        <Text style={styles.desc}>
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-          sint. Velit officia consequat duis enim velit mollit. Exercitation
-          veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-          ullamco est sit aliqua dolor do amet sint.
-        </Text>
+        <Text style={styles.desc}>{desc}</Text>
 
         <FileContainer fileArray={fileArray} />
 
@@ -49,3 +31,19 @@ export default function Post() {
     </CardContainer>
   );
 }
+
+Post.propTypes = {
+  fileArray: PropTypes.array,
+  desc: PropTypes.string,
+  ONGdata: PropTypes.shape({
+    nome: PropTypes.string,
+    foto: PropTypes.string,
+    banner: PropTypes.string,
+    tbl_login: PropTypes.shape({
+      idLogin: PropTypes.number,
+      email: PropTypes.string,
+      senha: PropTypes.string,
+      accountStatus: PropTypes.bool,
+    }),
+  }),
+};

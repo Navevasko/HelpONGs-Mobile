@@ -3,6 +3,7 @@ import React from "react";
 import { styles } from "./style";
 import Icon from "react-native-vector-icons/Feather";
 import PropTypes from "prop-types";
+import { format } from "../../global/styles/format";
 
 export default function Options({
   likes,
@@ -12,8 +13,8 @@ export default function Options({
   share,
 }) {
   return (
-    <View style={{ flexDirection: "row", alignItems: "center" }}>
-      <View style={[styles.optionsContainer, styles.row]}>
+    <View style={format.row}>
+      <View style={[styles.optionsContainer, format.row]}>
         <Icon name="thumbs-up" size={20} style={styles.icon} />
         <Text style={styles.optionsText}> {likes} </Text>
       </View>

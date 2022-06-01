@@ -1,31 +1,51 @@
 import { View, Image } from "react-native";
 import React from "react";
 import { styles } from "./style";
+import PropTypes from "prop-types";
 
 export default function FileContainer({ fileArray }) {
-  fileArray.map((file) => {
-    // let a = file.lenght;
-    // console.log(a);
-  });
+  let fileArrayLength;
 
-//   console.log(fileArray);
-//   console.log(fileArray(data).lenght);
+  // console.log(fileArray);
 
-  if (fileArray.lenght) {
+  if (fileArray.length !== 0) {
+    fileArrayLength = fileArray.length;
   }
+
   return (
     <View style={styles.filesContainer}>
-      <Image source={fileArray[0].fileName} style={styles.file} />
-      <View>
+      {fileArrayLength >= 1 && (
         <Image
-          source={fileArray[1].fileName}
-          style={[styles.altFile, { borderTopRightRadius: 5 }]}
+          source={{ uri: fileArray[0].url }}
+          style={fileArrayLength === 1 ? styles.mainFile : styles.altMainFile}
         />
-        <Image
-          source={fileArray[2].fileName}
-          style={[styles.altFile, { marginTop: 5, borderBottomRightRadius: 5 }]}
-        />
-      </View>
+      )}
+
+      {fileArrayLength === 2 && (
+        <View>
+          <Image source={{ uri: fileArray[1].url }} style={styles.twoFiles} />
+        </View>
+      )}
+
+      {fileArrayLength === 3 && (
+        <View>
+          <Image
+            source={{ uri: fileArray[1].url }}
+            style={[styles.threeFiles, { borderTopRightRadius: 5 }]}
+          />
+          <Image
+            source={{ uri: fileArray[1].url }}
+            style={[
+              styles.threeFiles,
+              { marginTop: 5, borderBottomRightRadius: 5 },
+            ]}
+          />
+        </View>
+      )}
     </View>
   );
 }
+
+FileContainer.propTypes = {
+  fileArray: PropTypes.array,
+};

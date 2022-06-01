@@ -5,27 +5,23 @@ import ONGData from "../ONGData";
 import CardContainer from "../CardContainer";
 import BtnSubmit from "../BtnSubmit";
 import { format } from "../../global/styles/format";
+import PropTypes from "prop-types";
 
-export default function Vaga() {
+export default function Vaga({ ONGdata, desc, titulo, date, setOpenModal }) {
   return (
     <CardContainer>
-      <ONGData
-        name="GreenPeace"
-        date="24 de Fevereiro de 2022"
-        image={require("../../assets/img/ONG.png")}
-      />
+      <ONGData name={ONGdata.nome} date={date} image={ONGdata.foto} />
 
       <View style={styles.postData}>
-        <Text style={styles.desc}>
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-          sint. Velit officia consequat duis enim velit mollit. Exercitation
-          veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-          ullamco est sit aliqua dolor do amet sint.
-        </Text>
+        <Text style={styles.title}>{titulo}</Text>
+        <Text style={styles.desc}>{desc}</Text>
 
         <View style={[styles.buttonContainer, format.row]}>
           <BtnSubmit
             text={"Saiba Mais"}
+            onPress={() => {
+              setOpenModal(true);
+            }}
             width="49%"
             height={35}
             fontSize={14}
@@ -42,3 +38,19 @@ export default function Vaga() {
     </CardContainer>
   );
 }
+
+Vaga.propTypes = {
+  fileArray: PropTypes.array,
+  desc: PropTypes.string,
+  ONGdata: PropTypes.shape({
+    nome: PropTypes.string,
+    foto: PropTypes.string,
+    banner: PropTypes.string,
+    tbl_login: PropTypes.shape({
+      idLogin: PropTypes.number,
+      email: PropTypes.string,
+      senha: PropTypes.string,
+      accountStatus: PropTypes.bool,
+    }),
+  }),
+};

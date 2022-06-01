@@ -7,7 +7,7 @@ import { styles } from "./style";
 export default function ONGData({ image, name, date }) {
   return (
     <View style={styles.containerONGData}>
-      <Image source={image} style={styles.ONGPFP} />
+      <Image source={{ uri: image }} style={styles.ONGPFP} />
 
       <View style={styles.ContainerONGDataText}>
         <Text style={styles.ONGDataName}>{name}</Text>
@@ -20,7 +20,7 @@ export default function ONGData({ image, name, date }) {
 }
 
 ONGData.propTypes = {
-  image: PropTypes.number,
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   name: PropTypes.string,
   date: PropTypes.string,
 };

@@ -8,9 +8,10 @@ export const styles = StyleSheet.create({
     backgroundColor: "#ffff",
     borderRadius: 10,
     alignSelf: "center",
+    justifyContent: "space-around",
     marginTop: -10,
     marginBottom: 20,
-    padding: 10,
+    padding: 5,
   },
   image: {
     width: 70,
@@ -21,6 +22,14 @@ export const styles = StyleSheet.create({
   text: {
     fontFamily: theme.fonts.medium,
     fontSize: 17,
-    marginStart: 5,
+  },
+  createButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    marginStart: 20,
+    backgroundColor: theme.colors.primary,
   },
 });
