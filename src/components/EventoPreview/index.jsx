@@ -7,10 +7,10 @@ export default function EventoPreview({ title, imagem, ONGProfilePic }) {
   return (
     <View style={styles.eventoPreview}>
       <Image
-        source={ONGProfilePic}
+        source={{ uri: ONGProfilePic }}
         style={styles.eventoPreviewProfilePicture}
       />
-      <Image source={imagem} style={styles.eventoPreviewImage} />
+      <Image source={{ uri: imagem }} style={styles.eventoPreviewImage} />
       <Text style={styles.eventoPreviewText}> {title} </Text>
     </View>
   );

@@ -61,7 +61,7 @@ export default function ModalEventoInformation({ idEvento, onClose, idOng }) {
         </View>
 
         {Endereco && (
-          <>
+          <Text style={[format.row, styles.textContainer]}>
             <View style={[format.row, styles.textContainer]}>
               <Text style={styles.textTitle}>CEP:</Text>
               <Text style={styles.text}> {" " + Endereco.cep}</Text>
@@ -101,7 +101,7 @@ export default function ModalEventoInformation({ idEvento, onClose, idOng }) {
                 <Text style={styles.text}> {" " + Endereco.complemento} </Text>
               </View>
             )}
-          </>
+          </Text>
         )}
 
         {Candidatos && (

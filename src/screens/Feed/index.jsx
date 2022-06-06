@@ -23,6 +23,7 @@ import ModalVagaInformation from "../../components/ModalVagaInformation";
 import SearchResult from "../../components/SearchResult";
 import ModalExcluir from "../../components/ModalExcluir";
 import ModalEventoInformation from "../../components/ModalEventoInformation";
+import ModalCreate from "../../components/ModalCreate";
 
 export default function Feed({}) {
   const [Data, setData] = useState([]);
@@ -40,6 +41,7 @@ export default function Feed({}) {
   const [modalEditar, setModalEditar] = useState(true);
   const scrollRef = useRef();
   const [atEnd, setAtEnd] = useState(false);
+  const [openModalCreate, setOpenModalCreate] = useState(false);
 
   const isCloseToBottom = useCallback(
     ({ layoutMeasurement, contentOffset, contentSize }) => {
@@ -66,7 +68,7 @@ export default function Feed({}) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [page]);
 
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -116,6 +118,14 @@ export default function Feed({}) {
 
   return (
     <View style={styles.container}>
+      {openModalCreate && (
+        <ModalCreate
+          onClose={() => {
+            setOpenModalCreate(false);
+          }}
+        />
+      )}
+
       {OpenModalVaga && (
         <ModalVagaInformation
           onClose={() => {
@@ -180,14 +190,35 @@ export default function Feed({}) {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={styles.containerEventoPreview}
-          onEndRea
-        ></ScrollView>
+        >
+          {Data &&
+            Data.map((item) => {
+              if (item.tbl_evento_media) {
+                return (
+                  <EventoPreview
+                    title={item.titulo}
+                    imagem={item.tbl_evento_media[0].url}
+                    ONGProfilePic={item.tbl_ong.foto}
+                    key={Math.random()}
+                  />
+                );
+              } else {
+                return;
+              }
+            })}
+        </ScrollView>
 
         {Data && (
           <FlatList
             showsVerticalScrollIndicator={false}
             ref={scrollRef}
-            ListHeaderComponent={<CreatePost />}
+            ListHeaderComponent={
+              <CreatePost
+                setOpenModal={(bool) => {
+                  setOpenModalCreate(bool);
+                }}
+              />
+            }
             refreshControl={
               <RefreshControl
                 tintColor={theme.colors.primary}

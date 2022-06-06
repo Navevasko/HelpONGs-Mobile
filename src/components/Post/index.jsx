@@ -80,7 +80,7 @@ const Post = ({
           }}
         />
       )}
-      <CardContainer>
+      <CardContainer key={idPost}>
         <ONGData
           name={ONGdata.nome}
           date={date}
@@ -101,6 +101,7 @@ const Post = ({
             Comments.map((item) => {
               return (
                 <Comment
+                  key={Math.random()}
                   comentario={item.comentario}
                   nome={item.tbl_usuario.nome}
                   date={item.dateDeCriacao}

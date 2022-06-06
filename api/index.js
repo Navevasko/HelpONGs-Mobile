@@ -8,4 +8,8 @@ const apiExterna = axios.create({
   baseURL: "https://publica.cnpj.ws/cnpj",
 });
 
-export { api, apiExterna };
+const apiCEP = axios.create({
+  baseURL: "https://viacep.com.br/ws",
+});
+
+export { api, apiExterna, apiCEP };

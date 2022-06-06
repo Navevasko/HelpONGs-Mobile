@@ -17,6 +17,7 @@ const FileContainer = ({ fileArray }) => {
     <View style={styles.filesContainer}>
       {fileArrayLength >= 1 && (
         <Image
+          key={Math.random()}
           source={{ uri: fileArray[0].url }}
           style={[
             fileArrayLength === 1 ? styles.mainFile : styles.altMainFile,
@@ -33,6 +34,7 @@ const FileContainer = ({ fileArray }) => {
       {fileArrayLength === 2 && (
         <View>
           <Image
+            key={Math.random()}
             source={{ uri: fileArray[1].url }}
             style={styles.twoFiles}
             onLoad={() => {
@@ -45,6 +47,7 @@ const FileContainer = ({ fileArray }) => {
       {fileArrayLength === 3 && (
         <View>
           <Image
+            key={Math.random()}
             source={{ uri: fileArray[1].url }}
             style={[styles.threeFiles, { borderTopRightRadius: 5 }]}
             onLoad={() => {
@@ -52,6 +55,7 @@ const FileContainer = ({ fileArray }) => {
             }}
           />
           <Image
+            key={Math.random()}
             source={{ uri: fileArray[1].url }}
             style={[
               styles.threeFiles,

@@ -6,10 +6,34 @@ import { format } from "../../global/styles/format";
 import React, { useEffect, useState } from "react";
 import { styles } from "./style";
 import ModalShadow from "../ModalShadow";
+import { ToastAndroid } from "react-native";
 import { api } from "../../../api";
 
 export default function ModalVagaInformation({ idVaga, onClose, idOng }) {
   const [Data, setData] = useState();
+
+  const handleSubmit = () => {
+    api
+      .post("/vacancy-controller", {
+        idVagas: idVaga,
+        idUsuario: 1,
+      })
+      .then((data) => {
+        ToastAndroid.show("Candidatura feita com sucesso.", ToastAndroid.SHORT);
+        wait(1000).then(() => {
+          onClose();
+        });
+      })
+      .catch((error) => {
+        const errorString = JSON.stringify(error);
+        if (errorString.includes("400")) {
+          ToastAndroid.show(
+            "Você já está cadastrado neste evento",
+            ToastAndroid.SHORT
+          );
+        }
+      });
+  };
 
   useEffect(() => {
     api.get(`/vacancy/${idOng}/${idVaga}`).then(({ data }) => {
@@ -66,7 +90,7 @@ export default function ModalVagaInformation({ idVaga, onClose, idOng }) {
           </>
         )}
 
-        <BtnSubmit text="Tenho Interesse" />
+        <BtnSubmit text="Tenho Interesse" onPress={handleSubmit} />
       </View>
     </ModalShadow>
   );

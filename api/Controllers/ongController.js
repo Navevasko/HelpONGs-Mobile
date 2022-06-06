@@ -34,7 +34,7 @@ export default Ong = new Object({
           })
           .then((data) => {
             const dataJSON = JSON.stringify(data);
-            if(dataJSON.includes("200")){
+            if (dataJSON.includes("200")) {
               return dataJSON;
             }
           })
@@ -45,17 +45,130 @@ export default Ong = new Object({
             }
           });
 
-          return response
+        return response;
       })
       .catch((error) => {
         const errorJSON = JSON.stringify(error);
         if (errorJSON.includes("429")) {
-          return errorJSON
-        }
-        else if (errorJSON.includes("400")) {
-          return "erro apiExterna"
+          return errorJSON;
+        } else if (errorJSON.includes("400")) {
+          return "erro apiExterna";
         }
       });
-      return get
+    return get;
+  },
+
+  postPost(idOng, desc, fileArray) {
+    let fileName;
+    let fileType;
+
+    const arrayPost = {
+      idOng: idOng,
+      descricao: desc,
+      media: [],
+    };
+    fileArray.map((file) => {
+      if (file.type === "image") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
+      } else if (file.type === "video") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
+      }
+      arrayPost.media.push({
+        fileName: fileName,
+        base64: file.base64,
+        type: fileType,
+      });
+    });
+
+    const result = api
+      .post("/post", arrayPost)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        return error;
+      });
+
+    return result;
+  },
+
+  postEvent(
+    idOng,
+    titulo,
+    descricao,
+    objetivo,
+    candidatos,
+    fileArray,
+    endereco,
+    dataHora
+  ) {
+    let fileName;
+    let fileType;
+
+    const arrayEvento = {
+      idOng: idOng,
+      evento: {
+        titulo: titulo,
+        dataHora: dataHora,
+        objetivo: objetivo,
+        descricao: descricao,
+        candidatos: candidatos,
+        numeroParticipantes: 0,
+      },
+      endereco: endereco,
+      media: [],
+    };
+
+    fileArray.map((file) => {
+      if (file.type === "image") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
+      } else if (file.type === "video") {
+        fileName = file.uri.split("/")[11];
+        fileType = file.type + "/" + fileName.split(".")[1];
+      }
+      arrayEvento.media.push({
+        fileName: fileName,
+        base64: file.base64,
+        type: fileType,
+      });
+    });
+
+    const result = api
+      .post("/event", arrayEvento)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        return error;
+      });
+
+    return result;
+  },
+
+  postVaga(idOng, titulo, desc, requisitos, cargaHoraria, endereco) {
+    const array = {
+      idOng: idOng,
+      vaga: {
+        titulo: titulo,
+        descricao: desc,
+        requisitos: requisitos,
+        cargaHoraria: cargaHoraria,
+      },
+      endereco: endereco,
+    };
+
+    const result = api
+      .post("/vacancy", array)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        return error;
+      });
+
+    return result;
   },
 });
