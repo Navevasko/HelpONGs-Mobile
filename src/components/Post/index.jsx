@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TextInput, ToastAndroid } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./style";
 import { theme } from "../../global/styles/theme";
@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import { format } from "../../global/styles/format";
 import ModalMenu from "../ModalMenu";
 import { api } from "../../../api";
+import Comment from "../Comment";
 
 const Post = ({
   idPost,
@@ -25,6 +26,44 @@ const Post = ({
   setInfo,
 }) => {
   const [Menu, setMenu] = useState(false);
+  const [CommentText, setCommentText] = useState("");
+  const [Comments, setComments] = useState([]);
+  const [sentComment, setSentComment] = useState(false);
+
+  const handleComment = () => {
+    if (CommentText !== "") {
+      api
+        .post("/comment", {
+          idPost: idPost,
+          idUsuario: 1,
+          comentario: {
+            texto: CommentText,
+          },
+        })
+        .then((data) => {
+          ToastAndroid.show(
+            "Comentário enviado com sucesso",
+            ToastAndroid.SHORT
+          );
+          setCommentText("");
+          setSentComment(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  useEffect(() => {
+    api
+      .get(`/comment/ong/${idPost}`)
+      .then(({ data }) => {
+        setComments(data.data.tbl_comentario);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [sentComment]);
 
   return (
     <>
@@ -57,6 +96,41 @@ const Post = ({
           {fileArray && <FileContainer fileArray={fileArray} />}
 
           <Options idPost={idPost} />
+
+          {Comments &&
+            Comments.map((item) => {
+              return (
+                <Comment
+                  comentario={item.comentario}
+                  nome={item.tbl_usuario.nome}
+                  date={item.dateDeCriacao}
+                />
+              );
+            })}
+
+          <View style={[format.row, styles.containerComment]}>
+            <Image
+              source={require("../../assets/img/Avatar.png")}
+              style={styles.PFP}
+            />
+
+            <TextInput
+              style={styles.input}
+              value={CommentText}
+              placeholder={"Digite um comentário..."}
+              selectionColor={theme.colors.primaryFaded}
+              onChangeText={(text) => {
+                setCommentText(text);
+              }}
+            />
+
+            <Icon
+              name="send"
+              color={theme.colors.primary}
+              size={30}
+              onPress={handleComment}
+            />
+          </View>
         </View>
       </CardContainer>
     </>

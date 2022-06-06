@@ -27,6 +27,8 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     width: "100%",
     height: 50,
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
+    marginTop: -10,
+    marginBottom: 5,
   },
 });

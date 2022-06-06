@@ -9,8 +9,6 @@ const StackNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Feed" component={Feed} />
-      
-      
     </Stack.Navigator>
   );
 };

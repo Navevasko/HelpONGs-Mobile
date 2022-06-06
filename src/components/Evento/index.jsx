@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ToastAndroid } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./style";
 import ONGData from "../ONGData";
@@ -7,22 +7,46 @@ import FileContainer from "../FileContainer";
 import CardContainer from "../CardContainer";
 import { format } from "../../global/styles/format";
 import PropTypes from "prop-types";
-import { theme } from "../../global/styles/theme";
-import Icon from "react-native-vector-icons/Feather";
+import { api } from "../../../api";
 import ModalMenu from "../ModalMenu";
 
 const Evento = ({
   idEvento,
   fileArray,
   titulo,
+  idOng,
   desc,
   ONGdata,
   date,
   setEditar,
   setExcluir,
   setInfo,
+  candidatos,
+  setOpenModal,
+  setIdOng,
+  setIdEvento,
 }) => {
   const [menu, setMenu] = useState(false);
+
+  const handleSubmit = () => {
+    api
+      .post("/event-controller", {
+        idEvento: idEvento,
+        idUsuario: 2,
+      })
+      .then((data) => {
+        ToastAndroid.show("Candidatura feita com sucesso.", ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        const errorString = JSON.stringify(error);
+        if (errorString.includes("400")) {
+          ToastAndroid.show(
+            "Você já está cadastrado neste evento",
+            ToastAndroid.SHORT
+          );
+        }
+      });
+  };
 
   return (
     <>
@@ -57,19 +81,26 @@ const Evento = ({
           {fileArray && <FileContainer fileArray={fileArray} />}
 
           <View style={[styles.buttonContainer, format.row]}>
-            <BtnSubmit
-              text={"Candidatar-se"}
-              width="49%"
-              height={35}
-              fontSize={14}
-            />
+            {candidatos && (
+              <BtnSubmit
+                text={"Candidatar-se"}
+                width="47%"
+                height={40}
+                fontSize={17}
+                onPress={handleSubmit}
+              />
+            )}
 
             <BtnSubmit
               text={"Saiba Mais"}
-              width="49%"
-              height={35}
-              fontSize={14}
-              onPress={() => {}}
+              width={candidatos ? "47%" : "100%"}
+              height={40}
+              fontSize={17}
+              onPress={() => {
+                setOpenModal(true);
+                setIdEvento(idEvento);
+                setIdOng(idOng);
+              }}
             />
           </View>
         </View>

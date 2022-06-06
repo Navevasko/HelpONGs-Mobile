@@ -17,6 +17,8 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
+    paddingStart: 10,
+    paddingEnd: 20,
     zIndex: 2,
   },
   searchInput: {

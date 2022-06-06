@@ -22,13 +22,15 @@ import { api } from "../../../api";
 import ModalVagaInformation from "../../components/ModalVagaInformation";
 import SearchResult from "../../components/SearchResult";
 import ModalExcluir from "../../components/ModalExcluir";
+import ModalEventoInformation from "../../components/ModalEventoInformation";
 
 export default function Feed({}) {
   const [Data, setData] = useState([]);
   const [OpenModalVaga, setOpenModalVaga] = useState(false);
+  const [OpenModalEvento, setOpenModalEvento] = useState(false);
   const [id, setId] = useState();
-  const [type, setType] = useState();
   const [idOng, setIdOng] = useState();
+  const [type, setType] = useState();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [searchData, setSearchData] = useState([]);
@@ -50,16 +52,14 @@ export default function Feed({}) {
       .get(`/feed/${page}`)
       .then(({ data }) => {
         if (data.data.length !== 0) {
-          if (Data.length >= 18) {
-            setData(data.data);
-            console.log(data.data[data.data.length]);
-          } else {
-            setData(Data.concat(data.data));
-            console.log(data.data[data.data.length]);
+          if (Data) {
+            if (Data.length >= 18) {
+              setData(data.data);
+            } else {
+              setData(Data.concat(data.data));
+            }
           }
         } else {
-          console.log(page);
-          console.log(data.data);
           setAtEnd(true);
         }
       })
@@ -126,6 +126,16 @@ export default function Feed({}) {
         />
       )}
 
+      {OpenModalEvento && (
+        <ModalEventoInformation
+          onClose={() => {
+            setOpenModalEvento(false);
+          }}
+          idEvento={id}
+          idOng={idOng}
+        />
+      )}
+
       {modalExcluir && (
         <ModalExcluir
           id={id}
@@ -152,9 +162,18 @@ export default function Feed({}) {
                 handleSearch(text);
               }}
             />
+            {search !== "" && (
+              <Icon
+                name="x"
+                size={20}
+                onPress={() => {
+                  setSearch("");
+                }}
+              />
+            )}
           </View>
 
-          {searchData && <SearchResult searchData={searchData} />}
+          {search !== "" && <SearchResult searchData={searchData} />}
         </View>
 
         <ScrollView
@@ -182,8 +201,7 @@ export default function Feed({}) {
             }
             onScroll={({ nativeEvent }) => {
               if (isCloseToBottom(nativeEvent)) {
-                console.log(atEnd);
-                console.log(Data[Data.length - 1]);
+                setPage(page);
                 if (!atEnd) {
                   setLoading(true);
 
@@ -210,7 +228,7 @@ export default function Feed({}) {
                     fileArray={item.tbl_post_media}
                     desc={item.descricao}
                     date={item.dataDeCriacao}
-                    setIdVaga={(id) => {
+                    setIdPost={(id) => {
                       setId(id);
                     }}
                     setIdOng={(id) => {
@@ -230,13 +248,15 @@ export default function Feed({}) {
               } else if (type == "evento") {
                 return (
                   <Evento
-                    idPost={item.idEventos}
+                    idOng={item.idOng}
+                    idEvento={item.idEventos}
                     ONGdata={item.tbl_ong}
                     fileArray={item.tbl_evento_media}
                     titulo={item.titulo}
                     desc={item.descricao}
                     date={item.dataDeCriacao}
-                    setIdVaga={(id) => {
+                    candidatos={item.candidatos}
+                    setIdEvento={(id) => {
                       setId(id);
                     }}
                     setIdOng={(id) => {
@@ -250,6 +270,9 @@ export default function Feed({}) {
                     }}
                     setExcluir={(bool) => {
                       setModalExcluir(bool);
+                    }}
+                    setOpenModal={(bool) => {
+                      setOpenModalEvento(bool);
                     }}
                   />
                 );

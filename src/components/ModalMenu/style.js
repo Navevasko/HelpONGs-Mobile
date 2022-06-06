@@ -7,8 +7,8 @@ export const styles = StyleSheet.create({
     height: "500%",
     position: "absolute",
     zIndex: 999,
-    top: 0,
-    right: 0,
+    top: 10,
+    right: 30,
   },
   container: {
     width: 150,

@@ -13,6 +13,8 @@ export const styles = StyleSheet.create({
     padding: 20,
   },
   cardContainer: {
+    width: "100%",
+    minHeight: 40,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 15,
@@ -23,11 +25,11 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   image: {
-    width: "20%",
+    width: "15%",
     height: 45,
     borderRadius: 100,
     resizeMode: "cover",
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.placeholder,
   },
   name: {
     width: "80%",

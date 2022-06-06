@@ -17,14 +17,17 @@ export default function Options({
   const [Like, setLike] = useState();
   const [Comment, setComment] = useState();
 
-  // useEffect(() => {
-  //   api.get(`/post/like/${idPost}`).then(({ data }) => {
-  //     setLike(data.data.likeCount);
-  //   });
-  //   api.get(`/comment/ong/${idPost}`).then(({ data }) => {
-  //     setComment(data.data.tbl_comentario.length);
-  //   });
-  // }, [1]);
+  useEffect(() => {
+    api.get(`/post/like/${idPost}`).then(({ data }) => {
+      setLike(data.data.likeCount);
+    });
+  }, []);
+
+  useEffect(() => {
+    api.get(`/comment/ong/${idPost}`).then(({ data }) => {
+      setComment(data.data.tbl_comentario.length);
+    });
+  }, []);
 
   return (
     <View style={format.row}>
