@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView,ToastAndroid, TouchableOpacity, RefreshControl } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import OptionsConfig from '../OptionsConfig';
@@ -7,10 +7,114 @@ import { theme } from '../../global/styles/theme';
 import InputBorder from '../InputBorder';
 import InputContainer from '../InputContainer';
 import BtnSubmit from '../BtnSubmit';
+import { api } from '../../../api';
 
-export default function InformacoesDeContaUser() {
+export default function InformacoesDeContaUser( {idLogin, idUser}) {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [nome, setNome] = useState();
+    const [email, setEmail] = useState();
+    const [senha, setSenha] = useState();
+    const [dataDeNascimento, setDataDeNascimento] = useState();
+    const [celular, setCelular] = useState();
+    const [telefone, setTelefone] = useState();
+    const [btnTxt, setBtnTxt] = useState("Salvar");
+    const [dadosUsuario, setDadosUsuario] = useState();
+    const [atualizar, setAtualizar] = useState(false);
+
+    useEffect(async() => {
+
+        await Recarregar();
+        // BtnSubmit();
+    }, []);
+
+    function Recarregar(){
+        api
+        .get(`/user/${idUser}`)
+        .then(({data}) => {
+          setNome(data.data.nome);
+          setEmail(data.data.email);
+          setDadosUsuario(data.data);
+          setSenha(data.data.tbl_login.senha);
+          setEmail(data.data.tbl_login.email);
+          setDataDeNascimento(data.data.dataDeNascimento);
+
+          if(celular == null || telefone == null){
+            setBtnTxt("Salvar");
+            }else{
+                setBtnTxt("Atualizar");
+            }
+        })
+        .catch((error) => {
+          console.log("errro get usuario",error);
+        });
+
+        api.get(`/contact/${idLogin}`).then(({data}) => {
+            setCelular(data.data.numero);
+            setTelefone(data.data.telefone);
+        }).catch((error) => {
+            console.log("erro ao pegar dados de contato de usúario", error);
+        })
+    }
+
+    function aoAtualizar(){
+        setAtualizar(true);
+        Recarregar();
+        setAtualizar(false);
+      }
+
+    // FUNÇÃO PARA ATUALIZAR DADOS DO USUÁRIO
+    const onSubmit = () =>{
+      
+        if(nome != null){
+            api.put(`/user/${idUser}`,{
+                usuario: {
+                    nome: nome,
+                    banner: dadosUsuario.banner,
+                    curriculo: dadosUsuario.curriculo,
+                    foto: dadosUsuario.foto,
+                    dataDeNascimento: dataDeNascimento
+                },
+                login: {
+                    email: email,
+                    senha: senha
+                }
+            }).then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log("error de atualização de dados de usúario")
+            });
+
+            if(btnTxt == "Salvar"){
+                //CADASTRO DE DADOS DE CONTATO DO USÚARIO
+                api.post(`/contact`, {
+                    idLogin: idLogin,
+                    numero: celular,
+                    telefone: telefone
+                }).then((response) =>{
+                    ToastAndroid.show("Cadastro realizado com sucesso!", ToastAndroid.SHORT);
+                }).catch((error) => {
+                    console.log("erro ao dalvar contato de usuario",error);
+                })
+            }else if(btnTxt == "Atualizar"){
+                //ATUALIZAÇÃO DE DADOS DE CONTATO DO USÚARIO
+                api.put(`/contact`, {
+                    idLogin: idLogin,
+                    numero: celular,
+                    telefone: telefone
+                }).then((response) =>{
+                    ToastAndroid.show(response.message, ToastAndroid.SHORT);
+                }).catch((error) => {
+                    console.log("erro de atualizar contato de usuario",error);
+                })
+            }
+
+           
+
+        }else{
+            ToastAndroid.show("Por favor informe todos os dados!", ToastAndroid.SHORT);
+        }
+    }
 
   return (
     <SafeAreaView>
@@ -28,14 +132,22 @@ export default function InformacoesDeContaUser() {
              /> 
             <Text style={styles.txtTitulo}>Informações de Conta</Text>
         </View>
-        <ScrollView style={{paddingTop:20, paddingHorizontal:10}}>
+        <ScrollView refreshControl={<RefreshControl
+                    refreshing={atualizar}
+                    onRefresh={aoAtualizar}
+                />}
+           style={{paddingTop:20, paddingHorizontal:10}}>
           <InputContainer>
 
-            <InputBorder title="Nome" 
+            <InputBorder 
+            title="Nome" 
             color={"#FAFAFA"}
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            value={nome}
+            placeholder={"Digite seu nome"}
+            onChangeText={(text) =>{setNome(text)}}
             />
 
             <InputBorder 
@@ -44,6 +156,9 @@ export default function InformacoesDeContaUser() {
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            value={email}
+            placeholder={"Digite seu e-mail"}
+            onChangeText={(text) =>{setEmail(text)}}
             />
 
             <InputBorder 
@@ -52,6 +167,9 @@ export default function InformacoesDeContaUser() {
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            value={email}
+            placeholder={"Confirme seu e-mail"}
+            onChangeText={(text) =>{setEmail(text)}}
             />
 
             <InputBorder 
@@ -60,6 +178,9 @@ export default function InformacoesDeContaUser() {
             borderColor={theme.colors.placeholder}
             txtColor={theme.colors.black}
             width={"100%"}
+            value={celular}
+            placeholder={"Digite o numero do seu celular"}
+            onChangeText={(text) =>{setCelular(text)}}
             />
 
             <InputBorder
@@ -68,12 +189,15 @@ export default function InformacoesDeContaUser() {
              borderColor={theme.colors.placeholder}
              txtColor={theme.colors.black}
              width={"100%"}
+             value={telefone}
+            placeholder={"Digite seu número de telefone"}
+            onChangeText={(text) =>{setTelefone(text)}}
              />
 
           </InputContainer>
           <View style={{flexDirection:'row', justifyContent:'space-around', marginBottom:20}}>
                 <BtnSubmit
-                    text="Salvar"
+                    text={btnTxt}
                     color={theme.colors.primaryFaded}
                     width="45%"
                     height={45}

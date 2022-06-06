@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
+import { StyleSheet, Text, View, Modal, ImageBackground, ScrollView, TouchableOpacity, ToastAndroid, RefreshControl } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import OptionsConfig from '../OptionsConfig';
@@ -10,10 +10,9 @@ import { api } from '../../../api';
 import BtnSubmit from '../BtnSubmit';
 import APICEP from "../../../api/Controllers/cepController";
 
-export default function InformacaoEndrerecoOng() {
+export default function InformacaoEndrerecoOng({idLogin}) {
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [idLogin, setidLogin] = useState(1);
     const [dataEnderecoOng, setdataEnderecoOng] = useState([]);
     const [cep, setCep] = useState();
     const [estado, setEstado] = useState();
@@ -23,10 +22,14 @@ export default function InformacaoEndrerecoOng() {
     const [numero, setNumero] = useState();
     const [complemento, setComplemento] = useState();
     const [btnTxt, setBtnTxt] = useState("Salvar");
+    const [atualizar, setAtualizar] = useState(false);
 
-    useEffect(()=>{
+    useEffect(async()=>{
+       await Recarregar();
+    },[])
 
-        api.get(`/adress/1`).then((response) =>{
+    function Recarregar(){
+        api.get(`/adress/${idLogin}`).then((response) =>{
             if(response.data.data.cep  != null){
                 setBtnTxt("Atualizar");
                 setdataEnderecoOng(response.data.data);
@@ -40,12 +43,16 @@ export default function InformacaoEndrerecoOng() {
             }else {
                 console.log("oi",response.data.data.cep )
             }
-            
-
           }).catch((error) =>{
             console.log("erro via cep", error)
         })
-    },[])
+    }
+
+    function aoAtualizar(){
+        setAtualizar(true);
+        Recarregar();
+        setAtualizar(false);
+      }
 
     const handleAPICEP = async (cep) => {
         if (cep != "") {
@@ -121,7 +128,12 @@ export default function InformacaoEndrerecoOng() {
              />
             <Text style={styles.txtTitulo}>Informações de Endereço</Text>
         </View>
-        <ScrollView style={{paddingTop:10}}>
+        <ScrollView refreshControl={<RefreshControl
+                        refreshing={atualizar}
+                        onRefresh={aoAtualizar}
+                    />}
+                    style={{paddingTop:10}}
+        >
           <InputContainer>
             <InputBorder 
             title="CEP" 

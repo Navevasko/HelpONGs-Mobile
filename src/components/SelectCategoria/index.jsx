@@ -9,9 +9,8 @@ export default function SelectCategoria({options, onChangeSelect}) {
     const [data, setData] = useState([]);
 
     function renderOption(item){
-        console.log(item)
         return(
-            <TouchableOpacity onPress={()=>{onChangeSelect(item.idCategorias); setModalVisible(false)}} style={styles.optionContainer}>
+            <TouchableOpacity onPress={()=>{onChangeSelect(item.nome); setModalVisible(false)}} style={styles.optionContainer}>
                 <Text style={styles.txtOption}>{item.nome}</Text>
             </TouchableOpacity>
         )

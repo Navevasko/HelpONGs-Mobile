@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView,ScrollView,Button, Modal, TouchableOpacity, ImageBackground, ToastAndroid, } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView,ScrollView, Modal, TouchableOpacity, ImageBackground, ToastAndroid, RefreshControlBase, } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import CardContainer from "../../components/CardContainer";
 import OptionsConfig from '../OptionsConfig';
@@ -31,7 +31,6 @@ export default function InformacaoContaOng({idOng}) {
     const [foto, setFoto] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
-    const [categorias, setCategorias] = useState();
     
     useEffect(async() =>{
         api.get(`/ong/${idOng}`).then((response) =>{
@@ -39,7 +38,7 @@ export default function InformacaoContaOng({idOng}) {
             setDescricao(response.data.data.descricao);
             setHistoria(response.data.data.historia);
             setMembros(String(response.data.data.qtdDeMembros));
-            setFundacao(String(response.data.data.dataDeFundacao));
+            setFundacao(String(response.data.data.dataDeFundacao).substring(0, 10).split('-').reverse().join('/'));
             setNumeroDeSeguidores(response.data.data.numeroDeSeguidores);
             setCNPJ(response.data.data.cnpj);
             setBanner(response.data.data.banner);
@@ -56,20 +55,69 @@ export default function InformacaoContaOng({idOng}) {
             console.log("error categoria por id ong", error)
           })
 
-          api.get(`/category`).then((response) => {
-              setdataCategorias(response.data.data);
-          }).catch((error) => {
-              console.log("error categoria", error)
-          })
-
+          adcionarCategoria();
+          carregarCategorias();
         //   onSubmit();
+          
     }, [])
+
+    function carregarCategorias(){
+        api.get(`/category`).then((response) => {
+            setdataCategorias(response.data.data);
+        }).catch((error) => {
+            console.log("error categoria", error)
+        })
+    }
+
+    function adcionarCategoria(nome){
+        if(nome != null){
+            api.post(`/category/ong/`,{
+                idOng: idOng,
+                categoria: nome
+            }).then((response) => {
+                RefreshControlBase = carregarCategorias();
+                ToastAndroid.show("Categoria: "+ nome + " adicionada com sucesso!", ToastAndroid.SHORT);
+            }).catch((error) => {
+                console.log("error em adcionar categoria", error);
+            })
+        }
+        
+    }
+
+    
+        
+    
 
     // const ResultCategorias = dataCategorias.filter((item) => {
     //     const comparar = item.idCategorias == dataCategoriasOng.idCategorias ? item : "porra"
     //     return comparar
     // })
     // console.log(ResultCategorias)
+
+      
+
+  // const teste = () => {
+
+  //   let idCategorias = [];
+  //   dataIdCategoriasOng.map((item) =>{
+  //       idCategorias.push(item.idCategorias);
+  //   });
+
+  //   let arrayidCategorias = [];
+
+  //   // dataCategoriasOng.map((item) =>{
+  //   //   arrayidCategorias.push(item.idCategorias);
+  //   // });
+
+  //   // let arrayCategorias = [];
+  //   // let idx = arrayidCategorias.indexOf(idCategorias);
+  //   // while (idx == -1) {
+  //   //   arrayCategorias.push(idx);
+  //   //   idx = dataCategoriasOng.indexOf(idCategorias, idx ++);
+      
+  //   // }
+  //   // console.log("foi",arrayCategorias);
+  // }
 
      
     const onSubmit = () =>{
@@ -84,19 +132,17 @@ export default function InformacaoContaOng({idOng}) {
                 historia: historia,
                 foto: foto,
                 qtdDeMembros: Number(membros),
-                dataDeFundacao: fundacao,
+                dataDeFundacao: String(fundacao),
             },
             login: {
                 email: email,
                 senha: senha
             }
         }).then((response) =>{
-            if (response.status == "200") {
-                ToastAndroid.show("Dados salvos com sucesso!", ToastAndroid.SHORT);
-              }
+            ToastAndroid.show("Dados salvos com sucesso!", ToastAndroid.SHORT);
             
         }).catch((error) =>{
-            console.log(error)
+            console.log("erro atualizar perfilong",error)
         })
     }else {
         ToastAndroid.show("Por favor preencha todos os campos!", ToastAndroid.SHORT);
@@ -183,7 +229,7 @@ export default function InformacaoContaOng({idOng}) {
                     txtColor={theme.colors.black}
                     borderColor={theme.colors.placeholder}
                     onChangeText={(text) => {
-                    setFundacao(text);
+                    setFundacao(dateMask(text));
                     }}
                 />
 
@@ -215,14 +261,14 @@ export default function InformacaoContaOng({idOng}) {
           </InputContainer>
           <CardContainer title={"Editar Categorias"}>
             <InputContainer flexDirection={"column"}>
-            <SelectCategoria options={dataCategorias} onChangeSelect={(idCategorias) => {console.log(idCategorias)}}/>
+            <SelectCategoria options={dataCategorias} onChangeSelect={(nome) => {adcionarCategoria(nome)}}/>
                 <ScrollBorder>
                 {
                
                 dataCategoriasOng.map((item) =>{
 
                     return(
-                    <ChipCategoria text={item.tbl_categorias.nome} key={item.idCategorias} />
+                    <ChipCategoria idOng={idOng} data={item} text={item.tbl_categorias.nome} key={item.idCategorias} />
                     );
                 })
                 }
@@ -245,7 +291,7 @@ export default function InformacaoContaOng({idOng}) {
                     width="35%"
                     height={40}
                     onPress={() => {
-                        
+                        setModalVisible(false);
                     }}
                 />
             </View>

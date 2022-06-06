@@ -9,10 +9,37 @@ import InputContainer from '../InputContainer';
 import InputBorder from '../InputBorder';
 import BtnSubmit from '../BtnSubmit';
 import CardContainer from '../CardContainer';
+import { api } from '../../../api';
 
-export default function ConfiguracoesGerais() {
+export default function ConfiguracoesGerais({idUser, idOng}) {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisibleExcluir, setModalVisibleExcluir] = useState(false);
+    const [modalVisibleAgradecimento, setModalVisibleAgradecimento] = useState(false);
+
+    useEffect(async() => {
+      await ExcluirConta();
+    }, []);
+
+    function ExcluirConta(){
+      if(idUser){
+        api.delete(`/user/${idUser}`).then((response) => {
+          console.log(response);
+          setModalVisibleAgradecimento(true);
+        }).catch((error) => {
+          console.log("error em excluir conta usúario", error);
+        })
+      }else if(idOng){
+        api.delete(`/ong/${idOng}`).then((response) => {
+          console.log(response);
+          setModalVisibleAgradecimento(true);
+        }).catch((error) => {
+          console.log("error em excluir conta ong", error, idOng);
+        })
+      }
+      
+    }
+    
 
   return (
     <SafeAreaView>
@@ -76,6 +103,37 @@ export default function ConfiguracoesGerais() {
                     height={30}
                     color={theme.colors.secondary}
                   />
+                {/*MODAL TEM CERTEZA QUE DEJA EXCLUIR SUA CONTA  */}
+                <Modal animationType="fade" transparent visible={modalVisibleExcluir} >
+                  <TouchableOpacity onPress={()=> {setModalVisibleExcluir(false)}} style={{flex:1, backgroundColor:"rgba(0, 0, 0, 0.4)",  alignItems:"center", justifyContent:"center"}}>
+                    <View style={{height:"35%", width:"80%", backgroundColor:"#ECECEC", borderRadius:10, padding:5}}>
+                    <Text style={{fontSize:23, textAlign:"center", fontFamily:theme.fonts.semiBold}}>Tem certeza que deseja excluir sua conta?</Text>
+                    <TouchableOpacity style={{marginTop:50, alignSelf:"center", height:35, width:200, borderRadius:5, alignItems:"center", justifyContent:"center", backgroundColor:theme.colors.secondary}} onPress={()=>{ExcluirConta()}}>
+                      <Text style={{fontSize:23, textAlign:"center", fontFamily:theme.fonts.semiBold}}>Sim</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{marginTop:10, alignSelf:"center", height:35, width:200, borderRadius:5, alignItems:"center", justifyContent:"center", backgroundColor:theme.colors.grey}} onPress={()=>{setModalVisibleExcluir(false)}}>
+                      <Text style={{fontSize:23, textAlign:"center", fontFamily:theme.fonts.semiBold}}>Não</Text>
+                    </TouchableOpacity>
+                  </View>
+                  </TouchableOpacity>
+                </Modal>
+                {/*MODAL TEM CERTEZA QUE DEJA EXCLUIR SUA CONTA  */}
+                <Modal animationType="fade" transparent visible={modalVisibleAgradecimento} >
+                  <TouchableOpacity onPress={()=> {setModalVisibleExcluir(false); setModalVisibleAgradecimento(false)}} style={{flex:1, backgroundColor:"rgba(0, 0, 0, 0.4)",  alignItems:"center", justifyContent:"center"}}>
+                    <View style={{height:"60%", width:"80%", backgroundColor:"#ECECEC", borderRadius:10, padding:5}}>
+                    <View style={{width:30, position:"absolute", right:10, top:10, zIndex:999}} >
+                      <Icon
+                        name="x" size={30} TouchableOpacity={()=>{setModalVisibleAgradecimento(false);setModalVisibleExcluir(false);}}
+                      />
+                    </View>
+                    <Text style={{marginTop:25, fontSize:25, textAlign:"center", fontFamily:theme.fonts.medium}}>Foi bom ter você conosco,{"\n"} sentiremos sua falta!</Text>
+                    <Image
+                      source={require('../../assets/img/agradecimento.png')}
+                      style={{marginTop:5, resizeMode:"contain", height:250}}
+                    />
+                  </View>
+                  </TouchableOpacity>
+                </Modal>
                 </View>
               </View>
             </ScrollBorder>
@@ -90,6 +148,7 @@ export default function ConfiguracoesGerais() {
               width="60%"
               height={45}
               icon={"alert-triangle"}
+              onPress={()=>{setModalVisibleExcluir(true)}}
             />
             </View>
           </InputContainer>
