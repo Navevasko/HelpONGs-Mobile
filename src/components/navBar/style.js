@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
     height: 60,
     width: 60,
     borderRadius: 50,
-    resizeMode: "contain",
+    resizeMode: "cover",
     marginRight: 15,
   },
   txtNome: {
