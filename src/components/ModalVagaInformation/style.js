@@ -12,7 +12,8 @@ export const styles = StyleSheet.create({
   },
   icon: {
     color: theme.colors.secondary,
-    alignSelf: "flex-end",
+    marginLeft: 290,
+    marginTop: -10,
   },
   title: {
     fontSize: 20,

@@ -7,40 +7,76 @@ import FileContainer from "../FileContainer";
 import CardContainer from "../CardContainer";
 import { format } from "../../global/styles/format";
 import PropTypes from "prop-types";
+import { theme } from "../../global/styles/theme";
+import Icon from "react-native-vector-icons/Feather";
+import ModalMenu from "../ModalMenu";
 
-export default function Evento({ fileArray, titulo, desc, ONGdata, date }) {
+const Evento = ({
+  idEvento,
+  fileArray,
+  titulo,
+  desc,
+  ONGdata,
+  date,
+  setEditar,
+  setExcluir,
+  setInfo,
+}) => {
+  const [menu, setMenu] = useState(false);
+
   return (
-    <CardContainer>
-      <ONGData name={ONGdata.nome} date={date} image={ONGdata.foto} />
+    <>
+      {menu && (
+        <ModalMenu
+          setMenu={(bool) => {
+            setMenu(bool);
+          }}
+          setExcluir={(bool) => {
+            setExcluir(bool);
+          }}
+          setEditar={(bool) => {
+            setEditar(bool);
+          }}
+        />
+      )}
 
-      <View style={styles.postData}>
-        <Text style={styles.title}>{titulo}</Text>
-        <Text style={styles.desc}>{desc}</Text>
+      <CardContainer>
+        <ONGData
+          name={ONGdata.nome}
+          date={date}
+          image={ONGdata.foto}
+          setMenu={(bool) => {
+            setMenu(bool);
+          }}
+        />
 
-        <FileContainer fileArray={fileArray} />
+        <View style={styles.postData}>
+          <Text style={styles.title}>{titulo}</Text>
+          <Text style={styles.desc}>{desc}</Text>
 
-        <View style={[styles.buttonContainer, format.row]}>
-          <BtnSubmit
-            text={"Candidatar-se"}
-            width="49%"
-            height={35}
-            fontSize={14}
-          />
+          {fileArray && <FileContainer fileArray={fileArray} />}
 
-          <BtnSubmit
-            text={"Saiba Mais"}
-            width="49%"
-            height={35}
-            fontSize={14}
-            onPress={() => {
-              // console.log(fileArray);
-            }}
-          />
+          <View style={[styles.buttonContainer, format.row]}>
+            <BtnSubmit
+              text={"Candidatar-se"}
+              width="49%"
+              height={35}
+              fontSize={14}
+            />
+
+            <BtnSubmit
+              text={"Saiba Mais"}
+              width="49%"
+              height={35}
+              fontSize={14}
+              onPress={() => {}}
+            />
+          </View>
         </View>
-      </View>
-    </CardContainer>
+      </CardContainer>
+    </>
   );
-}
+};
 
 Evento.propTypes = {
   fileArray: PropTypes.array,
@@ -57,3 +93,5 @@ Evento.propTypes = {
     }),
   }),
 };
+
+export default React.memo(Evento);

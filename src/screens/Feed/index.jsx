@@ -1,5 +1,14 @@
-import { View, Text, StatusBar, ScrollView, TextInput } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  View,
+  StatusBar,
+  ScrollView,
+  TextInput,
+  ToastAndroid,
+  RefreshControl,
+  ActivityIndicator,
+  FlatList,
+} from "react-native";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { styles } from "./style";
 import Menu from "../../components/navBar";
 import Icon from "react-native-vector-icons/Feather";
@@ -10,25 +19,100 @@ import Evento from "../../components/Evento";
 import Vaga from "../../components/Vaga";
 import CreatePost from "../../components/CreatePost";
 import { api } from "../../../api";
-import { format } from "../../global/styles/format";
-import BtnSubmit from "../../components/BtnSubmit";
 import ModalVagaInformation from "../../components/ModalVagaInformation";
+import SearchResult from "../../components/SearchResult";
+import ModalExcluir from "../../components/ModalExcluir";
 
 export default function Feed({}) {
-  const [Data, setData] = useState();
-  const [OpenModalVaga, setOpenModalVaga] = useState(true);
-  const [idVaga, setIdVaga] = useState();
+  const [Data, setData] = useState([]);
+  const [OpenModalVaga, setOpenModalVaga] = useState(false);
+  const [id, setId] = useState();
+  const [type, setType] = useState();
+  const [idOng, setIdOng] = useState();
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [searchData, setSearchData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(0);
+  const [modalExcluir, setModalExcluir] = useState(false);
+  const [modalEditar, setModalEditar] = useState(true);
+  const scrollRef = useRef();
+  const [atEnd, setAtEnd] = useState(false);
+
+  const isCloseToBottom = useCallback(
+    ({ layoutMeasurement, contentOffset, contentSize }) => {
+      return layoutMeasurement.height + contentOffset.y >= contentSize.height;
+    }
+  );
 
   useEffect(() => {
     api
-      .get("/feed/0")
+      .get(`/feed/${page}`)
       .then(({ data }) => {
-        setData(data.data);
+        if (data.data.length !== 0) {
+          if (Data.length >= 18) {
+            setData(data.data);
+            console.log(data.data[data.data.length]);
+          } else {
+            setData(Data.concat(data.data));
+            console.log(data.data[data.data.length]);
+          }
+        } else {
+          console.log(page);
+          console.log(data.data);
+          setAtEnd(true);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    api
+      .get(`/feed/0`)
+      .then(({ data }) => {
+        setRefreshing(false);
+        setData(data.data);
+        setAtEnd(false);
+      })
+      .catch((error) => {
+        setRefreshing(false);
+        console.log(error);
+      });
+  });
+
+  const handleSearch = useCallback(async (searchString) => {
+    if (searchString) {
+      api
+        .get("/ong")
+        .then(({ data }) => {
+          const filter = data.data.filter((item) => {
+            const name = item.nome.toUpperCase();
+            const search = searchString.toUpperCase();
+
+            if (name.includes(search)) {
+              return item;
+            }
+          });
+          setSearchData(filter);
+        })
+        .catch((error) => {
+          console.log(error);
+          ToastAndroid.show(
+            "Ocorreu um erro, por favor tente novamente",
+            ToastAndroid.SHORT
+          );
+        });
+    } else {
+      setSearchData([]);
+    }
+  });
 
   return (
     <View style={styles.container}>
@@ -37,77 +121,180 @@ export default function Feed({}) {
           onClose={() => {
             setOpenModalVaga(false);
           }}
+          idVaga={id}
+          idOng={idOng}
         />
       )}
+
+      {modalExcluir && (
+        <ModalExcluir
+          id={id}
+          type={type}
+          setModal={(bool) => {
+            setModalExcluir(bool);
+          }}
+        />
+      )}
+
       <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
       <Menu />
-      <ScrollView>
-        <View style={styles.search}>
-          <Icon name="search" size={30} color={theme.colors.secondary} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder={"Pesquise por uma ONG"}
-            selectionColor={theme.colors.primaryFaded}
-          />
+      <View>
+        <View>
+          <View style={styles.search}>
+            <Icon name="search" size={30} color={theme.colors.secondary} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder={"Pesquise por uma ONG"}
+              selectionColor={theme.colors.primaryFaded}
+              value={search}
+              onChangeText={(text) => {
+                setSearch(text);
+                handleSearch(text);
+              }}
+            />
+          </View>
+
+          {searchData && <SearchResult searchData={searchData} />}
         </View>
 
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={styles.containerEventoPreview}
-        >
-          <EventoPreview
-            title={"Evento Mil"}
-            ONGProfilePic={require("../../assets/img/ONG.png")}
-            imagem={require("../../assets/img/Evento.png")}
+          onEndRea
+        ></ScrollView>
+
+        {Data && (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            ref={scrollRef}
+            ListHeaderComponent={<CreatePost />}
+            refreshControl={
+              <RefreshControl
+                tintColor={theme.colors.primary}
+                refreshing={refreshing}
+                onRefresh={() => {
+                  onRefresh();
+                  setAtEnd(false);
+                  setPage(0);
+                }}
+              />
+            }
+            onScroll={({ nativeEvent }) => {
+              if (isCloseToBottom(nativeEvent)) {
+                console.log(atEnd);
+                console.log(Data[Data.length - 1]);
+                if (!atEnd) {
+                  setLoading(true);
+
+                  wait(1000).then(() => {
+                    setPage(page + 1);
+                    setLoading(false);
+                  });
+                }
+              }
+            }}
+            contentContainerStyle={{
+              paddingBottom: loading ? 200 : 140,
+              paddingTop: 10,
+            }}
+            data={Data}
+            keyExtractor={Math.random}
+            renderItem={({ item }) => {
+              let type = item.type;
+              if (type == "post") {
+                return (
+                  <Post
+                    idPost={item.idPost}
+                    ONGdata={item.tbl_ong}
+                    fileArray={item.tbl_post_media}
+                    desc={item.descricao}
+                    date={item.dataDeCriacao}
+                    setIdVaga={(id) => {
+                      setId(id);
+                    }}
+                    setIdOng={(id) => {
+                      setIdOng(id);
+                    }}
+                    setType={(type) => {
+                      setType(type);
+                    }}
+                    setEditar={(bool) => {
+                      setModalEditar(bool);
+                    }}
+                    setExcluir={(bool) => {
+                      setModalExcluir(bool);
+                    }}
+                  />
+                );
+              } else if (type == "evento") {
+                return (
+                  <Evento
+                    idPost={item.idEventos}
+                    ONGdata={item.tbl_ong}
+                    fileArray={item.tbl_evento_media}
+                    titulo={item.titulo}
+                    desc={item.descricao}
+                    date={item.dataDeCriacao}
+                    setIdVaga={(id) => {
+                      setId(id);
+                    }}
+                    setIdOng={(id) => {
+                      setIdOng(id);
+                    }}
+                    setType={(type) => {
+                      setType(type);
+                    }}
+                    setEditar={(bool) => {
+                      setModalEditar(bool);
+                    }}
+                    setExcluir={(bool) => {
+                      setModalExcluir(bool);
+                    }}
+                  />
+                );
+              } else if (type == "vaga") {
+                return (
+                  <Vaga
+                    idOng={item.idOng}
+                    titulo={item.titulo}
+                    desc={item.descricao}
+                    ONGdata={item.tbl_ong}
+                    date={item.dataDeCriacao}
+                    setOpenModal={(data) => {
+                      setOpenModalVaga(data);
+                    }}
+                    idVaga={item.idVagas}
+                    setIdVaga={(id) => {
+                      setId(id);
+                    }}
+                    setIdOng={(id) => {
+                      setIdOng(id);
+                    }}
+                    setType={(type) => {
+                      setType(type);
+                    }}
+                    setEditar={(bool) => {
+                      setModalEditar(bool);
+                    }}
+                    setExcluir={(bool) => {
+                      setModalExcluir(bool);
+                    }}
+                  />
+                );
+              }
+            }}
           />
+        )}
+      </View>
 
-          <EventoPreview
-            title={"Evento Mil"}
-            ONGProfilePic={require("../../assets/img/ONG.png")}
-            imagem={require("../../assets/img/Evento.png")}
-          />
-
-          <EventoPreview
-            title={"Evento Mil"}
-            ONGProfilePic={require("../../assets/img/ONG.png")}
-            imagem={require("../../assets/img/Evento.png")}
-          />
-
-          <EventoPreview
-            title={"Evento Mil"}
-            ONGProfilePic={require("../../assets/img/ONG.png")}
-            imagem={require("../../assets/img/Evento.png")}
-          />
-
-          <EventoPreview
-            title={"Evento Mil"}
-            ONGProfilePic={require("../../assets/img/ONG.png")}
-            imagem={require("../../assets/img/Evento.png")}
-          />
-
-          <EventoPreview
-            title={"Evento Mil"}
-            ONGProfilePic={require("../../assets/img/ONG.png")}
-            imagem={require("../../assets/img/Evento.png")}
-          />
-        </ScrollView>
-
-        <CreatePost />
-
-        {Data != undefined &&
-          Data.map((card) => (
-            <Vaga
-              titulo={card.titulo}
-              desc={card.descricao}
-              ONGdata={card.tbl_ong}
-              date={card.dataDeCriacao}
-              setOpenModal={(data) => [setOpenModalVaga(data)]}
-              idVaga={card.idVagas}
-              key={card.idVagas}
-            />
-          ))}
-      </ScrollView>
+      {loading && (
+        <ActivityIndicator
+          size={60}
+          color={theme.colors.secondary}
+          style={{ position: "absolute", bottom: 0, alignSelf: "center" }}
+        />
+      )}
     </View>
   );
 }

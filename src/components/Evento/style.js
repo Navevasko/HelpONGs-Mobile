@@ -29,17 +29,4 @@ export const styles = StyleSheet.create({
     height: 50,
     justifyContent: "space-between",
   },
-  button: {
-    width: "50%",
-    height: 35,
-    backgroundColor: theme.colors.primary,
-    borderRadius: 5,
-    marginStart: 5,
-    justifyContent: "center",
-  },
-  buttonText: {
-    fontSize: 14,
-    fontFamily: theme.fonts.semiBold,
-    textAlign: "center",
-  },
 });

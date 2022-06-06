@@ -13,14 +13,15 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   altMainFile: {
-    width: 170,
+    width: "50%",
     height: 250,
     borderRadius: 10,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   },
   twoFiles: {
-    width: 170.5,
+    maxWidth: "100%",
+    width: 160,
     height: 250,
     marginStart: 5,
     borderRadius: 10,
@@ -28,7 +29,8 @@ export const styles = StyleSheet.create({
     borderBottomLeftRadius: 0,
   },
   threeFiles: {
-    width: 170.5,
+    maxWidth: "100%",
+    width: 160,
     height: 122.5,
     marginStart: 5,
   },

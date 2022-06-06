@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginEnd: 10,
-    marginTop: 15,
+    marginTop: -10,
   },
   optionsText: {
     fontFamily: theme.fonts.regular,

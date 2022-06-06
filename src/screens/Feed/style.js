@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
+    zIndex: 2,
   },
   searchInput: {
     width: "85%",
@@ -29,7 +30,7 @@ export const styles = StyleSheet.create({
   },
   containerEventoPreview: {
     width: "100%",
-    height: 250,
+    maxHeight: 250,
     marginTop: 10,
     marginBottom: 10,
     padding: 10,

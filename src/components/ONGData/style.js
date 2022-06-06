@@ -26,13 +26,13 @@ export const styles = StyleSheet.create({
   ONGDataDate: {
     fontSize: 10,
     marginTop: -5,
-    marginStart: 5,
+    marginStart: 1,
     fontFamily: theme.fonts.alternateRegular,
     color: theme.colors.placeholder,
   },
   icon: {
     position: "relative",
-    right: 100,
-    bottom: 10,
+    right: 90,
+    bottom: 20,
   },
 });

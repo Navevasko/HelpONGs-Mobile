@@ -1,5 +1,5 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "./style";
 import { theme } from "../../global/styles/theme";
 import Icon from "react-native-vector-icons/Feather";
@@ -8,29 +8,60 @@ import ONGData from "../ONGData";
 import Options from "../Options";
 import FileContainer from "../FileContainer";
 import PropTypes from "prop-types";
+import { format } from "../../global/styles/format";
+import ModalMenu from "../ModalMenu";
+import { api } from "../../../api";
 
-export default function Post({
+const Post = ({
+  idPost,
   fileArray,
   desc,
   ONGdata,
   date,
-  likes,
-  comments,
-}) {
+  setIdPost,
+  setIdOng,
+  setEditar,
+  setExcluir,
+  setInfo,
+}) => {
+  const [Menu, setMenu] = useState(false);
+
   return (
-    <CardContainer>
-      <ONGData name={ONGdata.nome} date={date} image={ONGdata.foto} />
+    <>
+      {Menu && (
+        <ModalMenu
+          setMenu={(bool) => {
+            setMenu(bool);
+          }}
+          setExcluir={(bool) => {
+            setExcluir(bool);
+          }}
+          setEditar={(bool) => {
+            setEditar(bool);
+          }}
+        />
+      )}
+      <CardContainer>
+        <ONGData
+          name={ONGdata.nome}
+          date={date}
+          image={ONGdata.foto}
+          setMenu={(bool) => {
+            setMenu(bool);
+          }}
+        />
 
-      <View style={styles.postData}>
-        <Text style={styles.desc}>{desc}</Text>
+        <View style={styles.postData}>
+          <Text style={styles.desc}>{desc}</Text>
 
-        <FileContainer fileArray={fileArray} />
+          {fileArray && <FileContainer fileArray={fileArray} />}
 
-        <Options likes="14K" comments="10K" />
-      </View>
-    </CardContainer>
+          <Options idPost={idPost} />
+        </View>
+      </CardContainer>
+    </>
   );
-}
+};
 
 Post.propTypes = {
   fileArray: PropTypes.array,
@@ -47,3 +78,5 @@ Post.propTypes = {
     }),
   }),
 };
+
+export default React.memo(Post);
