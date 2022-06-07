@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, ScrollView, StatusBar, Image, TouchableOpacity } from 'react-native'
+import { View, Text, ImageBackground, ScrollView, StatusBar, Image, TouchableOpacity, RefreshControl } from 'react-native'
 import React, { createElement, useState } from 'react'
 import { styles } from './style'
 import { theme } from '../../global/styles/theme'
@@ -7,30 +7,48 @@ import Icon from "react-native-vector-icons/Feather";
 import OpcoesPerfil from '../../components/opcoesPerfil';
 import { ExibirPerfilOng } from '../../components/ExibirPerfilOng'
 import { api } from '../../../api'
+import ModalDoarPerfil from '../../components/ModalDoarPerfil'
 
-export default function PerfilONG(id) {
+export default function PerfilONG({route}) {
   const [teste, setTeste] = useState();
-  const idOng = id.route.params.idOng;
+  const idOng = route.params.idOng;
+  const idLogin = 1;
   const [dataOng, setDataOng] = useState([]);
-  // const [cores, setCores] = useState(styles.txtAcoesOngs);
-  // const [ligar, setLigar] = useState(true);
+  const [post, setPost] = useState(false);
+  const [vaga, setVaga] = useState(false);
+  const [evento, setEvento] = useState(false);
+  const [dataCategoria, setDataCategoria] = useState([]);
+  const [dataNumero, setDataNumero] = useState([]);
 
-  // const trocarDeCor = () => {
-  //   !setLigar();
+  const trocarDeCor = () => {
+    if (teste == 1) {
+      setPost(true);
+     setEvento(false);
+     setVaga(false);
+    } else if(teste == 2) {
+      setPost(false);
+     setEvento(true);
+     setVaga(false);
+    }else{
+     setPost(false);
+     setEvento(false);
+     setVaga(true);
+    }
+  }
+  
 
-  //   if (ligar) {
-  //     setCores(styles.buttonStylex);
-  //   } else {
-  //     setCores(styles.txtAcoesOngs)
-  //   }
-  // }
-
-  React.useEffect( () =>{
+  React.useEffect(() =>{
 
     api.get(`/ong/${idOng}`).then((response) => {
-      setDataOng(response.data.data)
+      setDataOng(response.data.data);
     });
-
+    api.get(`/category/${idOng}`).then(({data}) => {
+      setDataCategoria(data.data)
+    }).catch((error) => console.log(error))
+    api.get(`/contact/${idLogin}`).then(({data}) => {
+      setDataNumero(data.data)
+    }).catch((error) => console.log(error))
+    trocarDeCor();
   }, [])
   
   return (
@@ -41,7 +59,7 @@ export default function PerfilONG(id) {
      <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
      <Menu
        estado="false"
-       dataOng
+       idOng={idOng}
      />
         <ScrollView style={styles.containerConteudo}>
             <View style={styles.containerFotoPerfileBanner}>
@@ -64,12 +82,7 @@ export default function PerfilONG(id) {
                  color={theme.colors.black}
                  text="Seguir"
                 />
-                <OpcoesPerfil
-                 iconName="heart"
-                 fontSize={15}
-                 color={theme.colors.black}
-                 text="Doar"
-                />
+                <ModalDoarPerfil data={dataOng}/>
                 <OpcoesPerfil
                  iconName="message-circle"
                  fontSize={15}
@@ -90,20 +103,24 @@ export default function PerfilONG(id) {
               <View style={styles.containerNomeCategorias}>
                 <Text style={styles.nomeOng}>{dataOng.nome}</Text>
                 <View style={styles.containerCategorias} >
-                  <Text style={styles.categorias}>Natureza</Text>
-                  <Text style={styles.categorias}>Fome</Text>
-                  <Text style={styles.categorias}>Saúde</Text>
+                {
+                  dataCategoria.map((data) => {
+                    return(
+                      <Text style={styles.categorias}>{data.tbl_categorias.nome}</Text>
+                    );
+                  })
+                }
                 </View>
               </View>
-              <Text style={styles.txtSeguidores}>127 seguidores / 60 seguindo</Text>
+              <Text style={styles.txtSeguidores}>Seguidores {dataOng.numeroDeSeguidores}</Text>
               <Text numberOfLines={5} style={styles.txtDescricao}>{dataOng.descricao}</Text>
               <View style={{flexDirection:"row", marginTop:10}}>
-                <Icon name="facebook"style={styles.iconRedesSociais}/>
-                <Text>ÈoJorg1nh0</Text>
+                <Icon name="users"style={styles.iconRedesSociais}/>
+                <Text>{dataOng.qtdDeMembros}</Text>
               </View>
               <View style={{flexDirection:"row", marginTop:5}}>
-                <Icon name="instagram"style={styles.iconRedesSociais}/>
-                <Text>gfjgjgjghj</Text>
+                <Icon name="phone"style={styles.iconRedesSociais}/>
+                <Text>{dataNumero.numero}</Text>
               </View>
               <View style={{flexDirection:"row", marginTop:5}}>
                 <Icon name="more-horizontal"style={styles.iconRedesSociais}/>
@@ -112,14 +129,14 @@ export default function PerfilONG(id) {
             </View>
             <View style={styles.containerTxtVagasPostsEventos}>
               <View style={{flexDirection:"row"}}>
-                <TouchableOpacity onPress={() =>  {setTeste(1)}}>
-                  <Text style={styles.txtAcoesOngs}>Posts</Text>
+                <TouchableOpacity onPress={() =>  {setTeste(1); trocarDeCor()}}>
+                  <Text style={[styles.txtAcoesOngs, {color: post ? theme.colors.secondary : theme.colors.grey}]}>Posts</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {setTeste(2)}}>
-                <Text style={styles.txtAcoesOngs}>Eventos</Text>
+                <TouchableOpacity onPress={() => {setTeste(2); trocarDeCor()}}>
+                <Text style={[styles.txtAcoesOngs, {color: evento ? theme.colors.secondary : theme.colors.grey}]}>Eventos</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {setTeste(3)}}>
-                <Text style={styles.txtAcoesOngs}>Vagas</Text>
+                <TouchableOpacity onPress={() => {setTeste(3);trocarDeCor()}}>
+                <Text style={[styles.txtAcoesOngs, {color: vaga ? theme.colors.secondary : theme.colors.grey}]}>Vagas</Text>
                 </TouchableOpacity>
               </View>
               <View style={{flexDirection:"column"}}>

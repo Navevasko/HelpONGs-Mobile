@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image} from 'react-native'
 import Icon from "react-native-vector-icons/Feather";
-import {styles} from "../../screens/PerfilOng/style"
+import {styles} from "../../screens/perfilOng/style"
 
 function ExibirPerfilOng (vp1) {
     if(vp1 == 1){

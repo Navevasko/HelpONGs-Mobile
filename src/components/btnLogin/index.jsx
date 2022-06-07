@@ -62,17 +62,16 @@ export default function BtnLogin({ tipo, email, senha }) {
           senha: senha,
         })
         .then((response) => {
-          const idOng = response.data.data[0].idOng;
-          if (response.status == "200") {
+          const idOng = response.data.data.idOng;
             ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
-            navigation.navigate("PerfilONG", {idOng})
-          }
+            navigation.navigate("PerfilONG", {idOng});
         })
         .catch((error) => {
+          console.log("error login ong", error)
           const a = JSON.stringify(error);
           if (!a.includes("400")) {
             ToastAndroid.show(
-              "Email ou CNPJ e senhas informados estão incorretos, por favor tente novamente!",
+              "Email ou senhas informados estão incorretos, por favor tente novamente!",
               ToastAndroid.SHORT,
               ToastAndroid.CENTER
             );

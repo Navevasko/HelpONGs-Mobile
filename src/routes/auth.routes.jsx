@@ -1,13 +1,14 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import Doar from "../screens/TelaDoacao";
 import CadastroUsuario from "../screens/CadastroUsuario";
 import CadastroONG from "../screens/CadastroONG";
 import LoginUser from "../screens/LoginUser";
 import LoginONG from "../screens/LoginONG";
-import PerfilONG from "../screens/PerfilOng";
+import PerfilONG from "../screens/perfilOng";
 import { SelecioneLoginUsuario } from "../screens/SelecioneLoginUsuario";
 import { SelecioneLoginOng } from "../screens/SelecioneLoginOng";
+import EsqueciSenha from "../screens/EsqueciSenha";
 
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -21,7 +22,8 @@ const StackNavigation = () => {
       <Stack.Screen name="CadastroONG" component={CadastroONG} />
       <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
       <Stack.Screen name="LoginONG" component={LoginONG} />
-      
+      <Stack.Screen name="Doar" component={Doar} />
+      <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
       
     </Stack.Navigator>
   );

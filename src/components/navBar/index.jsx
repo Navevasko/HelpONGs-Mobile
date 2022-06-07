@@ -1,17 +1,25 @@
 import { View, Image, TouchableOpacity, SafeAreaView, Modal, Text, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {styles} from './style'
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import PropTypes from "prop-types";
+import { api } from "../../../api";
 
-export default function Menu(estado, dataOng) {
+export default function Menu({estado, idOng}) {
 
-    const [modalVisible, setModalVisible] = useState({estado});
+    const [modalVisible, setModalVisible] = useState(estado);
     const [modalNotificacoesVisible, setModalNotificacoesVisible] = useState(false);
-    const [data, setData] = useState([dataOng]);
     const navigation = useNavigation();
+    const [data, setData] = useState([]);
 
+    useEffect(async() => {
+        await api.get(`/ong/${idOng}`).then((response) => {
+            setData(response.data.data);
+        }).catch((error) => {
+            console.log("erro get navBar", error);
+        })
+    },[])
     
   return (
       
@@ -43,7 +51,7 @@ export default function Menu(estado, dataOng) {
                         <Icon name="home" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Home</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("Doar")} style={styles.containerOpcoesModalMenu}>
+                    <TouchableOpacity onPress={() => {navigation.navigate("Doar", {idOng}); setModalVisible(false);}} style={styles.containerOpcoesModalMenu}>
                         <Icon name="heart" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Doar</Text>
                     </TouchableOpacity>
@@ -51,7 +59,7 @@ export default function Menu(estado, dataOng) {
                         <Icon name="layout" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Feed</Text>
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate("PerfilONG")} style={styles.containerOpcoesModalMenu}>
+                    <TouchableOpacity onPress={() => navigation.navigate("PerfilONG",{idOng})} style={styles.containerOpcoesModalMenu}>
                         <Icon name="user" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Perfil</Text>
                     </TouchableOpacity>
@@ -78,10 +86,10 @@ export default function Menu(estado, dataOng) {
                 <View style={styles.containerModalNotificacoes}>
                     <View style={styles.containerPerfilNotificacao}>
                         <Image
-                            source={require('../../assets/img/fotoDePerfil.jpeg')}
+                            source={{uri: data.foto}}
                             style={styles.ImgNotificacao}
                         />
-                        <Text>O tal do Jorg1nhO</Text>
+                        <Text>{data.nome}</Text>
                     </View>
                     <View style={styles.containerNotificacao}>
                         <Image

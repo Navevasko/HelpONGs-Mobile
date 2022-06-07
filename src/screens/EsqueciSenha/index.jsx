@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, ImageBackground, SafeAreaView, Image, TouchableOpacity, } from 'react-native'
 import { theme } from '../../global/styles/theme'
-import InputUnderline from '../../components/inputCadastro'
+import InputUnderline from '../../components/InputUnderline'
 import BtnContinuar from '../../components/btnContinuar'
 import { styles } from './style'
 
@@ -26,8 +26,9 @@ export default function EsqueciSenha() {
         <InputUnderline 
               placeholder="Digite seu e-mail"
               iconName="mail"
-              fontSize={25}
+              size={25}
               color={theme.colors.secondary}
+              keyboardType={"email-address"}
             />
         
         <TouchableOpacity style={styles.containerBtn}  onPress={() => console.log("hello world ")}>
