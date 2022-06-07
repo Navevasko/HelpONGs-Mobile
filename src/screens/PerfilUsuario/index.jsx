@@ -18,16 +18,24 @@ import Followers from "../../components/Follows";
 import User from '../../../api/Controllers/userController'
 import { api } from "../../../api";
 
-export default function PerfilUsuario(Id) {
+export default function PerfilUsuario({Id}) {
 
-  const [userData, setUserData] = useState(async() => {
-    const get = await User.getId(3)
-    setUserData(get)
-    
-  })
+  const [userData, setUserData] = useState([])
+
   
+  useEffect(() => {
+    api.get(`/user/${1}`).then(({data}) => {
+      setUserData(data.data)
+    }).catch((error) => {
+      console.log( "Erro na tela de Perfil de Usuário" , error );
+    })
+  }, [])
+  
+  console.log(userData);
 
   return (
+
+    
     <View>
       <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
       <Menu />
@@ -37,40 +45,12 @@ export default function PerfilUsuario(Id) {
           <View style={styles.containerBanner}>
             <Image
               style={styles.imageBanner}
-              source={{uri: userData.banner}}
+              source={!userData.banner ? {uri: userData.banner} : require('../../assets/img/Banner.jpeg')}
             />
             <View style={styles.containerFotoDePerfil}>
               <Image
                 style={styles.imageFotoDePerfil}
-                source={{uri: userData.foto}}
-              />
-            </View>
-          </View>
-          <View style={styles.containerAcoesPerfil}>
-            <ProfileOptions
-              iconName="plus-circle"
-              fontSize={15}
-              color={theme.colors.black}
-              text="Seguir"
-            />
-            <ProfileOptions
-              iconName="heart"
-              fontSize={15}
-              color={theme.colors.black}
-              text="Doar"
-            />
-            <ProfileOptions
-              iconName="message-circle"
-              fontSize={15}
-              color={theme.colors.black}
-              text="Chat"
-            />
-            <View style={{ marginLeft: 20 }}>
-              <ProfileOptions
-                iconName="edit"
-                fontSize={15}
-                color={theme.colors.black}
-                text="Editar"
+                source={!userData.foto ? {uri: userData.foto} : require("../../assets/img/User.png")}
               />
             </View>
           </View>
@@ -84,14 +64,11 @@ export default function PerfilUsuario(Id) {
             </View>
           </View>
           <Text style={styles.txtSeguidores}>127 seguidores / 60 seguindo</Text>
-          <Text  style={styles.txtDescricao}>
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. 
-          </Text>
         </View>
 
           <PersonalData cep={'Jandira'} date={userData.dataDeNascimento} number={ '(11) 35173-6972' } />
 
-          <Followers/>
+          <Followers followers={userData.tbl_seguidor}/>
 
       </ScrollView>
     </View>
