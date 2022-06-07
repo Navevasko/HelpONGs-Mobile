@@ -18,13 +18,16 @@ import Followers from "../../components/Follows";
 import User from '../../../api/Controllers/userController'
 import { api } from "../../../api";
 
-export default function PerfilUsuario({Id}) {
+export default function PerfilUsuario({route}) {
 
+  const idUser = route.params.id
   const [userData, setUserData] = useState([])
+
+  console.log(idUser);
 
   
   useEffect(() => {
-    api.get(`/user/${1}`).then(({data}) => {
+    api.get(`/user/${idUser}`).then(({data}) => {
       setUserData(data.data)
     }).catch((error) => {
       console.log( "Erro na tela de Perfil de Usuário" , error );
@@ -34,8 +37,7 @@ export default function PerfilUsuario({Id}) {
   console.log(userData);
 
   return (
-
-    
+  
     <View>
       <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
       <Menu />
@@ -45,12 +47,12 @@ export default function PerfilUsuario({Id}) {
           <View style={styles.containerBanner}>
             <Image
               style={styles.imageBanner}
-              source={!userData.banner ? {uri: userData.banner} : require('../../assets/img/Banner.jpeg')}
+              source={userData.banner ? {uri: userData.banner} : require('../../assets/img/Banner.jpeg')}
             />
             <View style={styles.containerFotoDePerfil}>
               <Image
                 style={styles.imageFotoDePerfil}
-                source={!userData.foto ? {uri: userData.foto} : require("../../assets/img/User.png")}
+                source={userData.foto ? {uri: userData.foto} : require("../../assets/img/User.png")}
               />
             </View>
           </View>
@@ -63,10 +65,10 @@ export default function PerfilUsuario({Id}) {
               <Text style={styles.categorias}>Voluntário</Text>
             </View>
           </View>
-          <Text style={styles.txtSeguidores}>127 seguidores / 60 seguindo</Text>
+          <Text style={styles.txtSeguidores}> Seguindo {userData ? `userData.tbl_seguidor.length` : ""}</Text>
         </View>
 
-          <PersonalData cep={'Jandira'} date={userData.dataDeNascimento} number={ '(11) 35173-6972' } />
+          <PersonalData date={userData.dataDeNascimento} number={ '(11) 35173-6972' } />
 
           <Followers followers={userData.tbl_seguidor}/>
 

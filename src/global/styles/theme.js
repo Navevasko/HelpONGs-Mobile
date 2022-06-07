@@ -25,6 +25,7 @@ export const theme = {
     grey: "#CCCCCC",
     input: "#ECECEC",
     placeholder: "#8C8C8C",
+    vagas:"#E5E5E5"
   },
   fonts: {
     bold: "Montserrat_700Bold",

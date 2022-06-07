@@ -10,16 +10,10 @@ export default User = new Object({
         senha: Senha,
       })
       .then((data) => {
-        const dataJSON = JSON.stringify(data);
-        if (dataJSON.includes("200")) {
-          return dataJSON;
-        }
+          return data.data;
       })
       .catch((error) => {
-        const errorJSON = JSON.stringify(error);
-        if (errorJSON.includes("200")) {
-          return errorJSON;
-        }
+        return error
       });
 
     return response;

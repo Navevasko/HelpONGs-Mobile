@@ -1,14 +1,34 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import Doar from "../screens/TelaDoacao";
+import CadastroUsuario from "../screens/CadastroUsuario";
+import CadastroONG from "../screens/CadastroONG";
+import LoginUser from "../screens/LoginUser";
+import LoginONG from "../screens/LoginONG";
+import PerfilONG from "../screens/perfilOng";
 import PerfilUsuario from "../screens/PerfilUsuario";
+import { SelecioneLoginUsuario } from "../screens/SelecioneLoginUsuario";
+import { SelecioneLoginOng } from "../screens/SelecioneLoginOng";
+import EsqueciSenha from "../screens/EsqueciSenha";
 
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+     
+      <Stack.Screen name="SelecioneLoginOng" component={SelecioneLoginOng} />
+      <Stack.Screen name="SelecioneLoginUsuario" component={SelecioneLoginUsuario} />
+      <Stack.Screen name="LoginUser" component={LoginUser} />
+      <Stack.Screen name="PerfilONG" component={PerfilONG}/>
       <Stack.Screen name="PerfilUsuario" component={PerfilUsuario}/>
+      <Stack.Screen name="CadastroONG" component={CadastroONG} />
+      <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
+      <Stack.Screen name="LoginONG" component={LoginONG} />
+      <Stack.Screen name="Doar" component={Doar} />
+      <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
+      
     </Stack.Navigator>
   );
 };

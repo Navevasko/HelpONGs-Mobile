@@ -28,15 +28,13 @@ export default function PersonalData({cep, date, number}) {
     <View style={styles.container}>
       <Text style={styles.title}>Dados pessoais</Text>
 
-      <View style={styles.information}>
-        <Icon name={"map"} style={{color: theme.colors.secondary, marginEnd: 10}} size={25}/>
-        <Text style={styles.text}> {cep} </Text>
-      </View>
+      
 
+      {date &&
       <View style={styles.information}>
         <Icon name={"gift"} style={{color: theme.colors.secondary, marginEnd: 10}} size={25}/>
-        <Text style={styles.text}> {date ? transformDate(date) : ""} </Text>
-      </View>
+        <Text style={styles.text}> {transformDate(date)} </Text>
+      </View>}
 
       <View style={styles.information}>
         <Icon name={"phone"} style={{color: theme.colors.secondary, marginEnd: 10}} size={25}/>
