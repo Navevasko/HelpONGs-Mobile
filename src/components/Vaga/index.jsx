@@ -9,7 +9,8 @@ import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/Feather";
 import { theme } from "../../global/styles/theme";
 import ModalMenu from "../ModalMenu";
-import ModalExcluir from "../ModalExcluir";
+import { api } from "../../../api";
+import { ToastAndroid } from "react-native";
 
 const Vaga = ({
   idOng,
@@ -26,6 +27,33 @@ const Vaga = ({
   setInfo,
 }) => {
   const [menu, setMenu] = useState(false);
+
+  const handleSubmit = () => {
+    api
+      .post("/vacancy-controller", {
+        idVagas: idVaga,
+        idUsuario: 1,
+      })
+      .then((data) => {
+        console.log(data);
+        ToastAndroid.show("Candidatura feita com sucesso.", ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        const errorString = JSON.stringify(error);
+        if (errorString.includes("400")) {
+          ToastAndroid.show(
+            "Você já está cadastrado nesta vaga",
+            ToastAndroid.SHORT
+          );
+        }
+      });
+  };
+
+  if (menu) {
+    setType("vacancy");
+    setIdVaga(idVaga);
+    setIdOng(idOng);
+  }
 
   return (
     <>
@@ -75,6 +103,7 @@ const Vaga = ({
               width="49%"
               height={35}
               fontSize={14}
+              onPress={handleSubmit}
             />
           </View>
         </View>

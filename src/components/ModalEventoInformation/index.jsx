@@ -7,15 +7,12 @@ import React, { useEffect, useState } from "react";
 import { styles } from "./style";
 import ModalShadow from "../ModalShadow";
 import { api } from "../../../api";
+import wait from "../../utils/wait";
 
 export default function ModalEventoInformation({ idEvento, onClose, idOng }) {
   const [Data, setData] = useState();
   const [Endereco, setEndereco] = useState();
   const [Candidatos, setCandidatos] = useState(false);
-
-  const wait = (timeout) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
-  };
 
   const handleSubmit = () => {
     api
@@ -28,6 +25,18 @@ export default function ModalEventoInformation({ idEvento, onClose, idOng }) {
         wait(1000).then(() => {
           onClose();
         });
+      })
+      .catch((error) => {
+        const errorString = JSON.stringify(error);
+        if (errorString.includes("400")) {
+          ToastAndroid.show(
+            "Você já está cadastrado neste evento",
+            ToastAndroid.SHORT
+          );
+          wait(1000).then(() => {
+            onClose();
+          });
+        }
       });
   };
 

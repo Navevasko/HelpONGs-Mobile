@@ -14,11 +14,13 @@ import { api } from "../../../api";
 import Comment from "../Comment";
 
 const Post = ({
+  idOng,
   idPost,
   fileArray,
   desc,
   ONGdata,
   date,
+  setType,
   setIdPost,
   setIdOng,
   setEditar,
@@ -54,7 +56,15 @@ const Post = ({
     }
   };
 
+  if (Menu) {
+    setType("post");
+    setIdPost(idPost);
+    setIdOng(idOng);
+  }
+
   useEffect(() => {
+    let isMounted = true;
+
     api
       .get(`/comment/ong/${idPost}`)
       .then(({ data }) => {
@@ -63,6 +73,10 @@ const Post = ({
       .catch((error) => {
         console.log(error);
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, [sentComment]);
 
   return (

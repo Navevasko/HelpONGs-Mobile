@@ -21,6 +21,7 @@ const Evento = ({
   setEditar,
   setExcluir,
   setInfo,
+  setType,
   candidatos,
   setOpenModal,
   setIdOng,
@@ -47,6 +48,12 @@ const Evento = ({
         }
       });
   };
+
+  if (menu) {
+    setType("event");
+    setIdEvento(idEvento);
+    setIdOng(idOng);
+  }
 
   return (
     <>

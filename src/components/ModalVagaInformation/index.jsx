@@ -8,6 +8,7 @@ import { styles } from "./style";
 import ModalShadow from "../ModalShadow";
 import { ToastAndroid } from "react-native";
 import { api } from "../../../api";
+import wait from "../../utils/wait";
 
 export default function ModalVagaInformation({ idVaga, onClose, idOng }) {
   const [Data, setData] = useState();
@@ -31,14 +32,23 @@ export default function ModalVagaInformation({ idVaga, onClose, idOng }) {
             "Você já está cadastrado neste evento",
             ToastAndroid.SHORT
           );
+          wait(1000).then(() => {
+            onClose();
+          });
         }
       });
   };
 
   useEffect(() => {
+    let isMounted = true;
+
     api.get(`/vacancy/${idOng}/${idVaga}`).then(({ data }) => {
       setData(data.data);
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

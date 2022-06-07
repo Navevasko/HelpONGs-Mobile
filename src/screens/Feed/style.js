@@ -34,7 +34,6 @@ export const styles = StyleSheet.create({
     width: "100%",
     maxHeight: 250,
     marginTop: 10,
-    marginBottom: 10,
     padding: 10,
     paddingStart: 20,
     paddingEnd: 20,

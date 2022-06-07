@@ -3,15 +3,15 @@ import { theme } from "../../global/styles/theme";
 
 export const styles = StyleSheet.create({
   eventoPreview: {
-    width: 140,
-    height: "100%",
+    width: 120,
+    height: "85%",
     backgroundColor: theme.colors.white,
     borderRadius: 10,
     marginEnd: 20,
   },
   eventoPreviewProfilePicture: {
     width: "25%",
-    height: "22%",
+    height: "18%",
     borderRadius: 100,
     resizeMode: "cover",
     position: "relative",
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   eventoPreviewImage: {
     width: "100%",
-    height: "100%",
+    height: "104%",
     borderRadius: 10,
     position: "relative",
     top: -37,

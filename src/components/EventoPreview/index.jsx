@@ -18,6 +18,6 @@ export default function EventoPreview({ title, imagem, ONGProfilePic }) {
 
 EventoPreview.propTypes = {
   title: PropTypes.string,
-  imagem: PropTypes.number,
-  ONGProfilePic: PropTypes.number,
+  imagem: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  ONGProfilePic: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };

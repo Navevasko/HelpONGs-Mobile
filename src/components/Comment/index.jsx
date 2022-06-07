@@ -9,18 +9,20 @@ export default function Comment({ comentario, nome, date, idComentario }) {
   const [liked, setLiked] = useState(false);
 
   const handleLike = () => {
-    api
-      .post("comment/like", {
-        idComentario: 1,
-        idUsuario: 1,
-      })
-      .then(({ data }) => {
-        console.log(data);
-        setLiked(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // api
+    //   .post("comment/like", {
+    //     idComentario: 1,
+    //     idUsuario: 1,
+    //   })
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //     setLiked(true);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    setLiked(!liked);
   };
 
   return (
@@ -47,13 +49,9 @@ export default function Comment({ comentario, nome, date, idComentario }) {
         >
           <Text style={styles.time}> 1h </Text>
           <View style={[format.row, styles.likeContainer]}>
-            {liked === false && (
-              <Icon name="thumbs-up" size={20} onPress={handleLike} />
-            )}
-            {liked === true && (
-              <Image source={require("../../assets/img/likeFill.png")} />
-            )}
-            <Text style={styles.like}> 28.5K Curtiram </Text>
+            <Icon name="thumbs-up" size={20} onPress={handleLike} />
+
+            <Text style={styles.like}> 0 Curtiram </Text>
           </View>
         </View>
       </View>

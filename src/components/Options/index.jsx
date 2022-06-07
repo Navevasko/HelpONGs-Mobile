@@ -6,33 +6,74 @@ import Icon from "react-native-vector-icons/Feather";
 import PropTypes from "prop-types";
 import { format } from "../../global/styles/format";
 
-export default function Options({
-  idPost,
-  likes,
-  pressLike,
-  comments,
-  pressComment,
-  share,
-}) {
-  const [Like, setLike] = useState();
-  const [Comment, setComment] = useState();
+export default function Options({ idPost }) {
+  const [Like, setLike] = useState("");
+  const [Comment, setComment] = useState("");
+  const [liked, setLiked] = useState();
+
+  const handleLike = () => {
+    api
+      .post("/post/like", {
+        idPost: idPost,
+        idUsuario: 1,
+      })
+      .then(({ data }) => {
+        console.log(data);
+        setLike(Like + 1);
+        setLiked(true);
+      })
+      .catch((error) => {
+        api.delete(`/post/like/${idPost}/1`).then(({ data }) => {
+          console.log(data);
+          setLike(Like - 1);
+          setLiked(false);
+        });
+      });
+  };
 
   useEffect(() => {
-    api.get(`/post/like/${idPost}`).then(({ data }) => {
-      setLike(data.data.likeCount);
-    });
-  }, []);
+    let isMounted = true;
+
+    api
+      .get(`/post/like/${idPost}`)
+      .then(({ data }) => {
+        setLike(data.data.likeCount);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [Like]);
 
   useEffect(() => {
-    api.get(`/comment/ong/${idPost}`).then(({ data }) => {
-      setComment(data.data.tbl_comentario.length);
-    });
-  }, []);
+    let isMounted = true;
+
+    api
+      .get(`/comment/ong/${idPost}`)
+      .then(({ data }) => {
+        setComment(data.data.tbl_comentario.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [Comment]);
 
   return (
     <View style={format.row}>
       <View style={[styles.optionsContainer, format.row]}>
-        <Icon name="thumbs-up" size={20} style={styles.icon} />
+        <Icon
+          name="thumbs-up"
+          size={20}
+          style={styles.icon}
+          onPress={handleLike}
+        />
         <Text style={styles.optionsText}> {Like} </Text>
       </View>
       <View style={styles.optionsContainer}>

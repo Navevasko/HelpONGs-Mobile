@@ -49,16 +49,22 @@ export default function Feed({}) {
     }
   );
 
+  console.log(id, type);
+
   useEffect(() => {
+    let isMounted = true;
+
     api
       .get(`/feed/${page}`)
       .then(({ data }) => {
         if (data.data.length !== 0) {
           if (Data) {
-            if (Data.length >= 18) {
-              setData(data.data);
-            } else {
-              setData(Data.concat(data.data));
+            if (isMounted) {
+              if (Data.length >= 18) {
+                setData(data.data);
+              } else {
+                setData(Data.concat(data.data));
+              }
             }
           }
         } else {
@@ -68,6 +74,10 @@ export default function Feed({}) {
       .catch((error) => {
         console.log(error);
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, [page]);
 
   const wait = (timeout) => {
@@ -80,7 +90,10 @@ export default function Feed({}) {
       .get(`/feed/0`)
       .then(({ data }) => {
         setRefreshing(false);
-        setData(data.data);
+        setData([]);
+        wait(1000).then(() => {
+          setData(data.data);
+        });
         setAtEnd(false);
       })
       .catch((error) => {
@@ -150,8 +163,12 @@ export default function Feed({}) {
         <ModalExcluir
           id={id}
           type={type}
+          idOng={idOng}
           setModal={(bool) => {
             setModalExcluir(bool);
+          }}
+          setPage={(number) => {
+            setPage(number);
           }}
         />
       )}
@@ -186,38 +203,40 @@ export default function Feed({}) {
           {search !== "" && <SearchResult searchData={searchData} />}
         </View>
 
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          style={styles.containerEventoPreview}
-        >
-          {Data &&
-            Data.map((item) => {
-              if (item.tbl_evento_media) {
-                return (
-                  <EventoPreview
-                    title={item.titulo}
-                    imagem={item.tbl_evento_media[0].url}
-                    ONGProfilePic={item.tbl_ong.foto}
-                    key={Math.random()}
-                  />
-                );
-              } else {
-                return;
-              }
-            })}
-        </ScrollView>
-
         {Data && (
           <FlatList
             showsVerticalScrollIndicator={false}
             ref={scrollRef}
             ListHeaderComponent={
-              <CreatePost
-                setOpenModal={(bool) => {
-                  setOpenModalCreate(bool);
-                }}
-              />
+              <>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  style={styles.containerEventoPreview}
+                >
+                  {Data &&
+                    Data.map((item) => {
+                      if (item.tbl_evento_media) {
+                        return (
+                          <EventoPreview
+                            title={item.titulo}
+                            imagem={item.tbl_evento_media[0].url}
+                            ONGProfilePic={item.tbl_ong.foto}
+                            key={Math.random()}
+                          />
+                        );
+                      } else {
+                        return;
+                      }
+                    })}
+                </ScrollView>
+
+                <CreatePost
+                  setOpenModal={(bool) => {
+                    setOpenModalCreate(bool);
+                  }}
+                />
+              </>
             }
             refreshControl={
               <RefreshControl
@@ -254,6 +273,7 @@ export default function Feed({}) {
               if (type == "post") {
                 return (
                   <Post
+                    idOng={item.idOng}
                     idPost={item.idPost}
                     ONGdata={item.tbl_ong}
                     fileArray={item.tbl_post_media}
@@ -315,6 +335,9 @@ export default function Feed({}) {
                     desc={item.descricao}
                     ONGdata={item.tbl_ong}
                     date={item.dataDeCriacao}
+                    setType={(type) => {
+                      setType(type);
+                    }}
                     setOpenModal={(data) => {
                       setOpenModalVaga(data);
                     }}
@@ -324,9 +347,6 @@ export default function Feed({}) {
                     }}
                     setIdOng={(id) => {
                       setIdOng(id);
-                    }}
-                    setType={(type) => {
-                      setType(type);
                     }}
                     setEditar={(bool) => {
                       setModalEditar(bool);
