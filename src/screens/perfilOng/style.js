@@ -53,6 +53,7 @@ export const styles = StyleSheet.create({
     minWidth: "75%",
     maxWidth:"80%",
     flexDirection: "row",
+    justifyContent: 'space-between',
     marginTop: 4,
     alignSelf: "flex-end",
 
@@ -78,7 +79,7 @@ export const styles = StyleSheet.create({
     height: 18,
   },
   categorias: {
-    height: 25,
+    height: 20,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,

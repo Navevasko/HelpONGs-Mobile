@@ -8,6 +8,7 @@ import OpcoesPerfil from '../../components/opcoesPerfil';
 import { ExibirPerfilOng } from '../../components/ExibirPerfilOng'
 import { api } from '../../../api'
 import ModalDoarPerfil from '../../components/ModalDoarPerfil'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function PerfilONG({route}) {
   const [teste, setTeste] = useState();
@@ -35,6 +36,17 @@ export default function PerfilONG({route}) {
      setVaga(true);
     }
   }
+
+
+  const a = async( ) => {
+    const a = await AsyncStorage.getItem("UserLogin")
+    const b = JSON.parse(a)
+    console.log(b);
+  }
+
+
+  a()
+  
   
 
   React.useEffect(() =>{
@@ -76,6 +88,7 @@ export default function PerfilONG({route}) {
                 </View>
               </View>
               <View style={styles.containerAcoesPerfil}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <OpcoesPerfil
                  iconName="plus-circle"
                  fontSize={15}
@@ -83,13 +96,8 @@ export default function PerfilONG({route}) {
                  text="Seguir"
                 />
                 <ModalDoarPerfil data={dataOng}/>
-                <OpcoesPerfil
-                 iconName="message-circle"
-                 fontSize={15}
-                 color={theme.colors.black}
-                 text="Chat"
-                />
-                <View style={{marginLeft:20}}>
+                </View>
+                <View style={{marginStart: 80}}>
                   <OpcoesPerfil
                   iconName="edit"
                   fontSize={15}
@@ -106,13 +114,15 @@ export default function PerfilONG({route}) {
                 {
                   dataCategoria.map((data) => {
                     return(
-                      <Text style={styles.categorias}>{data.tbl_categorias.nome}</Text>
+                      <Text key={data.idCategorias} style={styles.categorias}>{data.tbl_categorias.nome}</Text>
                     );
                   })
                 }
+
+                {console.log(dataCategoria)}
                 </View>
               </View>
-              <Text style={styles.txtSeguidores}>Seguidores {dataOng.numeroDeSeguidores}</Text>
+              <Text style={styles.txtSeguidores}> {dataOng.numeroDeSeguidores} Seguidores </Text>
               <Text numberOfLines={5} style={styles.txtDescricao}>{dataOng.descricao}</Text>
               <View style={{flexDirection:"row", marginTop:10}}>
                 <Icon name="users"style={styles.iconRedesSociais}/>

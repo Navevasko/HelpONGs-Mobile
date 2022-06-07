@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { styles } from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { api } from "../../../api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function BtnLogin({ tipo, email, senha }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -63,6 +65,8 @@ export default function BtnLogin({ tipo, email, senha }) {
         })
         .then((response) => {
           const idOng = response.data.data.idOng;
+          const Storage = JSON.stringify(response.data)
+          AsyncStorage.setItem("UserLogin", Storage)
             ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
             navigation.navigate("PerfilONG", {idOng});
         })

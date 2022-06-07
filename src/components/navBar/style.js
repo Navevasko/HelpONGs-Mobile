@@ -14,9 +14,9 @@ export const styles = StyleSheet.create({
     },
     options: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         alignItems: "center",
-        width: "50%",
+        width: "35%",
     },
     icons: {
         width: 30,

@@ -7,11 +7,19 @@ import InputUnderline from '../../components/InputUnderline'
 import InputUnderlinePassword from '../../components/InputUnderlinePassword'
 import BtnLogin from '../../components/btnLogin'
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function LoginONG() {
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const navigation = useNavigation();
+
+  if(!AsyncStorage.getItem("UserLogin")){
+    // navigation.navigate("Feed")
+  }
+  else {
+    console.log("unlogged ");
+  }
 
   return (
     <SafeAreaView>

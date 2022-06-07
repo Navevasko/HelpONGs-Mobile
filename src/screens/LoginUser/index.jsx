@@ -16,6 +16,7 @@ import BtnLogin from "../../components/btnLogin";
 import InputUnderline from "../../components/InputUnderline";
 import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginUser() {
   
@@ -23,6 +24,14 @@ export default function LoginUser() {
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const navigation = useNavigation();
+
+  if(!AsyncStorage.getItem("UserLogin")){
+    // navigation.navigate("Feed")
+  }
+  else {
+    console.log("unlogged ");
+  }
+
     // const onSubmit = async () => {
 
     //   const result = post(email, senha);

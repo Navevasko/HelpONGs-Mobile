@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import PropTypes from "prop-types";
 import { api } from "../../../api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Menu({estado, idOng}) {
 
@@ -12,6 +13,11 @@ export default function Menu({estado, idOng}) {
     const [modalNotificacoesVisible, setModalNotificacoesVisible] = useState(false);
     const navigation = useNavigation();
     const [data, setData] = useState([]);
+
+    const handleLogout = () => {
+        AsyncStorage.removeItem("UserLogin")
+        navigation.navigate("SelecioneLoginOng")
+    }
 
     useEffect(async() => {
         await api.get(`/ong/${idOng}`).then((response) => {
@@ -29,12 +35,6 @@ export default function Menu({estado, idOng}) {
             <Icon name="menu" style={styles.icons} size={30} />
         </TouchableOpacity>
         <View style={styles.options}>
-            <TouchableOpacity onPress={() => {}}>
-            <Icon name="message-circle" style={styles.icons} size={30} />
-            </TouchableOpacity>
-            <TouchableOpacity  onPress={() => setModalNotificacoesVisible(true)}>
-            <Icon name="bell" style={styles.icons} size={30} />
-            </TouchableOpacity>
             <TouchableOpacity onPress={() => {}}>
             <Icon name="settings" style={styles.icons} size={30} />
             </TouchableOpacity>
@@ -71,7 +71,7 @@ export default function Menu({estado, idOng}) {
                         <Icon name="settings" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Configurações</Text>
                     </View>
-                    <View style={styles.containerOpcoesModalMenu}>
+                    <View style={styles.containerOpcoesModalMenu} onTouchEnd={handleLogout} >
                         <Icon name="log-out" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Logout</Text>
                     </View>
