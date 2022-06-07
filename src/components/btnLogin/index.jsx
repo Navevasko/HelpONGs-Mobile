@@ -5,7 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 import { api } from "../../../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 export default function BtnLogin({ tipo, email, senha }) {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
@@ -13,77 +12,98 @@ export default function BtnLogin({ tipo, email, senha }) {
     // setIsLoading(true);
 
     if (tipo == "LoginUser") {
-
-        if(email === "" || senha === ""){
-          ToastAndroid.show("Por favor preencha todos os campos!", ToastAndroid.CENTER);
-        }else if(!email.includes("@") && !email.includes(".com")){
+      if (email === undefined || senha === undefined) {
+        ToastAndroid.show(
+          "Por favor preencha todos os campos!",
+          ToastAndroid.CENTER
+        );
+      } else if (!email.includes("@") && !email.includes(".com")) {
         ToastAndroid.show("Email inválido", ToastAndroid.CENTER);
-      }else{
-      api.post(`/user/login`, {
-          email: email,
-          senha: senha,
-        })
-        .then((response) => {
-          // console.log(response.data);
-          if (response.status == "200") {
-            ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
-          }
-        })
-        .catch((error) => {
-          const errorJSON = JSON.stringify(error);
-          if (errorJSON.includes("400")) {
-            ToastAndroid.show(
-              "Senha ou email incorretos, por favor tente novamente!",
-              ToastAndroid.SHORT,
-              ToastAndroid.CENTER
-            );
-            
-          }else if(errorJSON.includes("404")){
-            ToastAndroid.show(
-              "Senha ou email incorretos, por favor tente novamente!",
-              ToastAndroid.SHORT,
-              ToastAndroid.CENTER
-            );
-          } else {
-            ToastAndroid.show("Erro", ToastAndroid.SHORT, ToastAndroid.CENTER);
-            // console.log(error)
-          }
-        });
+      } else {
+        api
+          .post(`/user/login`, {
+            email: email,
+            senha: senha,
+          })
+          .then((response) => {
+            if (response.status == "200") {
+              ToastAndroid.show(
+                "Login realizado com sucesso",
+                ToastAndroid.SHORT
+              );
+              const idUser = response.data.usuario.idUsuario;
+              const Storage = JSON.stringify(response);
+              AsyncStorage.setItem("UserLogin", Storage);
+              navigation.navigate("PerfilUsuario", { id: idUser });
+            }
+          })
+          .catch((error) => {
+            const errorJSON = JSON.stringify(error);
+            if (errorJSON.includes("400")) {
+              ToastAndroid.show(
+                "Senha ou email incorretos, por favor tente novamente!",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+            } else if (errorJSON.includes("404")) {
+              ToastAndroid.show(
+                "Senha ou email incorretos, por favor tente novamente!",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+            } else {
+              ToastAndroid.show(
+                "Erro",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+              // console.log(error)
+            }
+          });
         // console.log(response)
       }
     } else if (tipo == "loginONG") {
-      if(email == "" || senha == ""){
-        ToastAndroid.show("Por favor preencha todos os campos!", ToastAndroid.CENTER);
-      }else if(!email.includes("@")){
+      if (email === undefined || senha === undefined) {
+        ToastAndroid.show(
+          "Por favor preencha todos os campos!",
+          ToastAndroid.CENTER
+        );
+      } else if (!email.includes("@") && !email.includes(".com")) {
         ToastAndroid.show("Email inválido", ToastAndroid.CENTER);
-      }else{
-        const response = await
-        api.post(`/ong/login`, {
-          email: email,
-          senha: senha,
-        })
-        .then((response) => {
-          const idOng = response.data.data.idOng;
-          const Storage = JSON.stringify(response.data)
-          AsyncStorage.setItem("UserLogin", Storage)
-            ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
-            navigation.navigate("PerfilONG", {idOng});
-        })
-        .catch((error) => {
-          console.log("error login ong", error)
-          const a = JSON.stringify(error);
-          if (!a.includes("400")) {
+      } else {
+        api
+          .post(`/ong/login`, {
+            email: email,
+            senha: senha,
+          })
+          .then((response) => {
+            const idOng = response.data.data.idOng;
+            const Storage = JSON.stringify(response.data);
+            AsyncStorage.setItem("UserLogin", Storage);
             ToastAndroid.show(
-              "Email ou senhas informados estão incorretos, por favor tente novamente!",
-              ToastAndroid.SHORT,
-              ToastAndroid.CENTER
+              "Login realizado com sucesso",
+              ToastAndroid.SHORT
             );
-          } else {
-            ToastAndroid.show("Erro", ToastAndroid.SHORT, ToastAndroid.CENTER);
-          }
-        });
+            navigation.navigate("PerfilONG", { idOng });
+          })
+          .catch((error) => {
+            console.log("error login ong", error);
+            const a = JSON.stringify(error);
+            if (!a.includes("400")) {
+              ToastAndroid.show(
+                "Email ou senhas informados estão incorretos, por favor tente novamente!",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+            } else {
+              ToastAndroid.show(
+                "Erro",
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+              );
+            }
+          });
       }
-      
     }
   };
 

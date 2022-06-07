@@ -11,7 +11,7 @@ import {
   ToastAndroid,
 } from "react-native";
 import { styles } from "./style";
-import  Logo  from "../../components/Logo";
+import Logo from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin";
 import InputUnderline from "../../components/InputUnderline";
@@ -20,31 +20,34 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginUser() {
-  
   const [variavel, setVariavel] = useState();
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const navigation = useNavigation();
 
   useEffect(() => {
-    AsyncStorage.getItem("UserLogin").then((data) => {
-      const dataArray = JSON.parse(data)
-      if(dataArray.data.idUsuario){
-        navigation.navigate("PerfilUsuario", {id: dataArray.data.idUsuario})
-      }
-      else if(dataArray.data.idONG) {
-        navigation.navigate("PerfilONG", {id: dataArray.data.idONG})
-      }
-    }).catch((error) => {
-      console.log("Erro AsyncStorage ", error);
-    })
-
-  }, [])
+    AsyncStorage.getItem("UserLogin")
+      .then((data) => {
+        if (data !== undefined) {
+          const dataArray = JSON.parse(data);
+          if (dataArray.data.idUsuario) {
+            navigation.navigate("PerfilUsuario", {
+              id: dataArray.data.idUsuario,
+            });
+          } else if (dataArray.data.idONG) {
+            navigation.navigate("PerfilONG", { id: dataArray.data.idONG });
+          }
+        }
+      })
+      .catch((error) => {
+        console.log("Erro AsyncStorage ", error);
+      });
+  }, []);
 
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
-      <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
+        <StatusBar backgroundColor={"transparent"} barStyle={"dark-content"} />
         <View style={styles.containerLogo}>
           <Logo />
         </View>
@@ -87,9 +90,7 @@ export default function LoginUser() {
           </TouchableOpacity>
         </View>
         <View style={styles.containerBtnLogin}>
-          <BtnLogin
-            tipo="LoginUser" email={email} senha={senha}
-          />
+          <BtnLogin tipo="LoginUser" email={email} senha={senha} />
         </View>
         <View style={styles.containerCriarUmaConta}>
           <Text style={styles.txtNaoTemConta}>Não tem uma conta?</Text>
