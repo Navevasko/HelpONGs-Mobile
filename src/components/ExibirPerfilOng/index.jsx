@@ -1,69 +1,50 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, Image } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import { api } from "../../../api";
 import { styles } from "../../screens/perfilOng/style";
 
-function ExibirPerfilOng(vp1) {
+
+// const[ dataPost, setDataPost] = useState()
+
+// useEffect(() => {
+//   api.get(`/feed/post/ong/${idOng}`).then(({data}) => {
+//     setDataPost(data)
+//   }).catch((error) => {
+//     console.log(error);
+//   })
+
+// }, [])
+
+
+function ExibirPerfilOng(vp1, foto) {
   if (vp1 == 1) {
     return (
       <View className="Posts" style={{ width: "100%" }}>
         <View style={[styles.card, styles.shadowProp]}>
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={require("../../assets/img/fotoPerfilNotificao.png")}
+              source={{uri: foto}}
               style={styles.fotoDePerfilPost}
             />
             <View style={{ flexDirection: "column", marginTop: 5 }}>
-              <Text style={styles.txtNomeUsuarioPost}>Nome</Text>
-              <Text style={styles.txtDataPost}>25 de fevereiro de 2022</Text>
+              <Text style={styles.txtNomeUsuarioPost}>"AACD"</Text>
+              <Text style={styles.txtDataPost}>08/06/2022</Text>
             </View>
           </View>
           <View style={{ flexDirection: "column" }}>
             <Text style={{ color: "black" }}>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet.
+              É triste a realidade dos moradores de rua, eles vivem em situações precárias a nível extremo, entretanto, nós podemos mudar essa situação, entre em contato com a nossa ONG e faça uma doação.
             </Text>
             <Image
-              source={require("../../assets/img/post.jpg")}
+              source={require("../../assets/img/post.jpeg")}
               style={styles.imgPost}
             />
             <View style={styles.containerAcoesPost}>
               <Icon name="thumbs-up" style={styles.iconsAcoesPost} />
-              <Text>16</Text>
+              <Text>1</Text>
               <Icon name="message-square" style={styles.iconsAcoesPost} />
-              <Text>16</Text>
-              <Icon name="share-2" style={styles.iconsAcoesPost} />
-            </View>
-          </View>
-        </View>
-
-        <View style={[styles.card, styles.shadowProp]}>
-          <View style={{ flexDirection: "row" }}>
-            <Image
-              source={require("../../assets/img/fotoPerfilNotificao.png")}
-              style={styles.fotoDePerfilPost}
-            />
-            <View style={{ flexDirection: "column", marginTop: 5 }}>
-              <Text style={styles.txtNomeUsuarioPost}>Nome</Text>
-              <Text style={styles.txtDataPost}>25 de fevereiro de 2022</Text>
-            </View>
-          </View>
-          <View style={{ flexDirection: "column" }}>
-            <Text style={styles.txtDescricaoPosts}>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet.
-            </Text>
-            <Image
-              source={require("../../assets/img/post.jpg")}
-              style={styles.imgPost}
-            />
-            <View style={styles.containerAcoesPost}>
-              <Icon name="thumbs-up" style={styles.iconsAcoesPost} />
-              <Text>16</Text>
-              <Icon name="message-square" style={styles.iconsAcoesPost} />
-              <Text>16</Text>
+              <Text>0</Text>
               <Icon name="share-2" style={styles.iconsAcoesPost} />
             </View>
           </View>
@@ -76,19 +57,17 @@ function ExibirPerfilOng(vp1) {
         <View style={[styles.card, styles.shadowProp]}>
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={require("../../assets/img/fotoPerfilNotificao.png")}
+              source={{uri: foto}}
               style={styles.fotoDePerfilPost}
             />
             <View style={{ flexDirection: "column", marginTop: 5 }}>
-              <Text style={styles.txtNomeUsuarioPost}>Nome</Text>
-              <Text style={styles.txtDataDaVaga}>25 de fevereiro de 2022</Text>
+              <Text style={styles.txtNomeUsuarioPost}>AACD</Text>
+              <Text style={styles.txtDataDaVaga}>08/06/2022</Text>
             </View>
           </View>
           <View style={{ flexDirection: "column" }}>
             <Text numberOfLines={4} style={styles.txtDescricaoEventos}>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet.
+              Este é um evento totalmente gratuito de custos da viagem oferecidos pela AACD, precisamos de sua coragem para ajudar pessoas na guerra!!
             </Text>
             <Image
               source={require("../../assets/img/download.jpeg")}
@@ -102,7 +81,7 @@ function ExibirPerfilOng(vp1) {
                   </Text>
                   <Text style={styles.txtEspecificacoesEventos}>
                     {" "}
-                    Velit officia conseq
+                    Encontrar pessoas que tenham coragem de sair do país para ir ajudar os necessitados da Guerra
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", marginVertical: 5 }}>
@@ -111,7 +90,7 @@ function ExibirPerfilOng(vp1) {
                   </Text>
                   <Text style={styles.txtEspecificacoesEventos}>
                     {" "}
-                    26 de Janeiro às 12:00
+                    08/06/2022
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", marginVertical: 5 }}>
@@ -148,21 +127,18 @@ function ExibirPerfilOng(vp1) {
         <View style={[styles.cardVagas, styles.shadowProp]}>
           <View style={styles.containerDataDaVaga}>
             <Image
-              source={require("../../assets/img/fotoPerfilNotificao.png")}
+              source={{uri: foto}}
               style={styles.fotoDePerfilVaga}
             />
             <View style={{ flexDirection: "column", marginTop: 5 }}>
-              <Text style={styles.txtNomeDeUsuarioVagas}>Nome</Text>
-              <Text style={styles.txtDataDaVaga}>25 de fevereiro de 2022</Text>
+              <Text style={styles.txtNomeDeUsuarioVagas}>AACD</Text>
+              <Text style={styles.txtDataDaVaga}>08/06/2022</Text>
             </View>
           </View>
           <View style={styles.containerTituloEDescricaoDaVaga}>
-            <Text style={styles.txtTituloVagas}>Professor de Informática</Text>
+            <Text style={styles.txtTituloVagas}>Professor de libras</Text>
             <Text style={styles.txtDescricaoVagas}>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit. Amet
-              minim mollit non deserunt ullamco est sit aliqua dolor do amet
-              sint.
+            : A procura de um candidato que se interesse por uma vaga de ensino para crianças sobre libras
             </Text>
             <View style={styles.containerBtnVagas}>
               <View style={styles.btnVagas}>

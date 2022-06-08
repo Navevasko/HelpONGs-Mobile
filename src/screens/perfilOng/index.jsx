@@ -30,6 +30,7 @@ export default function PerfilONG({ route }) {
   const [dataCategoria, setDataCategoria] = useState([]);
   const [dataNumero, setDataNumero] = useState([]);
   const [storageData, setStorageData] = useState();
+  const [postData, setPostData] = useState([])
 
   useEffect(() => {
     AsyncStorage.getItem("UserLogin").then((response) => {
@@ -50,6 +51,14 @@ export default function PerfilONG({ route }) {
       }
     }
   };
+
+  useEffect(() => {
+    api.get(`/feed/post/ong/${idOng}`).then(({data}) => {
+      postData.concat(data)
+    }).catch((error) => {
+      console.log(error);
+    })
+  })
 
   const trocarDeCor = () => {
     if (teste == 1) {
@@ -85,6 +94,8 @@ export default function PerfilONG({ route }) {
       .catch((error) => console.log("Erro em Perfil Ong", error));
     trocarDeCor();
   }, []);
+
+  console.log(dataNumero);
 
   return (
     <ImageBackground
@@ -158,7 +169,7 @@ export default function PerfilONG({ route }) {
           </View>
           <View style={{ flexDirection: "row", marginTop: 5 }}>
             <Icon name="phone" style={styles.iconRedesSociais} />
-            <Text>{dataNumero.numero}</Text>
+            <Text>{dataNumero.numero ? dataNumero.numero : "(11) 951736972"}</Text>
           </View>
         </View>
         <View style={styles.containerTxtVagasPostsEventos}>
@@ -212,7 +223,7 @@ export default function PerfilONG({ route }) {
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: "column" }}>
-            {ExibirPerfilOng(teste)}
+            {ExibirPerfilOng(teste, dataOng.foto)}
             {/* <View className='03' style={{height:200, width:"100%", backgroundColor:"green"}}></View> */}
           </View>
         </View>
