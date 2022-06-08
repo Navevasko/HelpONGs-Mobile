@@ -12,7 +12,8 @@ import ModalShadow from "../../components/ModalShadow";
 import CardContainer from "../../components/CardContainer";
 import BtnSubmit from "../../components/BtnSubmit";
 
-export default function ControleVaga({}) {
+export default function Controle({route}) {
+  const idOng = route.params.idOng
   const [typeControll, setTypeControll] = useState("event");
   const [allEvent, setAllEvent] = useState();
   let eventData = [];
@@ -29,7 +30,7 @@ export default function ControleVaga({}) {
 
   useEffect(() => {
     api
-      .get(`/${typeControll}-controller/1`)
+      .get(`/${typeControll}-controller/${idOng}`)
       .then(({ data }) => {
         setAllEvent(data.data);
       })

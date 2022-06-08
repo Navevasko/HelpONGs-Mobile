@@ -140,7 +140,7 @@ export const styles = StyleSheet.create({
     elevation: 8,
   },
   cardVagas: {
-    backgroundColor: theme.colors.vagas,
+    backgroundColor: theme.colors.white,
     borderRadius: 8,
     width: "93%",
     alignSelf: "center",

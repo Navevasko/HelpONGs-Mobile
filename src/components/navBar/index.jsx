@@ -7,7 +7,7 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styles } from "./style";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
@@ -21,10 +21,36 @@ export default function Menu({estado, idOng}) {
     const [modalNotificacoesVisible, setModalNotificacoesVisible] = useState(false);
     const navigation = useNavigation();
     const [data, setData] = useState([]);
+    const [user, setUser] = useState()
 
     const handleLogout = () => {
         AsyncStorage.removeItem("UserLogin")
         navigation.navigate("SelecioneLoginOng")
+    }
+
+    useEffect(() => {
+      AsyncStorage.getItem("UserLogin").then((data) => {
+        setUser(JSON.parse(data))
+      })
+      console.log(user);
+    }, [])
+
+    const isONG = () => {
+      console.log(user);
+      if(user.idOng){
+        return true
+      }
+      else {
+        return false
+      }
+    }
+
+    const handleFeed = () => {
+      navigation.navigate("Feed")
+    }
+
+    const handleControle = () => {
+      navigation.navigate("Controle", {idOng: data.idOng})
     }
 
     useEffect(async() => {
@@ -60,10 +86,6 @@ export default function Menu({estado, idOng}) {
           <SafeAreaView>
             <View style={styles.containerModalMenu}>
               <Icon name="menu" style={styles.icons} size={30} />
-              <TouchableOpacity style={styles.containerOpcoesModalMenu}>
-                <Icon name="home" style={styles.iconsModal} size={30} />
-                <Text style={styles.txtOpcoesModalMenu}>Home</Text>
-              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => navigation.navigate("Doar")}
                 style={styles.containerOpcoesModalMenu}
@@ -71,30 +93,32 @@ export default function Menu({estado, idOng}) {
                 <Icon name="heart" style={styles.iconsModal} size={30} />
                 <Text style={styles.txtOpcoesModalMenu}>Doar</Text>
               </TouchableOpacity>
-              <View style={styles.containerOpcoesModalMenu}>
+              <View style={styles.containerOpcoesModalMenu} onTouchEnd={handleFeed} >
                 <Icon name="layout" style={styles.iconsModal} size={30} />
                 <Text style={styles.txtOpcoesModalMenu}>Feed</Text>
               </View>
               <TouchableOpacity
-                onPress={() => navigation.navigate("PerfilONG")}
+                onPress={() => navigation.navigate("PerfilONG", {idOng: user.idOng})}
                 style={styles.containerOpcoesModalMenu}
               >
                 <Icon name="user" style={styles.iconsModal} size={30} />
                 <Text style={styles.txtOpcoesModalMenu}>Perfil</Text>
               </TouchableOpacity>
-              <View style={styles.containerOpcoesModalMenu}>
+              
+              {isONG ? <View style={styles.containerOpcoesModalMenu} onTouchStart={handleControle}>
                 <Icon name="calendar" style={styles.iconsModal} size={30} />
                 <Text style={styles.txtOpcoesModalMenu}>
                   Controle de Eventos
                 </Text>
-              </View>
+              </View> : <View></View>}
+
               <View
                 style={[styles.containerOpcoesModalMenu, { marginTop: 100 }]}
               >
                 <Icon name="settings" style={styles.iconsModal} size={30} />
                 <Text style={styles.txtOpcoesModalMenu}>Configurações</Text>
               </View>
-              <View style={styles.containerOpcoesModalMenu}>
+              <View style={styles.containerOpcoesModalMenu} onTouchStart={handleLogout}>
                 <Icon name="log-out" style={styles.iconsModal} size={30} />
                 <Text style={styles.txtOpcoesModalMenu}>Logout</Text>
               </View>
@@ -177,5 +201,5 @@ export default function Menu({estado, idOng}) {
 }
 
 Menu.propTypes = {
-  estado: PropTypes.bool,
+  estado: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };

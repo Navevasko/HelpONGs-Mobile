@@ -3,8 +3,8 @@ import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, StatusBa
 import { styles } from './style'
 import Logo from '../../components/Logo'
 import { theme } from '../../global/styles/theme'
-import InputUnderline from '../../components/InputUnderline'
-import InputUnderlinePassword from '../../components/InputUnderlinePassword'
+import InputUnderlineLogin from '../../components/InputUnderlineLogin'
+import InputUnderlinePassword from '../../components/inputUnderlinePassword'
 import BtnLogin from '../../components/btnLogin'
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -37,7 +37,7 @@ export default function LoginONG() {
         <Text style={styles.titulo}>Login</Text>
         <View style={styles.containerInput}>
           <View style={styles.containerInputEmail}>
-            <InputUnderline
+            <InputUnderlineLogin
               placeholder="Email"
               iconName="mail"
               size={25}

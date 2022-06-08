@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Modal, ScrollView, ToastAndroid } from "react-native";
+import { Modal, ScrollView, ToastAndroid, View } from "react-native";
 import ContainerModal from "../ContainerModal";
 import TypePicker from "../TypePicker";
 import BottomSheetPost from "../BottomSheetPost";
@@ -19,8 +19,9 @@ import { theme } from "../../global/styles/theme";
 import { Switch } from "react-native-paper";
 import ModalCargaHoraria from "../ModalCargaHoraria";
 import ONGDataModal from "../OngDataModal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function ModalCreate({ onClose }) {
+export default function ModalCreate({ onClose, foto, nome }) {
   const [Type, setType] = useState("post");
   const types = [
     { label: "Post", value: "post" },
@@ -48,6 +49,7 @@ export default function ModalCreate({ onClose }) {
   const [fileArray, setFileArray] = useState([]);
   const [disableFile, setDisableFile] = useState(false);
   const [candidatos, setCandidatos] = useState(false);
+  const [user, setUser] = useState()
 
   const validateResponse = (result) => {
     console.log(result);
@@ -181,9 +183,10 @@ export default function ModalCreate({ onClose }) {
           {loading && <Loading />}
 
           <ONGDataModal
-            image={require("../../assets/img/ONG.png")}
-            name={"GreenPeace"}
+            image={foto}
+            name={nome}
           />
+          <View style={{alignSelf: 'center', width: "100%", alignItems: 'center'}}>
           <TypePicker
             onValueChange={(item) => {
               setType(item);
@@ -192,6 +195,7 @@ export default function ModalCreate({ onClose }) {
             items={types}
             mode={"dialog"}
           />
+          </View>
 
           <ScrollView
             style={styles.containerInput}

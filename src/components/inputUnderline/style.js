@@ -28,4 +28,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
   },
+  icon: {
+    alignSelf: "center",
+  },
 });

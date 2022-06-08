@@ -13,8 +13,8 @@ import { styles } from "./style";
 import  Logo  from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin";
-import InputUnderline from "../../components/InputUnderline";
-import InputUnderlinePassword from "../../components/InputUnderlinePassword";
+import InputUnderlineLogin from '../../components/InputUnderlineLogin'
+import InputUnderlinePassword from "../../components/inputUnderlinePassword";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -58,7 +58,7 @@ export default function LoginUser() {
         </View>
         <Text style={styles.titulo}>Login</Text>
         <View style={styles.containerInput}>
-          <InputUnderline
+          <InputUnderlineLogin
             placeholder="Email"
             iconName="mail"
             size={25}
@@ -93,26 +93,7 @@ export default function LoginUser() {
             tipo="LoginUser" email={email} senha={senha}
           />
         </View>
-        <View style={styles.containerLinha}>
-          <View style={styles.linha}></View>
-          <Text style={styles.txtMudarDeOpcao}>Ou</Text>
-          <Text style={styles.linha}></Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Login google");
-          }}
-        >
-          <Image style={styles.imgIconeGoogle} source={require("../../assets/img/iconGoogle.png")} />
-        </TouchableOpacity>
-        <View style={styles.containerCriarUmaConta}>
-          <Text style={styles.txtNaoTemConta}>Não tem uma conta?</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CadastroUsuario")}
-          >
-            <Text style={styles.txtCriarUmaConta}>Crie uma agora</Text>
-          </TouchableOpacity>
-        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );

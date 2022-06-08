@@ -11,7 +11,7 @@ import { SelecioneLoginOng } from "../screens/SelecioneLoginOng";
 import EsqueciSenha from "../screens/EsqueciSenha";
 import ConfigONG from "../screens/ConfigONG";
 import ConfigUser from "../screens/ConfigUser";
-import ControleVaga from "../screens/Controle";
+import Controle from "../screens/Controle";
 import Feed from "../screens/Feed";
 
 const StackNavigation = () => {
@@ -30,7 +30,7 @@ const StackNavigation = () => {
       <Stack.Screen name="LoginONG" component={LoginONG} />
       <Stack.Screen name="Doar" component={Doar} />
       <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
-      <Stack.Screen name="ControleVaga" component={ControleVaga} />
+      <Stack.Screen name="Controle" component={Controle} />
       
       <Stack.Screen name="Feed" component={Feed} />
     </Stack.Navigator>

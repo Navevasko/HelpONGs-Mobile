@@ -3,27 +3,27 @@ import { View, Text, Image} from 'react-native'
 import Icon from "react-native-vector-icons/Feather";
 import {styles} from "../../screens/perfilOng/style"
 
-function ExibirPerfilOng (vp1) {
+function ExibirPerfilOng (vp1, foto, nome) {
     if(vp1 == 1){
       return(
       <View className='Posts' style={{ width:"100%"}}>
         <View style={[styles.card, styles.shadowProp]}>
           <View style={{flexDirection:"row"}}>
             <Image
-              source={require('../../assets/img/fotoPerfilNotificao.png')}
+              source={{uri: foto}}
               style={styles.fotoDePerfilPost}
             />
             <View style={{flexDirection:"column", marginTop:5}}>
-                <Text style={styles.txtNomeUsuarioPost}>Nome</Text>
-                <Text style={styles.txtDataPost}>25 de fevereiro de 2022</Text>
+                <Text style={styles.txtNomeUsuarioPost}>{nome}</Text>
+                <Text style={styles.txtDataPost}>08/06/2022</Text>
             </View>
           </View>
           <View style={{flexDirection:"column"}}>
             <Text style={{color:"black"}}>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+            É triste a realidade dos moradores de rua, eles vivem em situações precárias a nível extremo, entretanto nós podemos mudar essa situação, entre em contato com a nossa ONG e faça uma doação.
             </Text>
             <Image
-              source={require('../../assets/img/post.jpg')}
+              source={require('../../assets/img/post.jpeg')}
               style={styles.imgPost}
             />        
             <View style={styles.containerAcoesPost}>
@@ -44,45 +44,6 @@ function ExibirPerfilOng (vp1) {
             </View>                 
           </View>
         </View>
-  
-  
-                <View style={[styles.card, styles.shadowProp]}>
-                  <View style={{flexDirection:"row"}}>
-                    <Image
-                      source={require('../../assets/img/fotoPerfilNotificao.png')}
-                      style={styles.fotoDePerfilPost}
-                    />
-                    <View style={{flexDirection:"column", marginTop:5}}>
-                    <Text style={styles.txtNomeUsuarioPost}>Nome</Text>
-                <Text style={styles.txtDataPost}>25 de fevereiro de 2022</Text>
-                    </View>
-                  </View>
-                  <View style={{flexDirection:"column"}}>
-                    <Text style={styles.txtDescricaoPosts}>
-                    Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
-                    </Text>
-                    <Image
-                      source={require('../../assets/img/post.jpg')}
-                      style={styles.imgPost}
-                    />
-                    <View style={styles.containerAcoesPost}>
-                      <Icon
-                        name='thumbs-up'
-                        style={styles.iconsAcoesPost}
-                      />
-                      <Text>16</Text>
-                      <Icon
-                        name='message-square'
-                        style={styles.iconsAcoesPost}
-                      />
-                      <Text>16</Text>
-                      <Icon
-                        name='share-2'
-                        style={styles.iconsAcoesPost}
-                      />
-                    </View>
-                  </View>
-                </View>
       </View>
       )
     }else if(vp1 == 2){

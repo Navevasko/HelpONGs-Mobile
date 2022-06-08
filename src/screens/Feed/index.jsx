@@ -24,6 +24,7 @@ import SearchResult from "../../components/SearchResult";
 import ModalExcluir from "../../components/ModalExcluir";
 import ModalEventoInformation from "../../components/ModalEventoInformation";
 import ModalCreate from "../../components/ModalCreate";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Feed({}) {
   const [Data, setData] = useState([]);
@@ -42,6 +43,7 @@ export default function Feed({}) {
   const scrollRef = useRef();
   const [atEnd, setAtEnd] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
+  const [user, setUser] = useState()
 
   const isCloseToBottom = useCallback(
     ({ layoutMeasurement, contentOffset, contentSize }) => {
@@ -49,7 +51,13 @@ export default function Feed({}) {
     }
   );
 
-  console.log(id, type);
+  useEffect(() => {
+    AsyncStorage.getItem("UserLogin").then((data) => {
+      setUser(JSON.parse(data))
+    })
+  }, [])
+
+  console.log(user);
 
   useEffect(() => {
     let isMounted = true;
@@ -136,6 +144,8 @@ export default function Feed({}) {
           onClose={() => {
             setOpenModalCreate(false);
           }}
+          foto={user ? user.data.foto : ""}
+          nome={user ? user.data.nome : ""}
         />
       )}
 
@@ -235,6 +245,7 @@ export default function Feed({}) {
                   setOpenModal={(bool) => {
                     setOpenModalCreate(bool);
                   }}
+                  image={user ? user.data.foto : ""}
                 />
               </>
             }

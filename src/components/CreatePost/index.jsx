@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 export default function CreatePost({ image, setOpenModal }) {
   return (
     <View style={[format.row, styles.container]}>
-      <Image source={image} style={styles.image} />
+      <Image source={{uri: image}} style={styles.image} />
 
       <Text style={styles.text}>No que está pensando?</Text>
 

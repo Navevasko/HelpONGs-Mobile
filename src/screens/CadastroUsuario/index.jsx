@@ -13,7 +13,7 @@ const imgPrincipal = require("../../assets/img/imgPrincipalCadastroUsuario.png")
 import { theme } from "../../global/styles/theme";
 import BtnSubmit from "../../components/BtnSubmit";
 import InputUnderline from "../../components/InputUnderline";
-import InputUnderlinePassword from "../../components/InputUnderlinePassword";
+import InputUnderlinePassword from "../../components/inputUnderlinePassword";
 import { nameMask, emailMask, passwordMask } from "../../utils/mask";
 import { useState } from "react";
 import User from "../../../api/Controllers/userController";

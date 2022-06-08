@@ -27,7 +27,10 @@ export default function BtnLogin({ tipo, email, senha }) {
         .then((response) => {
           // console.log(response.data);
           if (response.status == "200") {
+            const idUser = response.data.usuario.idUsuario
+            console.log(idUser);
             ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
+            navigation.navigate("PerfilUsuario", {idUser: idUser})
           }
         })
         .catch((error) => {
@@ -67,10 +70,11 @@ export default function BtnLogin({ tipo, email, senha }) {
           ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
           const idOng = response.data.data.idOng;
           const Storage = JSON.stringify(response.data);
+          console.log(response.data);
           AsyncStorage.setItem("UserLogin", Storage);
           AsyncStorage.setItem("OngEmailLogin", JSON.stringify(email));
           AsyncStorage.setItem("OngSenhaLogin", JSON.stringify(senha)); 
-          navigation.navigate("PerfilONG", {idOng});
+          navigation.navigate("PerfilONG", {idOng: idOng});
         })
         .catch((error) => {
           console.log("error login ong", error)

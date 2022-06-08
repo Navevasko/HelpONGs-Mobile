@@ -14,7 +14,7 @@ import { styles } from "./style";
 import { theme } from "../../global/styles/theme";
 import BtnSubmit from "../../components/BtnSubmit";
 import InputUnderline from "../../components/InputUnderline";
-import InputUnderlinePassword from "../../components/InputUnderlinePassword";
+import InputUnderlinePassword from "../../components/inputUnderlinePassword";
 import { cnpjMask, emailMask, passwordMask } from "../../utils/mask";
 import Ong from "../../../api/Controllers/ongController";
 import ValidateCadastro from "../../utils/validators";

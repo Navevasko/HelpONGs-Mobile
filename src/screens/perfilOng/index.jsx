@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground, ScrollView, StatusBar, Image, TouchableOpacity, RefreshControl } from 'react-native'
-import React, { createElement, useState } from 'react'
+import React, { createElement, useState, useEffect } from 'react'
 import { styles } from './style'
 import { theme } from '../../global/styles/theme'
 import Menu from '../../components/navBar'
@@ -22,6 +22,8 @@ export default function PerfilONG({route}) {
   const [dataNumero, setDataNumero] = useState([]);
   const [atualizar, setAtualizar] = useState(false);
 
+  console.log(route.params);
+
   const trocarDeCor = () => {
     if (teste == 1) {
       setPost(true);
@@ -38,12 +40,27 @@ export default function PerfilONG({route}) {
     }
   }
 
+  const [user, setUser] = useState()
 
   const a = async( ) => {
     const a = await AsyncStorage.getItem("UserLogin")
     const b = JSON.parse(a)
     setidLogin(b.data.idLogin);
   }
+
+  useEffect(() => {
+    api.get(`/ong/${idOng}`).then(({data}) => {
+      setDataOng(data.data)
+    })
+  }, [])
+
+  useEffect(() => {
+    AsyncStorage.getItem("UserLogin").then((data) => {
+      setUser(JSON.parse(data))
+    })
+  }, [])
+
+  console.log(user);
 
   
   React.useEffect(() =>{
@@ -74,7 +91,7 @@ export default function PerfilONG({route}) {
   return (
     <ImageBackground
         style={styles.imgDeFundo}
-        source={require('../../assets/img/imgBackPerfilONG.png')}
+        source={require('../../assets/img/Background.png')}
     >
      <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'}/>
      <Menu
@@ -143,10 +160,6 @@ export default function PerfilONG({route}) {
                 <Icon name="phone"style={styles.iconRedesSociais}/>
                 <Text>{dataNumero.numero ? dataNumero.numero : "(11) 951736972"}</Text>
               </View>
-              <View style={{flexDirection:"row", marginTop:5}}>
-                <Icon name="more-horizontal"style={styles.iconRedesSociais}/>
-                <Text>Mais Informações</Text>
-              </View>
             </View>
             <View style={styles.containerTxtVagasPostsEventos}>
               <View style={{flexDirection:"row"}}>
@@ -161,7 +174,7 @@ export default function PerfilONG({route}) {
                 </TouchableOpacity>
               </View>
               <View style={{flexDirection:"column"}}>
-              {ExibirPerfilOng(teste)}
+              {ExibirPerfilOng(teste, dataOng.foto, dataOng.nome)}
               {/* <View className='03' style={{height:200, width:"100%", backgroundColor:"green"}}></View> */}
               </View>
             </View>

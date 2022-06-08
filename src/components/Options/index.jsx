@@ -69,7 +69,7 @@ export default function Options({ idPost }) {
   return (
     <View style={format.row}>
       <View style={[styles.optionsContainer, format.row]} onTouchStart={handleLike}>
-        {liked ? <Image source={require('../../assets/img/LikeFill.png')}/> : <Image source={require('../../assets/img/Like.png')}/>}
+        {liked ? <Image source={require('../../assets/img/likeFill.png')}/> : <Image source={require('../../assets/img/Like.png')}/>}
         <Text style={styles.optionsText}> {Like} </Text>
       </View>
       <View style={styles.optionsContainer}>

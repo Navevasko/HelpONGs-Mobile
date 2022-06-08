@@ -15,7 +15,8 @@ export default function Doar({route}) {
   const [dataEstado, setDataEstado] = useState([]);
   // const [modalVisible, setModalVisible] = useState(false);
   const [exibir, setExibir] = useState("");
-  const idOng = route.params.idOng;
+  const idOng = 1;
+  console.log(route.params);
   
 
     useEffect(async() =>{

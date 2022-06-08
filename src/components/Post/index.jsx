@@ -32,6 +32,8 @@ const Post = ({
   const [Comments, setComments] = useState([]);
   const [sentComment, setSentComment] = useState(false);
 
+  console.log(ONGdata);
+
   const handleComment = () => {
     if (CommentText !== "") {
       api
