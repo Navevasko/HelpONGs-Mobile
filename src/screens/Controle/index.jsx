@@ -20,7 +20,7 @@ export default function ControleVaga({}) {
   const [idUser, setIdUser] = useState();
   const [Data, setData] = useState([]);
   const [page, setPage] = useState(0);
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState(false);
 
   const dataTypeControll = [
     { label: "Evento", value: "event" },

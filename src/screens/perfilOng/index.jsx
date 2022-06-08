@@ -141,7 +141,7 @@ export default function PerfilONG({route}) {
               </View>
               <View style={{flexDirection:"row", marginTop:5}}>
                 <Icon name="phone"style={styles.iconRedesSociais}/>
-                <Text>{dataNumero.numero}</Text>
+                <Text>{dataNumero.numero ? dataNumero.numero : "(11) 951736972"}</Text>
               </View>
               <View style={{flexDirection:"row", marginTop:5}}>
                 <Icon name="more-horizontal"style={styles.iconRedesSociais}/>

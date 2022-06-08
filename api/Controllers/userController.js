@@ -24,4 +24,16 @@ export default User = new Object({
 
     return response;
   },
+
+  getId(Id) {
+    const get = api
+      .get(`/user/${Id}`)
+      .then(({ data }) => {
+        return data.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+    return get;
+  },
 });
