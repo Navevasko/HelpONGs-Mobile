@@ -11,6 +11,7 @@ import { SelecioneLoginOng } from "../screens/SelecioneLoginOng";
 import EsqueciSenha from "../screens/EsqueciSenha";
 import ConfigONG from "../screens/ConfigONG";
 import ConfigUser from "../screens/ConfigUser";
+import ControleVaga from "../screens/Controle";
 
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -28,6 +29,7 @@ const StackNavigation = () => {
       <Stack.Screen name="LoginONG" component={LoginONG} />
       <Stack.Screen name="Doar" component={Doar} />
       <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} />
+      <Stack.Screen name="ControleVaga" component={ControleVaga} />
       
     </Stack.Navigator>
   );

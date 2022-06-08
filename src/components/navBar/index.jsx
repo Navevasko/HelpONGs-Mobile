@@ -63,10 +63,10 @@ export default function Menu({estado, idOng}) {
                         <Icon name="user" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Perfil</Text>
                     </TouchableOpacity>
-                    <View style={styles.containerOpcoesModalMenu}>
+                    <TouchableOpacity onPress={() => navigation.navigate("ControleVaga")} style={styles.containerOpcoesModalMenu}>
                         <Icon name="calendar" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Controle de Eventos</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={[styles.containerOpcoesModalMenu, {marginTop:100}]}>
                         <Icon name="settings" style={styles.iconsModal} size={30}/>
                         <Text style={styles.txtOpcoesModalMenu}>Configurações</Text>
