@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import { api } from "../../../api";
 import { styles } from "./style";
@@ -9,7 +9,7 @@ import { format } from "../../global/styles/format";
 export default function Options({ idPost }) {
   const [Like, setLike] = useState("");
   const [Comment, setComment] = useState("");
-  const [liked, setLiked] = useState();
+  const [liked, setLiked] = useState(false);
 
   const handleLike = () => {
     api
@@ -38,6 +38,7 @@ export default function Options({ idPost }) {
       .get(`/post/like/${idPost}`)
       .then(({ data }) => {
         setLike(data.data.likeCount);
+        setLiked(true)
       })
       .catch((error) => {
         console.log(error);
@@ -67,13 +68,8 @@ export default function Options({ idPost }) {
 
   return (
     <View style={format.row}>
-      <View style={[styles.optionsContainer, format.row]}>
-        <Icon
-          name="thumbs-up"
-          size={20}
-          style={styles.icon}
-          onPress={handleLike}
-        />
+      <View style={[styles.optionsContainer, format.row]} onTouchStart={handleLike}>
+        {liked ? <Image source={require('../../assets/img/LikeFill.png')}/> : <Image source={require('../../assets/img/Like.png')}/>}
         <Text style={styles.optionsText}> {Like} </Text>
       </View>
       <View style={styles.optionsContainer}>
