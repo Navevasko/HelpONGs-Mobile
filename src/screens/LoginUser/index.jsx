@@ -14,7 +14,7 @@ import  Logo  from "../../components/Logo";
 import { theme } from "../../global/styles/theme";
 import BtnLogin from "../../components/btnLogin";
 import InputUnderlineLogin from '../../components/InputUnderlineLogin'
-import InputUnderlinePassword from "../../components/inputUnderlinePassword";
+import InputUnderlinePassword from "../../components/InputUnderlinePassword";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

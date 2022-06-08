@@ -11,7 +11,7 @@ import ModalDoarPerfil from '../../components/ModalDoarPerfil'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function PerfilONG({route}) {
-  const [teste, setTeste] = useState();
+  const [teste, setTeste] = useState(1);
   const idOng = route.params.idOng;
   const [idLogin, setidLogin] = useState();
   const [dataOng, setDataOng] = useState([]);
