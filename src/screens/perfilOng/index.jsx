@@ -13,13 +13,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function PerfilONG({route}) {
   const [teste, setTeste] = useState();
   const idOng = route.params.idOng;
-  const idLogin = 1;
+  const [idLogin, setidLogin] = useState();
   const [dataOng, setDataOng] = useState([]);
   const [post, setPost] = useState(false);
   const [vaga, setVaga] = useState(false);
   const [evento, setEvento] = useState(false);
   const [dataCategoria, setDataCategoria] = useState([]);
   const [dataNumero, setDataNumero] = useState([]);
+  const [atualizar, setAtualizar] = useState(false);
 
   const trocarDeCor = () => {
     if (teste == 1) {
@@ -41,19 +42,12 @@ export default function PerfilONG({route}) {
   const a = async( ) => {
     const a = await AsyncStorage.getItem("UserLogin")
     const b = JSON.parse(a)
-    console.log(b);
+    setidLogin(b.data.idLogin);
   }
 
-
-  a()
   
-  
-
   React.useEffect(() =>{
-
-    api.get(`/ong/${idOng}`).then((response) => {
-      setDataOng(response.data.data);
-    });
+    a(); 
     api.get(`/category/${idOng}`).then(({data}) => {
       setDataCategoria(data.data)
     }).catch((error) => console.log(error))
@@ -61,7 +55,21 @@ export default function PerfilONG({route}) {
       setDataNumero(data.data)
     }).catch((error) => console.log(error))
     trocarDeCor();
+    Recarregar();
+    
   }, [])
+  a();
+  function Recarregar(){
+    api.get(`/ong/${idOng}`).then((response) => {
+      setDataOng(response.data.data);
+    });
+  }
+
+  function aoAtualizar(){
+    setAtualizar(true);
+    Recarregar();
+    setAtualizar(false);
+  }
   
   return (
     <ImageBackground
@@ -73,7 +81,10 @@ export default function PerfilONG({route}) {
        estado="false"
        idOng={idOng}
      />
-        <ScrollView style={styles.containerConteudo}>
+        <ScrollView refreshControl={<RefreshControl
+              refreshing={atualizar}
+              onRefresh={aoAtualizar}
+            />} style={styles.containerConteudo}>
             <View style={styles.containerFotoPerfileBanner}>
               <View style={styles.containerBanner}>
                 <Image

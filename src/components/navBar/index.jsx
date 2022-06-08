@@ -35,7 +35,7 @@ export default function Menu({estado, idOng}) {
             <Icon name="menu" style={styles.icons} size={30} />
         </TouchableOpacity>
         <View style={styles.options}>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {navigation.navigate("ConfigONG", {data})}}>
             <Icon name="settings" style={styles.icons} size={30} />
             </TouchableOpacity>
             <Image source={{uri: data.foto}} style={styles.profilePicture} />

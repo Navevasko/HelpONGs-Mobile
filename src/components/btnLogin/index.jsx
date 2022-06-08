@@ -64,11 +64,13 @@ export default function BtnLogin({ tipo, email, senha }) {
           senha: senha,
         })
         .then((response) => {
+          ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
           const idOng = response.data.data.idOng;
-          const Storage = JSON.stringify(response.data)
-          AsyncStorage.setItem("UserLogin", Storage)
-            ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
-            navigation.navigate("PerfilONG", {idOng});
+          const Storage = JSON.stringify(response.data);
+          AsyncStorage.setItem("UserLogin", Storage);
+          AsyncStorage.setItem("OngEmailLogin", JSON.stringify(email));
+          AsyncStorage.setItem("OngSenhaLogin", JSON.stringify(senha)); 
+          navigation.navigate("PerfilONG", {idOng});
         })
         .catch((error) => {
           console.log("error login ong", error)
